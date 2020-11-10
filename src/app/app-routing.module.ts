@@ -1,8 +1,24 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { DisculpasComponent } from './disculpas/disculpas.component';
+import { FilosofiaComponent } from './filosofia/filosofia.component';
+import { HomeComponent } from './home/home.component';
+import { InscripcionComponent } from './inscripcion/inscripcion.component';
+import { LoginComponent } from './login/login.component';
+import { ProductosComponent } from './productos/productos.component';
+import { TurneroComponent } from './turnero/turnero.component';
 
 
-const routes: Routes = [];
+const routes: Routes = [
+  {path: '', component: HomeComponent },
+  {path: 'filosofia', component: FilosofiaComponent },
+  {path: '404', component: DisculpasComponent },
+  {path: 'servicios', component: ProductosComponent },
+  {path: 'inscripcion', component: InscripcionComponent },
+  {path: 'login', component: LoginComponent },
+  {path: 'turnos', component: TurneroComponent },
+  //{path: '', redirectTo: '404', pathMatch: 'full'},
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

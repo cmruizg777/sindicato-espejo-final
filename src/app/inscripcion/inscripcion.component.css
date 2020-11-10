@@ -1,0 +1,22 @@
+.container{
+  box-sizing: border-box;
+  margin-top: 5%;
+}
+.centrado{
+  text-align: center;
+}
+div h5.titulo{
+  font-size: 33.6pt;
+  color: var(--green);
+  text-decoration-line: underline;
+  margin-bottom: 5%;
+}
+div.row{
+  margin-bottom: 5%;
+}
+h5{
+  color: var(--green);
+}
+.requisitos, .comprobante{
+  font-size: 0.8rem;
+}
