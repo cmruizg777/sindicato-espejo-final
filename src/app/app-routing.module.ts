@@ -14,9 +14,10 @@ const routes: Routes = [
   {path: 'filosofia', component: FilosofiaComponent },
   {path: '404', component: DisculpasComponent },
   {path: 'servicios', component: ProductosComponent },
-  {path: 'inscripcion', component: InscripcionComponent },
+  {path: 'inscripcion/:id', component: InscripcionComponent },
   {path: 'login', component: LoginComponent },
   {path: 'turnos', component: TurneroComponent },
+
   //{path: '', redirectTo: '404', pathMatch: 'full'},
 ];
 

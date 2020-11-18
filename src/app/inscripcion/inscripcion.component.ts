@@ -3,6 +3,7 @@ import { ValidadorService} from '../services/validador.service'
 import { ApiRequestService} from '../services/api-request.service'
 import { ResponseTurnos } from '../clases/response'
 import { Inscripcion } from '../clases/inscripcion'
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 //import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 //import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
@@ -13,7 +14,7 @@ import { Inscripcion } from '../clases/inscripcion'
 //import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 //import * as _rollupMoment from 'moment';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { from } from 'rxjs';
 
 //const moment = _rollupMoment || _moment;
@@ -30,6 +31,7 @@ export const MY_FORMATS = {
     dateA11yLabel: 'YYYY-MM-DD',
     monthYearA11yLabel: 'MM YYYY',
   },
+
 };
 
 
@@ -40,10 +42,11 @@ export const MY_FORMATS = {
 })
 export class InscripcionComponent implements OnInit {
 
+  fecha: NgbDateStruct;
+
   private nativeElement : Node;
 
 
-  fecha ;
   fechaReference ;
   inscripcion: Inscripcion;
   comprobante = null;
@@ -55,7 +58,8 @@ export class InscripcionComponent implements OnInit {
   constructor(
     private validadorService: ValidadorService,
     private router: Router,
-    private turnosService: ApiRequestService
+    private turnosService: ApiRequestService,
+    private rutaActiva: ActivatedRoute
     ) {
       this.inscripcion = new Inscripcion();
       const fechaAux =  new Date();
@@ -99,9 +103,11 @@ export class InscripcionComponent implements OnInit {
 ///////////////////////////////////////////////
 enviar(){
   const rCode = this.validarDatos();
-  if(rCode){
+  console.log(rCode);
+  //console.log(this.inscripcion);
+  if(!rCode){
     const formData: FormData = new FormData();
-    formData.append('_fecha',this.fecha);
+    formData.append('_fecha',this.inscripcion.fechaNaciemiento);
     formData.append('_nombres',this.inscripcion.nombres);
     formData.append('_apellidos',this.inscripcion.apellidos);
     formData.append('_cedula',this.inscripcion.cedula);
@@ -117,7 +123,7 @@ enviar(){
     formData.append('_nacionalidad',this.inscripcion.nacionalidad);
     formData.append('_tipoLicencia',this.inscripcion.tipoLicencia);
 
-    if (this.formaPago == 'TB'){
+    /*if (this.formaPago == 'TB'){
       if(this.comprobante){
         formData.append('_comprobante', this.comprobante, this.comprobante.name);
         this.enviarFormulario(formData);
@@ -130,7 +136,7 @@ enviar(){
           }
         })
       }
-    }
+    }*/
   }
 }
 
@@ -139,7 +145,6 @@ enviarFormulario(formData){
     if(data.code==200){
       alert('Su turno se ha almacenado correctamente, por favor espere el mensaje de confirmación en su correo.');
       this.router.navigate(['inicio']);
-
     }else{
       alert(`Ha habido un error: ${data.data}`);
     }
@@ -155,58 +160,55 @@ enviarFormulario(formData){
   ////////////////////////////////////////
 
 
-  validarDatos(): boolean {
+  validarDatos(): number {
     if(!this.fecha){
       this.inscripcion.errorFecha();
-      return false;
+      return 1;
     }
+    this.inscripcion.fechaNaciemiento = this.fecha.year +'-'+this.fecha.month+'-'+this.fecha.day;
     if(!this.cedulaValida){
       this.inscripcion.errorCedula();
-      return false;
+      return 2;
     }
     if(this.inscripcion.nombres.trim() === ''){
       this.inscripcion.errorNombres();
-      return false;
+      return 3;
 
     }
     if(this.inscripcion.apellidos.trim() === ''){
       this.inscripcion.errorApellidos();
-      return false;
+      return 4;
     }
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if(!re.test(String(this.inscripcion.correo).toLowerCase())){
       this.inscripcion.errorCorreo();
-      return false;
+      return 5;
     }
     if(this.inscripcion.direccion.trim() === ''){
       this.inscripcion.errorDireccion();
-      return false;
+      return 6;
     }
     if(this.inscripcion.calle1 == ''){
       this.inscripcion.errorCalle1();
-      return false;
+      return 7;
     }
     if(this.inscripcion.calle2 == ''){
       this.inscripcion.errorCalle2();
-      return false;
+      return 8;
     }
     if(this.formaPago.trim() === ''){
 
     }
     if(this.inscripcion.lugarNaciemiento.trim() === ''){
       this.inscripcion.errorLugarNac();
-      return false;
+      return 9;
     }
     if(this.inscripcion.telefono.trim() == ''){
       this.inscripcion.errorTelefono();
-      return false;
-    }
-    if(this.inscripcion.tipoLicencia.trim() == ''){
-      this.inscripcion.errorTipoLicencia();
-      return false;
+      return 10;
     }
 
-    return true;
+    return 0;
   }
 
 

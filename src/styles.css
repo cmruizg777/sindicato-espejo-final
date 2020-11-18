@@ -129,6 +129,7 @@ ul.navbar-nav{
 ul.navbar-nav .nav-link{
   font-size: 1.39vw;
   color: #fff !important;
+  max-height: 100%;
 }
 div.carousel-caption{
   top: 18% !important;
@@ -437,4 +438,13 @@ footer .copy{
 }
 .nav-link{
   position: relative;
+}
+
+
+.datepicker.datepicker-dropdown{
+  z-index: 1002;
+}
+.nav-item.dropdown.show{
+  max-height: 100%;
+  padding: 0;
 }

@@ -17,10 +17,15 @@ export class Inscripcion{
     'Debe ingresar un email válido',
     'Debe ingresar su tipo de sangre',
     'Debe ingresar su disponibilidad de tiempo',
-    'Debe seleccionar el tipo de licencia'
+    'Debe seleccionar el tipo de licencia',
+    'Debe ingresar una contraseña de al menos 8 caracteres',
+    'Las contraseñas no coinciden'
+
   ]
   nombres: string = '';
   apellidos: string = '';
+  pass1: string = '';
+  pass2: string = '';
   cedula: string = '';
   estado_civil: string = '';
   edad: Number = 0;
@@ -80,10 +85,16 @@ export class Inscripcion{
   errorDisponibilidad(){
     alert(this.mensajes[13]);
   }
-  errorTipoSnagre(){
+  errorTipoSangre(){
     alert(this.mensajes[14]);
   }
   errorTipoLicencia(){
     alert(this.mensajes[15]);
+  }
+  errorContrasena(){
+    alert(this.mensajes[16]);
+  }
+  errorContrasena2(){
+    alert(this.mensajes[16]);
   }
 }

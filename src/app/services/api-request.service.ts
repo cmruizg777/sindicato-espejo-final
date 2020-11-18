@@ -17,6 +17,11 @@ export class ApiRequestService {
     //const url = `http://localhost:8000/api/info/turnos?_fecha=${fecha}`;
     return this.http.get(url);
   }
+  obtenerCursos(){
+    //const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/info/turnos?_fecha=${fecha}`;
+    const url = `http://localhost:8000/api/v1/servicio/cursos`;
+    return this.http.get(url);
+  }
   obtenerSocioInfo(cedula: string){
     const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/info/socio?_cedula=${cedula}`;
     //const url = `http://localhost:8000/api/info/socio?_cedula=${cedula}`;
