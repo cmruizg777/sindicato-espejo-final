@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ResponseTurnos } from '../clases/response';
 import { ApiRequestService } from '../services/api-request.service';
 import { ValidadorService } from '../services/validador.service';
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-turnero',
@@ -11,7 +12,7 @@ import { ValidadorService } from '../services/validador.service';
 })
 export class TurneroComponent implements OnInit {
 
-  fecha ;
+  fecha: NgbDateStruct;
   fechaReference ;
   cedula: string = '';
   nombre:string = '';
@@ -44,20 +45,16 @@ export class TurneroComponent implements OnInit {
     private router: Router
   ) { }
   ngOnInit(): void {
-    const fechaAux =  new Date();
-    const anio = (fechaAux.getFullYear()).toString();
-    const mes = fechaAux.getMonth() < 9 ? '0' + (fechaAux.getMonth() + 1).toString():(fechaAux.getMonth() + 1).toString();
-    const dia = fechaAux.getDate() < 10 ? '0' + fechaAux.getDate().toString(): fechaAux.getDate().toString();
-    //this.fecha = anio+"-"+mes+"-"+dia;
-    this.fecha = new Date();
+    let fechaAux =  new Date();
+    this.transformarFecha(fechaAux);
     this.start = new Date();
     const obs  =this.turnosService.obtenerFecha().subscribe( (resp : ResponseTurnos) => {
       if(!resp.error){
-        this.fechaReference = resp.data;
-        //this.fecha = new Date(resp.data );
-        //console.log(this.fecha.format().split("T")[0])
+          const aux = resp.data.split('-');
+          this.fecha = { year: Number(aux[0]), month: Number(aux[1]) , day: Number(aux[2])};
       }
-      this.turnosService.obtenerTurnosInfo(this.fecha.format()).subscribe((response: ResponseTurnos)=>{
+      this.turnosService.obtenerTurnosInfo(resp.data).subscribe((response: ResponseTurnos)=>{
+        console.log(response)
         if(!response.error){
           if(response.code == 200){
             this.horarios = response.data;
@@ -66,6 +63,13 @@ export class TurneroComponent implements OnInit {
       });
     });
 
+  }
+  transformarFecha(fechaAux: Date){
+    const anio = (fechaAux.getFullYear()).toString();
+    const mes = fechaAux.getMonth() < 9 ? '0' + (fechaAux.getMonth() + 1).toString():(fechaAux.getMonth() + 1).toString();
+    const dia = fechaAux.getDate() < 10 ? '0' + fechaAux.getDate().toString(): fechaAux.getDate().toString();
+    //this.fecha = anio+"-"+mes+"-"+dia;
+    this.fecha = {year: fechaAux.getFullYear(), month: fechaAux.getMonth() + 1 , day: fechaAux.getDate()};
   }
   validarCedula(){
     if(this.cedula){
@@ -81,7 +85,7 @@ export class TurneroComponent implements OnInit {
     }
   }
   turnosInfo(){
-    const f1 = new Date(this.fecha.format());
+    /*const f1 = new Date(this.fecha.format());
       const f2 = new Date(this.fechaReference);
       if(f1 < f2){
         this.fecha = new Date(this.fechaReference);
@@ -99,7 +103,7 @@ export class TurneroComponent implements OnInit {
             alert('No se ha podido obtener respuestas del servidor, inténtelo más tarde.')
           }
         });
-      }
+      }*/
   }
   setFPago(){
     if(this.formaPago === 'PP'){
@@ -115,7 +119,7 @@ export class TurneroComponent implements OnInit {
     const rCode = this.validarDatos();
     if(rCode == 9){
       const formData: FormData = new FormData();
-      formData.append('_fecha',this.fecha.format());
+      formData.append('_fecha','');
       formData.append('_hora',this.horario);
       formData.append('_cedula',this.cedula);
       formData.append('_nombre',this.nombre);
@@ -170,10 +174,10 @@ export class TurneroComponent implements OnInit {
     if(!this.fecha){
       return 0;
     }else{
-      const f1 = new Date(this.fecha.format());
+      const f1 = new Date('');
       const f2 = new Date(this.fechaReference);
       if(f1 < f2){
-        this.fecha = new Date(this.fechaReference);
+        //this.fecha = new Date(this.fechaReference);
         return 0;
       }
     }

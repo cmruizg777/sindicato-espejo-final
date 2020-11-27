@@ -1,0 +1,12 @@
+div.container{
+  margin: 30px;
+  padding: 30px;
+}
+div.container div{
+  text-align: justify;
+  text-justify: inter-word;
+}
+div.container .titulo1{
+  font-size: 33.6pt;
+  color: var(--green);
+}

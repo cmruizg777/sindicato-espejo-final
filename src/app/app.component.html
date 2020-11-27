@@ -38,16 +38,16 @@
                   SINDICATO DE CHOFERES
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item"[routerLink]="'/filosofia'">Filosofia Institucional</a>
-                  <a class="dropdown-item"[routerLink]="'/404'">Reseña Historica</a>
-                  <a class="dropdown-item"[routerLink]="'/404'">Secretarios Generales</a>
-                  <a class="dropdown-item"[routerLink]="'/404'">Autoridades</a>
-                  <a class="dropdown-item"[routerLink]="'/404'">Socios</a>
-                  <a class="dropdown-item"[routerLink]="'/404'">Base Legal</a>
-                  <a class="dropdown-item"[routerLink]="'/404'">Convenios</a>
-                  <a class="dropdown-item"[routerLink]="'/404'">Sindicalización</a>
-                  <a class="dropdown-item"[routerLink]="'/404'">Noticias</a>
-                  <a class="dropdown-item"[routerLink]="'/404'">Servicios</a>
+                  <a class="dropdown-item"[routerLink]="['/sindicato']" queryParamsHandling="merge" [queryParams]=" { plantilla: 'filosofia', titulo:'Filosofia Institucional'}">Filosofia Institucional</a>
+                  <a class="dropdown-item"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'historia',titulo:'Reseña Historica'}">Reseña Historica</a>
+                  <a class="dropdown-item"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'secretarios',titulo:'Secretarios Generales'}">Secretarios Generales</a>
+                  <a class="dropdown-item"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'autoridades',titulo: 'Autoridades'}">Autoridades</a>
+                  <a class="dropdown-item"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'socios',titulo: 'Socios'}">Socios</a>
+                  <a class="dropdown-item"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'baselegal',titulo: 'Base Legal'}">Base Legal</a>
+                  <a class="dropdown-item"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'convenios', titulo:'Convenios'}">Convenios</a>
+                  <a class="dropdown-item"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'sindicalizacion',titulo: 'Sindicalización'}">Sindicalización</a>
+                  <a class="dropdown-item"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'noticias', titulo:'Noticias'}">Noticias</a>
+                  <a class="dropdown-item"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'servicios',titulo: 'Servicios'}">Servicios</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -55,12 +55,12 @@
                     ESCUELA DE CAPACITACIÓN
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item"[routerLink]="'/404'">Filosofía Istitucional</a>
-                    <a class="dropdown-item"[routerLink]="'/404'">Reseña Historica</a>
-                    <a class="dropdown-item"[routerLink]="'/404'">Personal</a>
-                    <a class="dropdown-item"[routerLink]="'/404'">Parque automotor</a>
-                    <a class="dropdown-item"[routerLink]="'/404'">Servicios Acedémicos</a>
-                    <a class="dropdown-item"[routerLink]="'/404'">Oferta Académica</a>
+                    <a class="dropdown-item"[routerLink]="['/escuela']" [queryParams]=" { plantilla: 'filosofia',titulo:'Filosofía Istitucional'}">Filosofía Istitucional</a>
+                    <a class="dropdown-item"[routerLink]="['/escuela']" [queryParams]=" { plantilla: 'historia',titulo:'Reseña Historica'}">Reseña Historica</a>
+                    <a class="dropdown-item"[routerLink]="['/escuela']" [queryParams]=" { plantilla: 'personal',titulo:'Personal'}">Personal</a>
+                    <a class="dropdown-item"[routerLink]="['/escuela']" [queryParams]=" { plantilla: 'parque',titulo:'Parque automotor'}">Parque automotor</a>
+                    <a class="dropdown-item"[routerLink]="['/escuela']" [queryParams]=" { plantilla: 'servicios',titulo:'Servicios Acedémicos'}">Servicios Acedémicos</a>
+                    <a class="dropdown-item"[routerLink]="['/escuela']" [queryParams]=" { plantilla: 'oferta',titulo:'Oferta Académica'}">Oferta Académica</a>
                   </div>
                 </li>
                 <!--li class="nav-item dropdown">
@@ -109,7 +109,7 @@
           <div class="collapse navbar-collapse navbarNavDropdown" >
               <ul class="navbar-nav justify-content-end">
                   <li class="nav-item">
-                      <a class="nav-link"[routerLink]="'/servicios'">Matrículas</a>
+                      <a class="nav-link"[routerLink]="'/servicios'">Oferta Académica</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link"[routerLink]="'/login'">

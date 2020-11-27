@@ -15,24 +15,11 @@ import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 // tslint:disable-next-line:no-duplicate-imports
 //import * as _rollupMoment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { from } from 'rxjs';
 
 //const moment = _rollupMoment || _moment;
 
 // See the Moment.js docs for the meaning of these formats:
 // https://momentjs.com/docs/#/displaying/format/
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'YYYY-MM-DD',
-  },
-  display: {
-    dateInput: 'YYYY-MM-DD',
-    monthYearLabel: 'MM YYYY',
-    dateA11yLabel: 'YYYY-MM-DD',
-    monthYearA11yLabel: 'MM YYYY',
-  },
-
-};
 
 
 @Component({
@@ -54,33 +41,32 @@ export class InscripcionComponent implements OnInit {
   display2='';
   start: Date;
   cedulaValida = false;
-
+  curso: any ;
   constructor(
     private validadorService: ValidadorService,
     private router: Router,
     private turnosService: ApiRequestService,
-    private rutaActiva: ActivatedRoute
+    private rutaActiva: ActivatedRoute,
+    private api: ApiRequestService
     ) {
       this.inscripcion = new Inscripcion();
       const fechaAux =  new Date();
     //this.fecha = anio+"-"+mes+"-"+dia;
     //this.fecha = moment();
 
-    this.start = new Date();
-    /*const obs  =this.turnosService.obtenerFecha().subscribe( (resp : ResponseTurnos) => {
-
-      if(!resp.error){
-
-        this.fechaReference = resp.data;
-        this.fecha = moment(resp.data, 'YYYY-MM-DD');
-        //console.log(this.fecha.format().split("T")[0])
-      }
-      obs.unsubscribe();
-    });*/
-
+      this.start = new Date();
     }
 
   ngOnInit(): void {
+    const idServicio = this.rutaActiva.snapshot.params.id;
+    this.api.obtenerCurso(idServicio).subscribe((resp: ResponseTurnos)=>{
+      console.log(resp);
+      if(!resp.error){
+        if(resp.data){
+          this.curso = resp.data;
+        }
+      }
+  })
   }
 
   validarCedula(){

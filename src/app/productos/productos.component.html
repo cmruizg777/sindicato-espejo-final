@@ -2,17 +2,17 @@
   <div >
     <h5 class="titulo">Cursos</h5>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="servicios">
 
-    <div class="col-md-3" *ngFor="let curso of cursos">
+    <div class="col-md-3" *ngFor="let s of servicios.cursos">
       <div class="card">
-        <img [src]="'https://imgur.com/3yvU8Ke.jpg'" class="card-img-top" alt="...">
+        <img [src]="s.urlImagen" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">{{curso.curso.nombre}}</h5>
+          <h5 class="card-title">{{s.curso.nombre}}</h5>
           <p class="card-text">
-            Precio: <i class="fa fa-dollar"></i>{{curso.precio}}
+            Precio: <i class="fa fa-dollar"></i>{{s.precio}}
           </p>
-          <a  [routerLink]="['/inscripcion', curso.id]" class="btn btn-outline-success btn-block">Matricularme</a>
+          <a  [routerLink]="['/inscripcion', s.id]" class="btn btn-outline-success btn-block">Matricularme</a>
         </div>
       </div>
     </div>
@@ -21,24 +21,16 @@
   <div >
     <h5 class="titulo">Exámenes</h5>
   </div>
-  <div class="row">
-    <div class="col-md-3">
+  <div class="row" *ngIf="servicios">
+    <div class="col-md-3" *ngFor="let s of servicios.examenes">
       <div class="card">
-        <img src="../../assets/img/puntos.jpg" class="card-img-top" alt="recuperacion de puntos">
+        <img [src]="s.urlImagen" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">Recuperación de puntos</h5>
-          <p class="card-text"></p>
-          <a [routerLink]="'/turnos'" class="btn btn-primary btn-block">Matricularme</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card">
-        <img src="../../assets/img/4-pestaña-examenes.jpg" class="card-img-top" alt="exámenes">
-        <div class="card-body">
-          <h5 class="card-title">Exámenes</h5>
-          <p class="card-text"></p>
-          <a [routerLink]="'/turnos'" class="btn btn-primary btn-block">Matricularme</a>
+          <h5 class="card-title">{{s.examen.nombre}}</h5>
+          <p class="card-text">
+            Precio: <i class="fa fa-dollar"></i>{{s.precio}}
+          </p>
+          <a  [routerLink]="['/turnos', s.id]" class="btn btn-outline-success btn-block">Matricularme</a>
         </div>
       </div>
     </div>

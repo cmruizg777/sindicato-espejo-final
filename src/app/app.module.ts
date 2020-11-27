@@ -18,6 +18,9 @@ import { ProductosComponent } from './productos/productos.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PerfilComponent } from './perfil/perfil.component';
+import { EscuelaComponent } from './escuela/escuela.component';
+import { SindicatoComponent } from './sindicato/sindicato.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ExamenMedicoComponent,
     TurneroComponent,
     ProductosComponent,
-    LoginComponent
+    LoginComponent,
+    PerfilComponent,
+    EscuelaComponent,
+    SindicatoComponent
   ],
   imports: [
     BrowserModule,

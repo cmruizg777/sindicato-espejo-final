@@ -2,58 +2,10 @@
   <div class="row">
       <div class="col-md-8">
           <h5 class="titulo1">
-              Filosofía Institucional
+            Filosofía Institucional
           </h5>
-          <div class="mision">
-              <h5 class="titulo">
-                  Misión:
-              </h5>
-              <p>
-                  Contribuir a la nutrición, salud y bienestar de las personas, poniendo
-                  a su disposición productos de la máxima calidad para
-                  cualquier momento del día y para todas las etapas de la vida, y
-                  gestionando los negocios de manera que creen valor para la
-                  compañía a la vez que para la sociedad.
-              </p>
-          </div>
-          <div class="vision">
-              <h5 class="titulo">
-                  Visión:
-              </h5>
-              <p>
-                  Ser la empresa reconocida como líder en nutrición, salud y
-                  bienestar a nivel mundial por parte de sus consumidores, empleados,
-                  clientes, proveedores y todos los grupos de interés relacionados
-                  con la actividad de la compañía.
-              </p>
-          </div>
-          <div class="valores">
-              <h5 class="titulo">
-                  Valores Institucionales:
-              </h5>
-              <p>
-                  Enfoque en el desarrollo del negocio a largo plazo sin perder de
-                  vista la necesidad de obtener continuamente resultados sólidos
-                  para nuestros accionistas.
-              </p>
-              <p>
-                  Creación de Valor Compartido como la forma fundamental de
-                  hacer negocios. Para crear valor de largo plazo para los accionistas
-                  debemos crear valor para la sociedad.
-              </p>
-              <p>
-                  Compromiso con prácticas empresariales medioambientalmente
-                  sostenibles que protejan a las generaciones futuras.
-              </p>
-              <p>
-                  Servir a nuestros consumidores retándonos continuamente para
-                  alcanzar los máximos niveles de calidad en nuestros productos
-                  y nunca poniendo en peligro los estándares de seguridad alimentaria.
-              </p>
-              <p>
-                  Mejora continua hacia la excelencia como forma de trabajar,
-                  evitando los cambios drásticos y repentinos.
-              </p>
+          <div class="container-fluid inner" *ngIf="html" [innerHTML]="html">
+
           </div>
       </div>
       <div class="col-md-4">
@@ -65,5 +17,4 @@
   <div class="filosofia-texto">
 
   </div>
-
 </div>

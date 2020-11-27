@@ -4,7 +4,7 @@
     <!--mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar-->
 
   </div>
-  <div class="row">
+  <div class="row" *ngIf="curso">
     <div class="col-md-8">
       <div class="form container">
         <div class="row">
@@ -153,13 +153,14 @@
           <div class="card-body">
             <h5  class="titulo2">Requisitos</h5>
               <ul class="requisitos">
-                <li>COPIA TITULO DE BACHILLER O CERTIFICADO DE 4to CURSO</li>
+                <li *ngFor="let req of curso.requisitos">{{req.descripcion}}</li>
+                <!--li>COPIA TITULO DE BACHILLER O CERTIFICADO DE 4to CURSO</li>
                 <li>MAYORIA DE EDAD</li>
                 <li>REALIZARSE LOS EXAMENES MÉDICOS , PSICOLOGICOS,
                   PSICONSENDOMETRICOS</li>
                 <li>2 COPIAS A COLOR DE CEDULA DE IDENTIDAD, PAPELETA DE VOTACION Y TIPO DE SANGRE EN UNA SOLA HOJA</li>
                 <li>3 FOTOGRAFIÁS TAMAÑO CARNET</li>
-                <li>CARPETA COLGANTE COLOR AZUL</li>
+                <li>CARPETA COLGANTE COLOR AZUL</li-->
               </ul>
           </div>
         </div>
@@ -183,7 +184,7 @@
                     </p>
                     <p> </p>
                     <p></p>
-                    <p><strong>VALOR $100.00</strong></p>
+                    <p><strong>VALOR ${{curso.precio}}</strong></p>
                     <p><strong>Nota: Si usted es socio del sindicato, no necesita cargar el comprobante, simplemente llene su información de manera correcta.</strong></p>
                     <br>
                     <input name="Comprobante" class="form-control" (change)="handleFileInput($event.target.files)"

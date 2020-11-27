@@ -7,16 +7,19 @@ import { InscripcionComponent } from './inscripcion/inscripcion.component';
 import { LoginComponent } from './login/login.component';
 import { ProductosComponent } from './productos/productos.component';
 import { TurneroComponent } from './turnero/turnero.component';
-
+import { SindicatoComponent } from './sindicato/sindicato.component';
+import { EscuelaComponent } from './escuela/escuela.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent },
-  {path: 'filosofia', component: FilosofiaComponent },
+  //{path: 'filosofia', component: FilosofiaComponent },
   {path: '404', component: DisculpasComponent },
   {path: 'servicios', component: ProductosComponent },
   {path: 'inscripcion/:id', component: InscripcionComponent },
   {path: 'login', component: LoginComponent },
-  {path: 'turnos', component: TurneroComponent },
+  {path: 'turnos/:id', component: TurneroComponent },
+  {path: 'sindicato', component: SindicatoComponent },
+  {path: 'escuela', component: EscuelaComponent },
 
   //{path: '', redirectTo: '404', pathMatch: 'full'},
 ];

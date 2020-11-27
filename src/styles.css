@@ -448,3 +448,6 @@ footer .copy{
   max-height: 100%;
   padding: 0;
 }
+.inner img{
+  max-width: 100%;
+}

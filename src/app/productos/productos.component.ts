@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ResponseTurnos } from '../clases/response';
+import { Servicio} from '../clases/servicio';
 import { ApiRequestService } from '../services/api-request.service'
 @Component({
   selector: 'app-productos',
@@ -10,13 +11,12 @@ export class ProductosComponent implements OnInit {
 
   constructor( private api: ApiRequestService) { }
 
-  cursos : any[];
+  servicios : any;
 
   ngOnInit(): void {
-    this.api.obtenerCursos().subscribe((resp: ResponseTurnos)=>{
-        console.log(resp)
+    this.api.obtenerServicios().subscribe((resp: ResponseTurnos)=>{
         if(!resp.error){
-          this.cursos =  resp.data;
+          this.servicios =  resp.data;
         }
     })
   }
