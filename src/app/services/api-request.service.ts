@@ -13,18 +13,18 @@ export class ApiRequestService {
 
   obtenerTurnosInfo(fecha: string){
     const fechaObj = new Date(fecha);
-    //const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/info/turnos?_fecha=${fecha}`;
-    const url = `http://localhost:8000/api/info/turnos?_fecha=${fecha}`;
+    const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/info/turnos?_fecha=${fecha}`;
+    //const url = `http://localhost:8000/api/info/turnos?_fecha=${fecha}`;
     return this.http.get(url);
   }
   obtenerServicios(){
-    //const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/info/turnos?_fecha=${fecha}`;
-    const url = `http://localhost:8000/api/v1/servicio/`;
+    const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/v1/servicio/`;
+    //const url = `http://localhost:8000/api/v1/servicio/`;
     return this.http.get(url);
   }
   obtenerCurso(id){
-    //const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/info/turnos?_fecha=${fecha}`;
-    const url = `http://localhost:8000/api/v1/servicio/curso?_id=${id}`;
+    const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/v1/servicio/curso?_id=${id}`;
+    //const url = `http://localhost:8000/api/v1/servicio/curso?_id=${id}`;
     return this.http.get(url);
   }
   obtenerSocioInfo(cedula: string){
@@ -38,8 +38,8 @@ export class ApiRequestService {
     return this.http.post(url, formData);
   }
   postFileInscripcion(formData) {
-    //const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/info/inscripcion`;
-    const url = `http://localhost:8000/api/info/inscripcion`;
+    const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/info/inscripcion`;
+    //const url = `http://localhost:8000/api/info/inscripcion`;
     return this.http.post(url, formData);
   }
   obtenerFecha(){
@@ -48,13 +48,13 @@ export class ApiRequestService {
     return this.http.get(url);
   }
   obtenerPlantillaSindicato(plantilla){
-    //const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/v1/sindicato/filosofia`;
-    const url = `http://localhost:8000/api/v1/sindicato?_plantilla=${plantilla}`;
+    const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/v1/sindicato?_plantilla=${plantilla}`;
+    //const url = `http://localhost:8000/api/v1/sindicato?_plantilla=${plantilla}`;
     return this.http.get(url);
   }
   obtenerPlantillaEscuela(plantilla){
-    //const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/v1/sindicato/filosofia`;
-    const url = `http://localhost:8000/api/v1/sindicato/${plantilla}`;
+    const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/v1/escuela/${plantilla}`;
+    //const url = `http://localhost:8000/api/v1/escuela/${plantilla}`;
     return this.http.get(url);
   }
 }

@@ -1,21 +1,5 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-8">
-        <h5 class="titulo1">
-          {{titulo}}
-        </h5>
-        <div class="container-fluid inner" *ngIf="html" [innerHTML]="html">
-
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="filosofia-img">
-            <img src="../../assets/img/1-background-filosofia-sindicato.jpg" class="" alt="">
-        </div>
-    </div>
-  </div>
-  <div class="filosofia-texto">
+  <div class="row inner" *ngIf="html" [innerHTML]="html">
 
   </div>
-
 </div>
