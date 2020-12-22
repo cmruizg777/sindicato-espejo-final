@@ -26,8 +26,8 @@ export class ApiRequestService {
     return this.http.get(url);
   }
   obtenerCurso(id, tipo){
-    //const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/v1/servicio/curso?_id=${id}`;
-    const url = `http://localhost:8000/api/v1/servicio/curso?_id=${id}&_tipo=${tipo}`;
+    const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/v1/servicio/curso?_id=${id}&_tipo=${tipo}`;
+    //const url = `http://localhost:8000/api/v1/servicio/curso?_id=${id}&_tipo=${tipo}`;
     console.log(url);
     return this.http.get(url);
   }
@@ -42,8 +42,8 @@ export class ApiRequestService {
     return this.http.post(url, formData);
   }
   postFileInscripcion(formData) {
-    //const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/info/inscripcion`;
-    const url = `http://localhost:8000/api/v1/servicio/inscripcion`;
+    const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/v1/servicio/inscripcion`;
+    //const url = `http://localhost:8000/api/v1/servicio/inscripcion`;
     return this.http.post(url, formData);
   }
   obtenerFecha(){
@@ -62,13 +62,13 @@ export class ApiRequestService {
     return this.http.get(url);
   }
   obtenerToken(formData){
-    //const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/user/login_check`;
-    const url = `http://localhost:8000/api/user/login_check`;
+    const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/user/login_check`;
+    //const url = `http://localhost:8000/api/user/login_check`;
     return this.http.post(url,formData);
   }
   obtenerPerfil(){
-    //const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/user/profile`;
-    const url = `http://localhost:8000/api/user/profile`;
+    const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/user/profile`;
+    //const url = `http://localhost:8000/api/user/profile`;
     return this.http.get<Usuario>(url);
   }
 }
