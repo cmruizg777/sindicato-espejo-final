@@ -9,6 +9,8 @@ import { ProductosComponent } from './productos/productos.component';
 import { TurneroComponent } from './turnero/turnero.component';
 import { SindicatoComponent } from './sindicato/sindicato.component';
 import { EscuelaComponent } from './escuela/escuela.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { UserGuard } from './guards/user.guard';
 
 const routes: Routes = [
   {path: '', component: HomeComponent },
@@ -17,6 +19,7 @@ const routes: Routes = [
   {path: 'servicios', component: ProductosComponent },
   {path: 'inscripcion/:id', component: InscripcionComponent },
   {path: 'login', component: LoginComponent },
+  {path: 'perfil', component: PerfilComponent, canActivate: [UserGuard]},
   {path: 'turnos/:id', component: TurneroComponent },
   {path: 'sindicato', component: SindicatoComponent },
   {path: 'escuela', component: EscuelaComponent },

@@ -1,38 +1,48 @@
 <div class="container">
-  <div >
-    <h5 class="titulo">Cursos</h5>
-  </div>
-  <div class="row" *ngIf="servicios">
+<ng-container *ngIf="servicios; else elseTemplate">
+    <div >
+      <h5 class="titulo" *ngIf="servicios.cursos.length > 0">Cursos</h5>
+    </div>
+    <div class="row" *ngIf="servicios.cursos.length > 0">
 
-    <div class="col-md-3" *ngFor="let s of servicios.cursos">
-      <div class="card">
-        <img [src]="s.urlImagen" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">{{s.curso.nombre}}</h5>
-          <p class="card-text">
-            Precio: <i class="fa fa-dollar"></i>{{s.precio}}
-          </p>
-          <a  [routerLink]="['/inscripcion', s.id]" class="btn btn-outline-success btn-block">Matricularme</a>
+      <div class="col-md-3" *ngFor="let s of servicios.cursos">
+        <div class="card">
+          <img [src]="s.urlImagen" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{s.curso.nombre}}</h5>
+            <p class="card-text">
+              Precio: <i class="fa fa-dollar"></i>{{s.precio}}
+            </p>
+            <a  [routerLink]="['/inscripcion', s.id]" class="btn btn-outline-success btn-block">Matricularme</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div >
+      <h5 class="titulo" *ngIf="servicios.examenes.length > 0">Exámenes</h5>
+    </div>
+    <div class="row" *ngIf="servicios.examenes.length > 0">
+      <div class="col-md-3" *ngFor="let s of servicios.examenes">
+        <div class="card">
+          <img [src]="s.urlImagen" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{s.examen.nombre}}</h5>
+            <p class="card-text">
+              Precio: <i class="fa fa-dollar"></i>{{s.precio}}
+            </p>
+            <a  [routerLink]="['/turnos', s.id]" class="btn btn-outline-success btn-block">Matricularme</a>
+          </div>
         </div>
       </div>
     </div>
-
-  </div>
-  <div >
-    <h5 class="titulo">Exámenes</h5>
-  </div>
-  <div class="row" *ngIf="servicios">
-    <div class="col-md-3" *ngFor="let s of servicios.examenes">
-      <div class="card">
-        <img [src]="s.urlImagen" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">{{s.examen.nombre}}</h5>
-          <p class="card-text">
-            Precio: <i class="fa fa-dollar"></i>{{s.precio}}
-          </p>
-          <a  [routerLink]="['/turnos', s.id]" class="btn btn-outline-success btn-block">Matricularme</a>
-        </div>
-      </div>
+    <div *ngIf="servicios.examenes.length == 0 && servicios.cursos.length == 0">
+      <h2>No se han encontrado servicios disponibles :(</h2>
     </div>
-  </div>
+</ng-container>
+<ng-template #elseTemplate>
+    <div class="spinner-border text-success" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+</ng-template>
 </div>

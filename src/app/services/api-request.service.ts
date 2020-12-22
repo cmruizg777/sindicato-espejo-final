@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { LocalStorageService } from './local-storage.service';
+import { Usuario } from '../clases/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +10,8 @@ import { Observable } from 'rxjs';
 export class ApiRequestService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private storage: LocalStorageService
   ) { }
 
   obtenerTurnosInfo(fecha: string){
@@ -22,9 +25,10 @@ export class ApiRequestService {
     //const url = `http://localhost:8000/api/v1/servicio/`;
     return this.http.get(url);
   }
-  obtenerCurso(id){
-    const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/v1/servicio/curso?_id=${id}`;
-    //const url = `http://localhost:8000/api/v1/servicio/curso?_id=${id}`;
+  obtenerCurso(id, tipo){
+    //const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/v1/servicio/curso?_id=${id}`;
+    const url = `http://localhost:8000/api/v1/servicio/curso?_id=${id}&_tipo=${tipo}`;
+    console.log(url);
     return this.http.get(url);
   }
   obtenerSocioInfo(cedula: string){
@@ -38,8 +42,8 @@ export class ApiRequestService {
     return this.http.post(url, formData);
   }
   postFileInscripcion(formData) {
-    const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/info/inscripcion`;
-    //const url = `http://localhost:8000/api/info/inscripcion`;
+    //const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/info/inscripcion`;
+    const url = `http://localhost:8000/api/v1/servicio/inscripcion`;
     return this.http.post(url, formData);
   }
   obtenerFecha(){
@@ -56,5 +60,15 @@ export class ApiRequestService {
     const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/v1/escuela/${plantilla}`;
     //const url = `http://localhost:8000/api/v1/escuela/${plantilla}`;
     return this.http.get(url);
+  }
+  obtenerToken(formData){
+    //const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/user/login_check`;
+    const url = `http://localhost:8000/api/user/login_check`;
+    return this.http.post(url,formData);
+  }
+  obtenerPerfil(){
+    //const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/user/profile`;
+    const url = `http://localhost:8000/api/user/profile`;
+    return this.http.get<Usuario>(url);
   }
 }

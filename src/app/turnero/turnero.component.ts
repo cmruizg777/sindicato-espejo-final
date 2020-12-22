@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';
 import { ResponseTurnos } from '../clases/response';
 import { ApiRequestService } from '../services/api-request.service';
 import { ValidadorService } from '../services/validador.service';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import { Inscripcion } from '../clases/inscripcion';
 
 @Component({
   selector: 'app-turnero',
@@ -13,47 +14,68 @@ import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 export class TurneroComponent implements OnInit {
 
   fecha: NgbDateStruct;
+
+  private nativeElement : Node;
+
+
   fechaReference ;
-  cedula: string = '';
-  nombre:string = '';
-  apellido:string = '';
-  email:string = '';
-  telf:string = '';
-  direccion:string = '';
-  horario: string = '' ;
+  inscripcion: Inscripcion;
   comprobante = null;
-  horarios: any[];
   formaPago = 'TB';
-  display1='hidden';
   display2='';
   start: Date;
   cedulaValida = false;
-  mensajes = [
-    'Debe seleccionar una fecha válida',
-    'Debe ingresar una cédula válida',
-    'Debe ingresar su nombre',
-    'Debe ingresar su apellido',
-    'Debe ingresar un email válido',
-    'Debe ingresar su dirección',
-    'Debe seleccionar una forma de pago',
-    'Debe seleccionar un horario para agendar su turno',
-    'Debe ingresar un teléfono válido',
-  ]
+  examen: any ;
+  idServicio: Number;
+  horarios : any[];
+  horario: any;
   constructor(
     private validadorService: ValidadorService,
-    private turnosService: ApiRequestService,
-    private router: Router
+    private api: ApiRequestService,
+    private router: Router,
+    private rutaActiva: ActivatedRoute
   ) { }
   ngOnInit(): void {
+    this.inscripcion = new Inscripcion();
+    this.inscripcion.apellidos = "BOLAÑOS RUIZ";
+    this.inscripcion.calle1 = "GNRL. ENRIQUEZ";
+    this.inscripcion.calle2 = "ALEGRIA";
+    this.inscripcion.cedula = "1003659966";
+    this.inscripcion.correo = "software.developer3@gmail.com";
+    this.inscripcion.direccion = "BARRIO SAN JOSE, ATUNTAQUI";
+    //this.inscripcion.disponibilidad =
+    //this.inscripcion.edad =
+    this.inscripcion.estado_civil = "C";
+    this.fecha  = {
+      day: 17,
+      month: 9,
+      year: 1990
+    };
+
+    this.inscripcion.fechaNaciemiento = "1990-09-17";
+
+    this.inscripcion.instruccion = "B";
+    this.inscripcion.lugarNaciemiento = "IBARRA, ECUADOR";
+    this.inscripcion.nacionalidad = "ECUATORIANA";
+    this.inscripcion.nombres = "LUIS ANGEL";
+    this.inscripcion.pass1 = "xxxx4444";
+    this.inscripcion.pass2 = "xxxx4444";
+    this.inscripcion.referencia = "A MEDIA CUADRA DE LA TERMINAL FLOTA ANTEÑA";
+    this.inscripcion.telefono = "0988116697";
+    this.inscripcion.username = "angel12";
+    //this.inscripcion.tipoLicencia
+    //this.inscripcion.tipoSangre
+
+
     let fechaAux =  new Date();
     this.transformarFecha(fechaAux);
     this.start = new Date();
-    const obs  =this.turnosService.obtenerFecha().subscribe( (resp : ResponseTurnos) => {
+    const obs  =this.api.obtenerFecha().subscribe( (resp : ResponseTurnos) => {
       if(!resp.error){
           const aux = resp.data.split('-');
           this.fecha = { year: Number(aux[0]), month: Number(aux[1]) , day: Number(aux[2])};
       }
-      this.turnosService.obtenerTurnosInfo(resp.data).subscribe((response: ResponseTurnos)=>{
+      this.api.obtenerTurnosInfo(resp.data).subscribe((response: ResponseTurnos)=>{
         console.log(response)
         if(!response.error){
           if(response.code == 200){
@@ -62,6 +84,15 @@ export class TurneroComponent implements OnInit {
         }
       });
     });
+    this.idServicio = this.rutaActiva.snapshot.params.id;
+    this.api.obtenerCurso(this.idServicio, 1).subscribe((resp: ResponseTurnos)=>{
+      console.log(resp);
+      if(!resp.error){
+        if(resp.data){
+          this.examen = resp.data;
+        }
+      }
+  })
 
   }
   transformarFecha(fechaAux: Date){
@@ -72,9 +103,9 @@ export class TurneroComponent implements OnInit {
     this.fecha = {year: fechaAux.getFullYear(), month: fechaAux.getMonth() + 1 , day: fechaAux.getDate()};
   }
   validarCedula(){
-    if(this.cedula){
-      if(this.cedula.trim().length == 10){
-        const resp  = this.validadorService.validarCedula(this.cedula);
+    if(this.inscripcion.cedula){
+      if(this.inscripcion.cedula.trim().length == 10){
+        const resp  = this.validadorService.validarCedula(this.inscripcion.cedula);
         this.cedulaValida = resp;
       }else{
         this.cedulaValida = false;
@@ -93,7 +124,7 @@ export class TurneroComponent implements OnInit {
         console.log('no valida');
       }else{
         console.log('valida');
-        this.turnosService.obtenerTurnosInfo(this.fecha.format()).subscribe((response: ResponseTurnos)=>{
+        this.api.obtenerTurnosInfo(this.fecha.format()).subscribe((response: ResponseTurnos)=>{
           console.log(response);
           if(!response.error){
             if(response.code == 200){
@@ -105,54 +136,37 @@ export class TurneroComponent implements OnInit {
         });
       }*/
   }
-  setFPago(){
-    if(this.formaPago === 'PP'){
-      this.display1='hidden';
-      this.display2='';
-    }
-    if(this.formaPago === 'TB'){
-      this.display1='';
-      this.display2='hidden';
-    }
-  }
+
   enviar(){
     const rCode = this.validarDatos();
-    if(rCode == 9){
+    if(rCode == 0){
       const formData: FormData = new FormData();
-      formData.append('_fecha','');
-      formData.append('_hora',this.horario);
-      formData.append('_cedula',this.cedula);
-      formData.append('_nombre',this.nombre);
-      formData.append('_apellido',this.apellido);
-      formData.append('_email',this.email);
-      formData.append('_direccion',this.direccion);
+      formData.append('_apellidos',this.inscripcion.apellidos);
+      formData.append('_calle1',this.inscripcion.calle1);
+      formData.append('_calle2',this.inscripcion.calle2);
+      formData.append('_cedula',this.inscripcion.cedula);
+      formData.append('_email',this.inscripcion.correo);
+      formData.append('_direccion',this.inscripcion.direccion);
+      formData.append('_estado',this.inscripcion.estado_civil);
+      formData.append('_fecha',this.inscripcion.fechaNaciemiento);
+      formData.append('_instruccion',this.inscripcion.instruccion);
+      formData.append('_lugarN',this.inscripcion.lugarNaciemiento);
+      formData.append('_nacionalidad',this.inscripcion.nacionalidad);
+      formData.append('_nombres',this.inscripcion.nombres);
+      formData.append('_password',this.inscripcion.pass1);
+      formData.append('_referencia',this.inscripcion.referencia);
+      formData.append('_telefono',this.inscripcion.telefono);
+      formData.append('_username',this.inscripcion.username);
+
       formData.append('_fpago',this.formaPago);
-      formData.append('_telf',this.telf);
-
-
-      if (this.formaPago == 'TB'){
-        if(this.comprobante){
-          formData.append('_comprobante', this.comprobante, this.comprobante.name);
-          this.enviarFormulario(formData);
-        }else{
-          this.turnosService.obtenerSocioInfo(this.cedula).subscribe( (r: any) => {
-            if(r.data){
-              this.enviarFormulario(formData);
-            }else{
-              alert('Es necesario que cargue su comprobante de pago');
-            }
-          })
-        }
-      }else{
-        this.enviarFormulario(formData);
-      }
-    }else{
-      alert(this.mensajes[rCode]);
+      formData.append('_comprobante', this.comprobante, this.comprobante.name);
+      formData.append('_servicio', ""+this.idServicio);
+      this.enviarFormulario(formData);
     }
   }
 
   enviarFormulario(formData){
-    this.turnosService.postFile(formData).subscribe((data: ResponseTurnos) => {
+    this.api.postFile(formData).subscribe((data: ResponseTurnos) => {
       if(data.code==200){
         alert('Su turno se ha almacenado correctamente, por favor espere el mensaje de confirmación en su correo.');
         this.router.navigate(['inicio']);
@@ -170,43 +184,96 @@ export class TurneroComponent implements OnInit {
     this.comprobante = files.item(0);
   }
 
-  validarDatos(): number{
-    if(!this.fecha){
-      return 0;
-    }else{
-      const f1 = new Date('');
-      const f2 = new Date(this.fechaReference);
-      if(f1 < f2){
-        //this.fecha = new Date(this.fechaReference);
-        return 0;
-      }
-    }
-    if(!this.cedulaValida){
+  validarDatos(): number {
+    if(this.inscripcion.apellidos.trim() === ''){
+      this.inscripcion.errorApellidos();
       return 1;
     }
-    if(this.nombre.trim() === ''){
+    if(this.inscripcion.calle1 == ''){
+      this.inscripcion.errorCalle1();
       return 2;
     }
-    if(this.apellido.trim() === ''){
+    if(this.inscripcion.calle2 == ''){
+      this.inscripcion.errorCalle2();
       return 3;
     }
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if(!re.test(String(this.email).toLowerCase())){
+    this.validarCedula();
+    if(!this.cedulaValida){
+      this.inscripcion.errorCedula();
       return 4;
     }
-    if(this.direccion.trim() === ''){
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(!re.test(String(this.inscripcion.correo).toLowerCase())){
+      this.inscripcion.errorCorreo();
       return 5;
     }
-    if(this.formaPago.trim() === ''){
+    if(this.inscripcion.direccion.trim() === ''){
+      this.inscripcion.errorDireccion();
       return 6;
     }
-    if(this.horario.trim() === ''){
+    if(this.inscripcion.estado_civil.trim() == ''){
+      this.inscripcion.errorEstadoCivil();
       return 7;
     }
-    if(this.telf.trim() == ''){
+    if(!this.fecha){
+      this.inscripcion.errorFecha();
       return 8;
     }
-    return 9;
+    this.inscripcion.fechaNaciemiento = this.fecha.year +'-'+this.fecha.month+'-'+this.fecha.day;
+
+    if(this.inscripcion.instruccion.trim() == ''){
+      this.inscripcion.errorInstruccion();
+      return 9;
+    }
+    if(this.inscripcion.lugarNaciemiento.trim() === ''){
+      this.inscripcion.errorLugarNac();
+      return 10;
+    }
+    if(this.inscripcion.nacionalidad.trim() === ''){
+      this.inscripcion.errorNacionalidad();
+      return 11;
+    }
+    if(this.inscripcion.nombres.trim() === ''){
+      this.inscripcion.errorNombres();
+      return 12;
+    }
+    if(this.inscripcion.pass1.trim() === '' || this.inscripcion.pass1.indexOf(' ')>=0){
+      this.inscripcion.errorContrasena();
+      return 13;
+    }else{
+      if(this.inscripcion.pass1 != this.inscripcion.pass2 ){
+        this.inscripcion.errorContrasena2();
+        return 14;
+      }
+    }
+    if(this.inscripcion.referencia == ''){
+      this.inscripcion.errorReferencia();
+      return 15;
+    }
+    if(this.inscripcion.telefono.trim() == ''){
+      this.inscripcion.errorTelefono();
+      return 16;
+    }
+    if(this.inscripcion.username.trim() == ''){
+      this.inscripcion.errorUsername1();
+      return 17;
+    }else{
+      if(this.inscripcion.username.indexOf(' ')>=0){
+        this.inscripcion.errorUsername1();
+        return 18;
+      }
+    }
+
+    if(this.formaPago.trim() === ''){
+      alert('La forma de pago no se ha establecido!');
+      return 19;
+    }
+    if(!this.comprobante){
+      alert('Debe adjuntar la documentación y el pago requerido!');
+      return 20;
+    }
+
+    return 0;
   }
 
 }

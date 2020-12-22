@@ -15,12 +15,13 @@ import { ExamenPsicologicoComponent } from './examen-psicologico/examen-psicolog
 import { ExamenMedicoComponent } from './examen-medico/examen-medico.component';
 import { TurneroComponent } from './turnero/turnero.component';
 import { ProductosComponent } from './productos/productos.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PerfilComponent } from './perfil/perfil.component';
 import { EscuelaComponent } from './escuela/escuela.component';
 import { SindicatoComponent } from './sindicato/sindicato.component';
+import { TokenInterceptor } from './services/token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,9 @@ import { SindicatoComponent } from './sindicato/sindicato.component';
     HttpClientModule,
     NgbModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

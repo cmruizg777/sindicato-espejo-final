@@ -1,101 +1,206 @@
-
-  <div class="container">
-    <div class="centrado">
-      <h5 class="titulo">Solicitud de Examén Psicosensométrico</h5>
-      <!--mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar-->
-
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8">
-          <form action="#" method="post">
-            <!--div class="form-group">
-              <div class="address">
-                <h5>Fecha:</h5>
-              </div>
-              <input name="fecha"  autocomplete="no"  placeholder="yyyy-mm-dd" class="datepicker" [(ngModel)]="fecha">
-            </div-->
-            <div class="form-group col-md-6">
-              <div class="">
-                <h5>Fecha:</h5>
-              </div>
-              <div class="input-group">
-                <input class="form-control" placeholder="yyyy-mm-dd"
-                       name="dp" [(ngModel)]="fecha" ngbDatepicker #d="ngbDatepicker">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
-                    <i class="fa fa-calendar"></i>
-                  </button>
-                </div>
+<div class="container">
+  <div class="centrado">
+    <h5 class="titulo">Solicitud de Examén Psicosensométrico</h5>
+    <!--mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar-->
+  </div>
+  <div class="row" *ngIf="examen">
+    <div class="col-md-8">
+      <div class="form container">
+        <div class="row">
+          <!--div class="form-group col-md-6">
+            <div class="">
+              <h5>Tipo de Licencia.</h5>
+              <select name="TipoLic" class="form-control" id="" [(ngModel)]="inscripcion.tipoLicencia">
+                <option value="">Seleccione el tipo de Licencia</option>
+                <option value="C">Licencia tipo C</option>
+                <option value="D">Licencia tipo D</option>
+                <option value="E">Licencia tipo E</option>
+              </select>
+            </div>
+          </div-->
+          <div class="form-group col-md-6">
+            <div class="">
+              <h5>Fecha de Nac.</h5>
+            </div>
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd"
+                     name="dp" [(ngModel)]="fecha" ngbDatepicker #d="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                  <i class="fa fa-calendar"></i>
+                </button>
               </div>
             </div>
+          </div>
 
-            <div class="row">
-              <div class="form-group col-md-4">
-                <div class="address">
-                  <h5>Cédula:</h5>
-                </div>
-                <input name="Cedula" placeholder="0452813749" type="text" [(ngModel)]="cedula" (change)="validarCedula()"  maxlength="10" required=""  >
-              </div>
-              <div class="form-group col-md-4">
-                <div class="address">
-                  <h5>Nombre:</h5>
-                </div>
-                <input name="Nombre" placeholder="Juanito" type="text" [(ngModel)]="nombre" required="">
-              </div>
-
-              <div class="form-group col-md-4">
-                <div class="address">
-                  <h5>Apellido:</h5>
-                </div>
-                <input name="Apellido" placeholder="Pérez" type="text" [(ngModel)]="apellido" required="">
-              </div>
-              <div class="form-group col-md-4">
-                <div class="address">
-                  <h5>Email:</h5>
-                </div>
-                <input name="Email" placeholder="sindicatoespejo@hotmail.com" type="email" [(ngModel)]="email" required="">
-              </div>
-              <div class="form-group col-md-4">
-                <div class="address">
-                  <h5>Telefono:</h5>
-                </div>
-                <input name="Telf" placeholder="0989898989" type="text" [(ngModel)]="telf" required="">
-              </div>
-              <div class="form-group col-md-4">
-                <div class="address">
-                  <h5>Dirección:</h5>
-                </div>
-                <input name="Direccion" placeholder="Ibarra, Bolivar 123 y Rocafuerte" type="text" [(ngModel)]="direccion" required="">
-              </div>
+          <!--div class="form-group col-md-6">
+            <div class="">
+              <h5>Fecha de Nac.</h5>
             </div>
-            <div class="form-group">
-              <div >
-                <h5>Seleccione un horario libre:</h5>
-                <p>En caso de no haber uno libre, debe seleccionar otra fecha.</p>
-                <div class="horarios">
-                  <div class="row">
-                    <div class="col-md-4 col-sm-6 col-xs-12" *ngFor="let h of horarios">
-                      <p>
-                        <ng-container *ngIf="h.libre; else horarioOcupado">
-                          <input type="radio" name="horario" value="{{h.horario}}" [(ngModel)]="horario" >
-                          {{h.horario}} &emsp;
-                          <strong class="text-success" >Libre</strong>
-                        </ng-container>
-                        <ng-template #horarioOcupado>
-                          {{h.horario}} &emsp;
-                          <strong class="text-danger">Ocupado</strong>
-                        </ng-template>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <input name="fecha"  autocomplete="no" placeholder="yyyy-mm-dd" class="calendario" [(ngModel)]="fecha">
+            <!--input name="fecha"  matInput [matDatepicker]="dp" [min]="start" placeholder="yyyy-mm-dd"  [(ngModel)]="fecha">
+            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker  #dp [startAt]="start"></mat-datepicker>
+          </div-->
+          <div class="form-group col-md-6">
+            <div class="">
+              <h5>Cédula:</h5>
             </div>
-
-          </form>
+            <input name="Cedula" class="form-control" placeholder="0452813749" type="text" [(ngModel)]="inscripcion.cedula" (change)="validarCedula()"  maxlength="10" required=""  >
+          </div>
         </div>
-        <div class="col-md-4">
+        <div class="row">
+          <div class="form-group col-md-6">
+            <div class="">
+              <h5>Nombres:</h5>
+            </div>
+            <input name="Nombre" class="form-control" placeholder="Juan José" type="text" [(ngModel)]="inscripcion.nombres" required="">
+          </div>
+
+          <div class="form-group col-md-6">
+            <div class="">
+              <h5>Apellidos:</h5>
+            </div>
+            <input name="Apellido" class="form-control" placeholder="Pérez" type="text" [(ngModel)]="inscripcion.apellidos" required="">
+          </div>
+          <div class="form-group col-md-6">
+            <div class="">
+              <h5>Nacionalidad:</h5>
+            </div>
+            <input name="Nacionalidad"  class="form-control" placeholder="Ecuatoriana" type="text" [(ngModel)]="inscripcion.nacionalidad"  required=""  >
+          </div>
+
+          <div class="form-group col-md-6">
+            <div class="">
+              <h5>Lugar de Nac:</h5>
+            </div>
+            <input name="LugarNac" class="form-control" placeholder="Ecuador-Carchi-Tulcán" type="text" [(ngModel)]="inscripcion.lugarNaciemiento"  required=""  >
+          </div>
+
+          <div class="form-group col-md-6">
+            <div class="">
+              <h5>Email:</h5>
+            </div>
+            <input class="form-control" name="Email" placeholder="sindicatoespejo@hotmail.com" type="email" [(ngModel)]="inscripcion.correo" required="">
+          </div>
+          <div class="form-group col-md-6">
+            <div class="">
+              <h5>Username:</h5>
+            </div>
+            <input name="Telf" class="form-control" placeholder="juanito123" type="text" [(ngModel)]="inscripcion.username" required="">
+          </div>
+          <div class="form-group col-md-6">
+            <div class="">
+              <h5>Contraseña:</h5>
+            </div>
+            <input name="Pass1" class="form-control" type="password" [(ngModel)]="inscripcion.pass1" required="">
+          </div>
+          <div class="form-group col-md-6">
+            <div class="">
+              <h5>Confirmar Contraseña:</h5>
+            </div>
+            <input name="Pass2" class="form-control" type="password" [(ngModel)]="inscripcion.pass2" required="">
+          </div>
+          <div class="form-group col-md-6">
+            <div class="">
+              <h5>Telefono:</h5>
+            </div>
+            <input name="Telf" class="form-control" placeholder="0989898989" type="text" [(ngModel)]="inscripcion.telefono" required="">
+          </div>
+          <div class="form-group col-md-6">
+            <div class="">
+              <h5>Estado civil:</h5>
+            </div>
+            <select name="EstadoC" class="form-control" id="" [(ngModel)]="inscripcion.estado_civil">
+              <option value="S">Soltero</option>
+              <option value="C">Casado</option>
+              <option value="V">Viudo</option>
+              <option value="D">Divorciado</option>
+              <option value="U">Unión Libre</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6">
+            <div class="">
+              <h5>Instrucción:</h5>
+            </div>
+            <select class="form-control" name="EstadoC" id="" [(ngModel)]="inscripcion.instruccion">
+              <option value="P">Primaria</option>
+              <option value="S">Secundaria</option>
+              <option value="B">Bachiller</option>
+              <option value="T">Tercer Nivel</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6">
+            <div class="">
+              <h5>Dirección:</h5>
+            </div>
+            <input name="Direccion" class="form-control" placeholder="Tulcán, Barrio Central" type="text" [(ngModel)]="inscripcion.direccion" required="">
+          </div>
+          <div class="form-group col-md-6">
+            <div class="">
+              <h5>Calle Princ.:</h5>
+            </div>
+            <input name="Calle2" class="form-control" placeholder="Bolivar" type="text" [(ngModel)]="inscripcion.calle1" required="">
+          </div>
+          <div class="form-group col-md-6">
+            <div class="">
+              <h5>Calle Sec.:</h5>
+            </div>
+            <input name="Calle1" class="form-control" placeholder="Rocafuerte" type="text" [(ngModel)]="inscripcion.calle2" required="">
+          </div>
+          <div class="form-group col-md-6">
+            <div class="">
+              <h5>Referencia:</h5>
+            </div>
+            <input name="Direccion" class="form-control" placeholder="A una cuadra del parque central" type="text" [(ngModel)]="inscripcion.referencia" required="">
+          </div>
+        </div>
+        <div class="form-group">
+          <div >
+            <h5>Seleccione un horario libre:</h5>
+            <p>En caso de no haber uno libre, debe seleccionar otra fecha.</p>
+            <div class="horarios">
+              <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12" *ngFor="let h of horarios">
+                  <p>
+                    <ng-container *ngIf="h.libre; else horarioOcupado">
+                      <input type="radio" name="horario" value="{{h.horario}}" [(ngModel)]="horario" >
+                      {{h.horario}} &emsp;
+                      <strong class="text-success" >Libre</strong>
+                    </ng-container>
+                    <ng-template #horarioOcupado>
+                      {{h.horario}} &emsp;
+                      <strong class="text-danger">Ocupado</strong>
+                    </ng-template>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <div class="card" >
+          <div class="card-body">
+            <h5  class="titulo2">Requisitos</h5>
+              <ul class="requisitos">
+                <li *ngFor="let req of examen.requisitos">{{req.descripcion}}</li>
+                <!--li>COPIA TITULO DE BACHILLER O CERTIFICADO DE 4to CURSO</li>
+                <li>MAYORIA DE EDAD</li>
+                <li>REALIZARSE LOS EXAMENES MÉDICOS , PSICOLOGICOS,
+                  PSICONSENDOMETRICOS</li>
+                <li>2 COPIAS A COLOR DE CEDULA DE IDENTIDAD, PAPELETA DE VOTACION Y TIPO DE SANGRE EN UNA SOLA HOJA</li>
+                <li>3 FOTOGRAFIÁS TAMAÑO CARNET</li>
+                <li>CARPETA COLGANTE COLOR AZUL</li-->
+              </ul>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="row">
           <div class="card" >
             <div class="card-body">
               <div class="form-group comprobante">
@@ -103,14 +208,16 @@
                 <input type="radio" name="fpago" value="PP" [(ngModel)]="formaPago" (change)="setFPago()"> Paypal
                 <br><br>
                 <!--ng-container *ngIf="formaPago=='TB'; else paypal"-->
-                  <div class="address">
+                  <div class="">
                     <h5>Comprobante de pago:</h5>
                     <p>Deberá cargar el comprobante de deposito o transferencia a la cuenta del
                       Sindicato de Choferes de Espejo.</p>
-                    <p>BANECUADOR</p>
-                    <p>CUENTA CORRIENTE #0400000697 </p>
-                    <p>SINDICATO DE CHOFERES PROFESIONALES DE ESPEJO</p>
-                    <p><strong>VALOR $20.00</strong></p>
+                    <p>BANECUADOR <br> CUENTA CORRIENTE #0400000697 <br> SINDICATO DE CHOFERES PROFESIONALES DE ESPEJO
+
+                    </p>
+                    <p> </p>
+                    <p></p>
+                    <p><strong>VALOR ${{examen.precio}}</strong></p>
                     <p><strong>Nota: Si usted es socio del sindicato, no necesita cargar el comprobante, simplemente llene su información de manera correcta.</strong></p>
                     <br>
                     <input name="Comprobante" class="form-control" (change)="handleFileInput($event.target.files)"
@@ -124,18 +231,15 @@
                 <!--/ng-template-->
 
               </div>
-              <input type="button" class="btn btn-success btn-block" value="Enviar Solicitud" (click)="enviar()">
+              <div class="d-flex justify-content-center">
+                <input type="button" class="btn btn-lg btn-success" value="Enviar Solicitud" (click)="enviar()">
               </div>
+            </div>
           </div>
-
-        </div>
       </div>
-
     </div>
-
-
-    </div>
-
+  </div>
+</div>
 
 <!--div class="agileits-w3layouts-map">
   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.9503398796587!2d-73.9940307!3d40.719109700000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a27e2f24131%3A0x64ffc98d24069f02!2sCANADA!5e0!3m2!1sen!2sin!4v1441710758555" allowfullscreen></iframe>

@@ -86,9 +86,9 @@
           </div>
           <div class="form-group col-md-6">
             <div class="">
-              <h5>Telefono:</h5>
+              <h5>Username:</h5>
             </div>
-            <input name="Telf" class="form-control" placeholder="0989898989" type="text" [(ngModel)]="inscripcion.telefono" required="">
+            <input name="Telf" class="form-control" placeholder="juanito123" type="text" [(ngModel)]="inscripcion.username" required="">
           </div>
           <div class="form-group col-md-6">
             <div class="">
@@ -101,6 +101,12 @@
               <h5>Confirmar Contraseña:</h5>
             </div>
             <input name="Pass2" class="form-control" type="password" [(ngModel)]="inscripcion.pass2" required="">
+          </div>
+          <div class="form-group col-md-6">
+            <div class="">
+              <h5>Telefono:</h5>
+            </div>
+            <input name="Telf" class="form-control" placeholder="0989898989" type="text" [(ngModel)]="inscripcion.telefono" required="">
           </div>
           <div class="form-group col-md-6">
             <div class="">
@@ -118,7 +124,7 @@
             <div class="">
               <h5>Instrucción:</h5>
             </div>
-            <select class="form-control" name="EstadoC" id="" [(ngModel)]="inscripcion.estado_civil">
+            <select class="form-control" name="EstadoC" id="" [(ngModel)]="inscripcion.instruccion">
               <option value="P">Primaria</option>
               <option value="S">Secundaria</option>
               <option value="B">Bachiller</option>
@@ -142,6 +148,12 @@
               <h5>Calle Sec.:</h5>
             </div>
             <input name="Calle1" class="form-control" placeholder="Rocafuerte" type="text" [(ngModel)]="inscripcion.calle2" required="">
+          </div>
+          <div class="form-group col-md-6">
+            <div class="">
+              <h5>Referencia:</h5>
+            </div>
+            <input name="Direccion" class="form-control" placeholder="A una cuadra del parque central" type="text" [(ngModel)]="inscripcion.referencia" required="">
           </div>
         </div>
 

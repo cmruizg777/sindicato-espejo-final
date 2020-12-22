@@ -15,6 +15,9 @@ import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 // tslint:disable-next-line:no-duplicate-imports
 //import * as _rollupMoment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { NgbDateStructAdapter } from '@ng-bootstrap/ng-bootstrap/datepicker/adapters/ngb-date-adapter';
+import { AuthResponse } from '../clases/auth';
 
 //const moment = _rollupMoment || _moment;
 
@@ -42,6 +45,7 @@ export class InscripcionComponent implements OnInit {
   start: Date;
   cedulaValida = false;
   curso: any ;
+  idServicio: Number;
   constructor(
     private validadorService: ValidadorService,
     private router: Router,
@@ -58,12 +62,41 @@ export class InscripcionComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    const idServicio = this.rutaActiva.snapshot.params.id;
-    this.api.obtenerCurso(idServicio).subscribe((resp: ResponseTurnos)=>{
+    this.idServicio = this.rutaActiva.snapshot.params.id;
+    this.api.obtenerCurso(this.idServicio, 2).subscribe((resp: ResponseTurnos)=>{
       console.log(resp);
       if(!resp.error){
         if(resp.data){
           this.curso = resp.data;
+          this.inscripcion.apellidos = "BOLAÑOS RUIZ";
+          this.inscripcion.calle1 = "GNRL. ENRIQUEZ";
+          this.inscripcion.calle2 = "ALEGRIA";
+          this.inscripcion.cedula = "1003659966";
+          this.inscripcion.correo = "software.developer3@gmail.com";
+          this.inscripcion.direccion = "BARRIO SAN JOSE, ATUNTAQUI";
+          //this.inscripcion.disponibilidad =
+          //this.inscripcion.edad =
+          this.inscripcion.estado_civil = "C";
+          this.fecha  = {
+            day: 17,
+            month: 9,
+            year: 1990
+          };
+
+          this.inscripcion.fechaNaciemiento = "1990-09-17";
+
+          this.inscripcion.instruccion = "B";
+          this.inscripcion.lugarNaciemiento = "IBARRA, ECUADOR";
+          this.inscripcion.nacionalidad = "ECUATORIANA";
+          this.inscripcion.nombres = "LUIS ANGEL";
+          this.inscripcion.pass1 = "xxxx4444";
+          this.inscripcion.pass2 = "xxxx4444";
+          this.inscripcion.referencia = "A MEDIA CUADRA DE LA TERMINAL FLOTA ANTEÑA";
+          this.inscripcion.telefono = "0988116697";
+          this.inscripcion.username = "angel12";
+          //this.inscripcion.tipoLicencia
+          //this.inscripcion.tipoSangre
+
         }
       }
   })
@@ -89,48 +122,48 @@ export class InscripcionComponent implements OnInit {
 ///////////////////////////////////////////////
 enviar(){
   const rCode = this.validarDatos();
-  console.log(rCode);
+  //console.log(rCode);
   //console.log(this.inscripcion);
-  if(!rCode){
+  if(rCode === 0){
     const formData: FormData = new FormData();
-    formData.append('_fecha',this.inscripcion.fechaNaciemiento);
-    formData.append('_nombres',this.inscripcion.nombres);
+
     formData.append('_apellidos',this.inscripcion.apellidos);
+    formData.append('_calle1',this.inscripcion.calle1);
+    formData.append('_calle2',this.inscripcion.calle2);
     formData.append('_cedula',this.inscripcion.cedula);
     formData.append('_email',this.inscripcion.correo);
     formData.append('_direccion',this.inscripcion.direccion);
-    formData.append('_calle1',this.inscripcion.calle1);
-    formData.append('_calle2',this.inscripcion.calle2);
-    formData.append('_fpago',this.formaPago);
-    formData.append('_telefono',this.inscripcion.telefono);
-    formData.append('_lugarN',this.inscripcion.lugarNaciemiento);
     formData.append('_estado',this.inscripcion.estado_civil);
+    formData.append('_fecha',this.inscripcion.fechaNaciemiento);
     formData.append('_instruccion',this.inscripcion.instruccion);
+    formData.append('_lugarN',this.inscripcion.lugarNaciemiento);
     formData.append('_nacionalidad',this.inscripcion.nacionalidad);
-    formData.append('_tipoLicencia',this.inscripcion.tipoLicencia);
+    formData.append('_nombres',this.inscripcion.nombres);
+    formData.append('_password',this.inscripcion.pass1);
+    formData.append('_referencia',this.inscripcion.referencia);
+    formData.append('_telefono',this.inscripcion.telefono);
+    formData.append('_username',this.inscripcion.username);
+    formData.append('_fpago',this.formaPago);
+    formData.append('_comprobante', this.comprobante, this.comprobante.name);
+    formData.append('_servicio', ""+this.idServicio);
+    this.enviarFormulario(formData);
 
-    /*if (this.formaPago == 'TB'){
-      if(this.comprobante){
-        formData.append('_comprobante', this.comprobante, this.comprobante.name);
-        this.enviarFormulario(formData);
-      }else{
-        this.turnosService.obtenerSocioInfo(this.inscripcion.cedula).subscribe( (r: any) => {
-          if(r.data){
-            this.enviarFormulario(formData);
-          }else{
-            alert('Es necesario que cargue su comprobante de pago');
-          }
-        })
-      }
-    }*/
   }
 }
 
 enviarFormulario(formData){
-  this.turnosService.postFile(formData).subscribe((data: ResponseTurnos) => {
+  this.turnosService.postFileInscripcion(formData).subscribe((data: ResponseTurnos) => {
     if(data.code==200){
-      alert('Su turno se ha almacenado correctamente, por favor espere el mensaje de confirmación en su correo.');
-      this.router.navigate(['inicio']);
+      let form = new FormData();
+      alert(data.data);
+      form.append('_username',this.inscripcion.username);
+      form.append('_password',this.inscripcion.pass1);
+      this.turnosService.obtenerToken(form).subscribe((r : AuthResponse ) => {
+        if(r.token){
+          localStorage.setItem('token', r.token);
+          this.router.navigate(['perfil']);
+        }
+      })
     }else{
       alert(`Ha habido un error: ${data.data}`);
     }
@@ -141,28 +174,25 @@ enviarFormulario(formData){
 }
 
 
-
-
   ////////////////////////////////////////
 
 
   validarDatos(): number {
-    if(!this.fecha){
-      this.inscripcion.errorFecha();
-      return 1;
-    }
-    this.inscripcion.fechaNaciemiento = this.fecha.year +'-'+this.fecha.month+'-'+this.fecha.day;
-    if(!this.cedulaValida){
-      this.inscripcion.errorCedula();
-      return 2;
-    }
-    if(this.inscripcion.nombres.trim() === ''){
-      this.inscripcion.errorNombres();
-      return 3;
-
-    }
     if(this.inscripcion.apellidos.trim() === ''){
       this.inscripcion.errorApellidos();
+      return 1;
+    }
+    if(this.inscripcion.calle1 == ''){
+      this.inscripcion.errorCalle1();
+      return 2;
+    }
+    if(this.inscripcion.calle2 == ''){
+      this.inscripcion.errorCalle2();
+      return 3;
+    }
+    this.validarCedula();
+    if(!this.cedulaValida){
+      this.inscripcion.errorCedula();
       return 4;
     }
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -174,24 +204,66 @@ enviarFormulario(formData){
       this.inscripcion.errorDireccion();
       return 6;
     }
-    if(this.inscripcion.calle1 == ''){
-      this.inscripcion.errorCalle1();
+    if(this.inscripcion.estado_civil.trim() == ''){
+      this.inscripcion.errorEstadoCivil();
       return 7;
     }
-    if(this.inscripcion.calle2 == ''){
-      this.inscripcion.errorCalle2();
+    if(!this.fecha){
+      this.inscripcion.errorFecha();
       return 8;
     }
-    if(this.formaPago.trim() === ''){
+    this.inscripcion.fechaNaciemiento = this.fecha.year +'-'+this.fecha.month+'-'+this.fecha.day;
 
+    if(this.inscripcion.instruccion.trim() == ''){
+      this.inscripcion.errorInstruccion();
+      return 9;
     }
     if(this.inscripcion.lugarNaciemiento.trim() === ''){
       this.inscripcion.errorLugarNac();
-      return 9;
+      return 10;
+    }
+    if(this.inscripcion.nacionalidad.trim() === ''){
+      this.inscripcion.errorNacionalidad();
+      return 11;
+    }
+    if(this.inscripcion.nombres.trim() === ''){
+      this.inscripcion.errorNombres();
+      return 12;
+    }
+    if(this.inscripcion.pass1.trim() === '' || this.inscripcion.pass1.indexOf(' ')>=0){
+      this.inscripcion.errorContrasena();
+      return 13;
+    }else{
+      if(this.inscripcion.pass1 != this.inscripcion.pass2 ){
+        this.inscripcion.errorContrasena2();
+        return 14;
+      }
+    }
+    if(this.inscripcion.referencia == ''){
+      this.inscripcion.errorReferencia();
+      return 15;
     }
     if(this.inscripcion.telefono.trim() == ''){
       this.inscripcion.errorTelefono();
-      return 10;
+      return 16;
+    }
+    if(this.inscripcion.username.trim() == ''){
+      this.inscripcion.errorUsername1();
+      return 17;
+    }else{
+      if(this.inscripcion.username.indexOf(' ')>=0){
+        this.inscripcion.errorUsername1();
+        return 18;
+      }
+    }
+
+    if(this.formaPago.trim() === ''){
+      alert('La forma de pago no se ha establecido!');
+      return 19;
+    }
+    if(!this.comprobante){
+      alert('Debe adjuntar la documentación y el pago requerido!');
+      return 20;
     }
 
     return 0;

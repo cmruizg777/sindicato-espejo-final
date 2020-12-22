@@ -19,11 +19,14 @@ export class Inscripcion{
     'Debe ingresar su disponibilidad de tiempo',
     'Debe seleccionar el tipo de licencia',
     'Debe ingresar una contraseña de al menos 8 caracteres',
-    'Las contraseñas no coinciden'
-
+    'Las contraseñas no coinciden',
+    'Debe ingresar un username (nombre de usuario)',
+    'Su nombre de usuario no puede tener espacios',
+    'Debe ingresar su nacionalidad',
   ]
   nombres: string = '';
   apellidos: string = '';
+  username: string = '';
   pass1: string = '';
   pass2: string = '';
   cedula: string = '';
@@ -52,7 +55,7 @@ export class Inscripcion{
   errorCedula(){
     alert(this.mensajes[2]);
   }
-  estadoCivil(){
+  errorEstadoCivil(){
     alert(this.mensajes[3]);
   }
   errorEdad(){
@@ -96,5 +99,17 @@ export class Inscripcion{
   }
   errorContrasena2(){
     alert(this.mensajes[16]);
+  }
+  errorUsername1(){
+    alert(this.mensajes[17]);
+  }
+  errorUsername2(){
+    alert(this.mensajes[18]);
+  }
+  errorInstruccion(){
+    alert(this.mensajes[6]);
+  }
+  errorNacionalidad(){
+    alert(this.mensajes[19]);
   }
 }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Usuario } from '../clases/usuario';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-perfil',
@@ -6,10 +9,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent implements OnInit {
-
-  constructor() { }
+  usuario:Usuario;
+  constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.usuario = JSON.parse(localStorage.getItem('profile'));
   }
 
 }

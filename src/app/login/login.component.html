@@ -13,14 +13,14 @@
             <div class="form">
               <div class="form-group">
                 <label>Email</label>
-                <input type="text" class="form-control" placeholder="info@sindicatoespejo.com">
+                <input type="text" class="form-control" [(ngModel)]="username" placeholder="info@sindicatoespejo.com">
               </div>
               <div class="form-group">
                 <label>Contraseña</label>
-                <input type="password" class="form-control" >
+                <input type="password" class="form-control" [(ngModel)]="password">
               </div>
               <div class="form-group">
-                <button class="btn btn-success btn-block">Iniciar Sesión</button>
+                <button class="btn btn-success btn-block" (click)="login()">Iniciar Sesión</button>
               </div>
             </div>
           </div>

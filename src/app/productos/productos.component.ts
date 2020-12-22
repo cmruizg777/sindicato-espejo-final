@@ -17,6 +17,7 @@ export class ProductosComponent implements OnInit {
     this.api.obtenerServicios().subscribe((resp: ResponseTurnos)=>{
         if(!resp.error){
           this.servicios =  resp.data;
+          console.log(this.servicios)
         }
     })
   }
