@@ -70,7 +70,7 @@ export class InscripcionComponent implements OnInit {
         if(resp.data){
           this.curso = resp.data;
           this.loading = false;
-          this.inscripcion.apellidos = "BOLAÑOS RUIZ";
+          /*this.inscripcion.apellidos = "BOLAÑOS RUIZ";
           this.inscripcion.calle1 = "GNRL. ENRIQUEZ";
           this.inscripcion.calle2 = "ALEGRIA";
           this.inscripcion.cedula = "1003659966";
@@ -97,7 +97,7 @@ export class InscripcionComponent implements OnInit {
           this.inscripcion.telefono = "0988116697";
           this.inscripcion.username = "angel12";
           //this.inscripcion.tipoLicencia
-          //this.inscripcion.tipoSangre
+          //this.inscripcion.tipoSangre*/
 
         }
       }

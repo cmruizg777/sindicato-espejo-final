@@ -36,7 +36,7 @@ export class TurneroComponent implements OnInit {
     private rutaActiva: ActivatedRoute
   ) { }
   ngOnInit(): void {
-    this.inscripcion = new Inscripcion();
+    /*this.inscripcion = new Inscripcion();
     this.inscripcion.apellidos = "BOLAÑOS RUIZ";
     this.inscripcion.calle1 = "GNRL. ENRIQUEZ";
     this.inscripcion.calle2 = "ALEGRIA";
@@ -64,7 +64,7 @@ export class TurneroComponent implements OnInit {
     this.inscripcion.telefono = "0988116697";
     this.inscripcion.username = "angel12";
     //this.inscripcion.tipoLicencia
-    //this.inscripcion.tipoSangre
+    //this.inscripcion.tipoSangre*/
 
 
     let fechaAux =  new Date();

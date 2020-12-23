@@ -22,7 +22,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { EscuelaComponent } from './escuela/escuela.component';
 import { SindicatoComponent } from './sindicato/sindicato.component';
 import { TokenInterceptor } from './services/token-interceptor.service';
-
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -53,6 +53,7 @@ import { TokenInterceptor } from './services/token-interceptor.service';
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
 })
