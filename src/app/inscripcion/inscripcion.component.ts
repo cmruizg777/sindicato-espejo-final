@@ -18,6 +18,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { NgbDateStructAdapter } from '@ng-bootstrap/ng-bootstrap/datepicker/adapters/ngb-date-adapter';
 import { AuthResponse } from '../clases/auth';
+import { AuthService } from '../services/auth.service';
 
 //const moment = _rollupMoment || _moment;
 
@@ -46,12 +47,13 @@ export class InscripcionComponent implements OnInit {
   cedulaValida = false;
   curso: any ;
   idServicio: Number;
+  loading = true;
   constructor(
     private validadorService: ValidadorService,
     private router: Router,
-    private turnosService: ApiRequestService,
     private rutaActiva: ActivatedRoute,
-    private api: ApiRequestService
+    private api: ApiRequestService,
+    private auth: AuthService
     ) {
       this.inscripcion = new Inscripcion();
       const fechaAux =  new Date();
@@ -64,10 +66,10 @@ export class InscripcionComponent implements OnInit {
   ngOnInit(): void {
     this.idServicio = this.rutaActiva.snapshot.params.id;
     this.api.obtenerCurso(this.idServicio, 2).subscribe((resp: ResponseTurnos)=>{
-      console.log(resp);
       if(!resp.error){
         if(resp.data){
           this.curso = resp.data;
+          this.loading = false;
           this.inscripcion.apellidos = "BOLAÑOS RUIZ";
           this.inscripcion.calle1 = "GNRL. ENRIQUEZ";
           this.inscripcion.calle2 = "ALEGRIA";
@@ -99,6 +101,9 @@ export class InscripcionComponent implements OnInit {
 
         }
       }
+  }, error => {
+    alert('Ha ocurrido un error, por favor, intentelo nuevamente.')
+    this.router.navigate(['/productos'])
   })
   }
 
@@ -146,29 +151,34 @@ enviar(){
     formData.append('_fpago',this.formaPago);
     formData.append('_comprobante', this.comprobante, this.comprobante.name);
     formData.append('_servicio', ""+this.idServicio);
+    this.loading = true;
     this.enviarFormulario(formData);
 
   }
 }
 
 enviarFormulario(formData){
-  this.turnosService.postFileInscripcion(formData).subscribe((data: ResponseTurnos) => {
+  this.api.postFileInscripcion(formData).subscribe((data: ResponseTurnos) => {
     if(data.code==200){
       let form = new FormData();
       alert(data.data);
       form.append('_username',this.inscripcion.username);
       form.append('_password',this.inscripcion.pass1);
-      this.turnosService.obtenerToken(form).subscribe((r : AuthResponse ) => {
+      this.auth.login(form);
+      /*this.api.obtenerToken(form).subscribe((r : AuthResponse ) => {
+        console.log(r);
         if(r.token){
           localStorage.setItem('token', r.token);
           this.router.navigate(['perfil']);
         }
-      })
+      })*/
     }else{
       alert(`Ha habido un error: ${data.data}`);
+      this.loading = false;
     }
   }, error => {
     alert('Ha habido un error, por favor revise su información e intentelo nuevamente.')
+    this.loading = false;
     console.log(error);
   });
 }

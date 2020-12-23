@@ -20,3 +20,11 @@ h5{
 .requisitos, .comprobante{
   font-size: 0.8rem;
 }
+.content{
+  box-sizing: border-box;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  text-align: center;
+  min-height: 400px;
+  vertical-align: middle;
+}

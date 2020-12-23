@@ -23,6 +23,7 @@ import { EscuelaComponent } from './escuela/escuela.component';
 import { SindicatoComponent } from './sindicato/sindicato.component';
 import { TokenInterceptor } from './services/token-interceptor.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,8 @@ import { TokenInterceptor } from './services/token-interceptor.service';
     LoginComponent,
     PerfilComponent,
     EscuelaComponent,
-    SindicatoComponent
+    SindicatoComponent,
+
   ],
   imports: [
     BrowserModule,
