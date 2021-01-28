@@ -11,6 +11,7 @@ import { SindicatoComponent } from './sindicato/sindicato.component';
 import { EscuelaComponent } from './escuela/escuela.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UserGuard } from './guards/user.guard';
+import { MatriculaComponent } from './matricula/matricula.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: '404', component: DisculpasComponent },
   {path: 'servicios', component: ProductosComponent },
   {path: 'inscripcion/:id', component: InscripcionComponent },
+  {path: 'matricula/:id', component: MatriculaComponent },
   {path: 'login', component: LoginComponent },
   {path: 'perfil', component: PerfilComponent, canActivate: [UserGuard]},
   {path: 'turnos/:id', component: TurneroComponent },

@@ -3,11 +3,11 @@
     <div >
       <h5 class="titulo" *ngIf="servicios.cursos.length > 0">Cursos</h5>
     </div>
-    <div class="row" *ngIf="servicios.cursos.length > 0">
+    <div class="row justify-content-center" *ngIf="servicios.cursos.length > 0">
 
       <div class="col-md-3" *ngFor="let s of servicios.cursos">
         <div class="card">
-          <img [src]="s.urlImagen" class="card-img-top" alt="...">
+          <img [src]="s.urlImagen" class="card-img-top" style="max-height: 180px;" alt="...">
           <div class="card-body">
             <h5 class="card-title">{{s.curso.nombre}}</h5>
             <p class="card-text">

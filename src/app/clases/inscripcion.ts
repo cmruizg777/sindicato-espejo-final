@@ -24,6 +24,7 @@ export class Inscripcion{
     'Su nombre de usuario no puede tener espacios',
     'Debe ingresar su nacionalidad',
   ]
+  id ;
   nombres: string = '';
   apellidos: string = '';
   username: string = '';

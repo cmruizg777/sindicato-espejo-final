@@ -1,12 +1,12 @@
 <div class="container">
     <ng-container *ngIf="!loading; else elseTemplate">
       <div class="centrado">
-        <h5  class="titulo">Formulario de Matrícula</h5>
+        <h5  class="titulo">Formulario de Inscripción</h5>
         <!--mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar-->
 
       </div>
-      <div class="row">
-        <div class="col-md-8">
+      <div class="row align-items-center">
+        <div class="col-md-9">
           <div class="form container">
             <div class="row">
               <!--div class="form-group col-md-6">
@@ -160,9 +160,11 @@
 
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
+
           <div class="row">
-            <div class="card w-100" >
+            <div class="card w-100 border border-success" >
+              <img [src]="curso.urlImagen" class="card-img-top" style="max-height: 180px;" alt="...">
               <div class="card-body">
                 <h5  class="titulo2">Requisitos</h5>
                   <ul class="requisitos">
@@ -175,11 +177,24 @@
                     <li>3 FOTOGRAFIÁS TAMAÑO CARNET</li>
                     <li>CARPETA COLGANTE COLOR AZUL</li-->
                   </ul>
+
+                  <div class="row">
+                    <div class="col"><b>Precio: </b></div>
+                    <div class="col"><h5>USD<b>{{curso.precio}}</b></h5></div>
+                  </div>
+                  <div class="row">
+                    <div class="d-flex justify-content-center">
+                      <div class="col">
+                        <input type="button" class="btn btn-lg btn-success" value="Enviar Solicitud" (click)="enviar()">
+                      </div>
+                    </div>
+                  </div>
               </div>
             </div>
 
           </div>
-          <div class="row">
+
+          <!--div class="row">
             <div class="row">
               <div class="card w-100" >
                 <div class="card-body">
@@ -187,7 +202,7 @@
                     <!--input type="radio" name="fpago" value="TB" [(ngModel)]="formaPago" (change)="setFPago()"> Transferencia Bancaria
                     <input type="radio" name="fpago" value="PP" [(ngModel)]="formaPago" (change)="setFPago()"> Paypal
                     <br><br>
-                    <!--ng-container *ngIf="formaPago=='TB'; else paypal"-->
+                    <!--ng-container *ngIf="formaPago=='TB'; else paypal">
                       <div class="">
                         <h5>Documentación:</h5>
                         <p>Deberá cargar de manera digital, el comprobante de depósito o transferencia a la cuenta del
@@ -196,17 +211,17 @@
                         </p>
                         <p></p>
                         <p><strong>VALOR ${{curso.precio}}</strong></p>
-                        <!--p><strong>Nota: Si usted es socio del sindicato, no necesita cargar el comprobante, simplemente llene su información de manera correcta.</strong></p-->
+                        <!--p><strong>Nota: Si usted es socio del sindicato, no necesita cargar el comprobante, simplemente llene su información de manera correcta.</strong></p>
                         <br>
                         <input name="Comprobante" class="form-control" (change)="handleFileInput($event.target.files)"
                       placeholder="sindicatoespejo@hotmail.com" type="file" accept=".zip,.rar" required="">
                       </div>
-                    <!--/ng-container-->
-                    <!--ng-template #paypal-->
+                    <!--/ng-container>
+                    <!--ng-template #paypal>
                     <!--div class="{{display2}}">
                       <div id="paypal-button-container"></div>
-                    </div-->
-                    <!--/ng-template-->
+                    </div>
+                    <!--/ng-template>
 
                   </div>
                   <div class="d-flex justify-content-center">
@@ -215,7 +230,7 @@
                 </div>
               </div>
           </div>
-        </div>
+        </div-->
       </div>
 
       </div>
