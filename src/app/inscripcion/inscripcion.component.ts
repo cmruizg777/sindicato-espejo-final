@@ -19,7 +19,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { NgbDateStructAdapter } from '@ng-bootstrap/ng-bootstrap/datepicker/adapters/ngb-date-adapter';
 import { AuthResponse } from '../clases/auth';
 import { AuthService } from '../services/auth.service';
-
+//import { provincias } from '../clases/provincias.js'
 //const moment = _rollupMoment || _moment;
 
 // See the Moment.js docs for the meaning of these formats:
@@ -48,6 +48,8 @@ export class InscripcionComponent implements OnInit {
   curso: any ;
   idServicio: Number;
   loading = true;
+  minDate;
+  maxDate;
   constructor(
     private validadorService: ValidadorService,
     private router: Router,
@@ -65,12 +67,15 @@ export class InscripcionComponent implements OnInit {
 
   ngOnInit(): void {
     this.idServicio = this.rutaActiva.snapshot.params.id;
+    this.minDate = { year: 1970, month: 1, day: 1 };
+    this.maxDate = {year:new Date().getFullYear() - 18, month: 1, day: 1}
+
     this.api.obtenerCurso(this.idServicio, 2).subscribe((resp: ResponseTurnos)=>{
       if(!resp.error){
         if(resp.data){
           this.curso = resp.data;
           this.loading = false;
-          /*this.inscripcion.apellidos = "BOLAÑOS RUIZ";
+          this.inscripcion.apellidos = "BOLAÑOS RUIZ";
           this.inscripcion.calle1 = "GNRL. ENRIQUEZ";
           this.inscripcion.calle2 = "ALEGRIA";
           this.inscripcion.cedula = "1003659966";
@@ -271,10 +276,10 @@ enviarFormulario(formData){
       alert('La forma de pago no se ha establecido!');
       return 19;
     }
-    if(!this.comprobante){
+    /*if(!this.comprobante){
       alert('Debe adjuntar la documentación y el pago requerido!');
       return 20;
-    }
+    }*/
 
     return 0;
   }

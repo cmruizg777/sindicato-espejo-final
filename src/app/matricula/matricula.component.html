@@ -1,1 +1,41 @@
-<p>matricula works!</p>
+<ng-container *ngIf="loaded; else elseTemplate">
+  <div class="container emp-profile p-3 border border-success rounded-lg">
+    <form method="post" >
+        <div class="row align-items-end">
+            <div class="col-md-8">
+                <div class="profile-head">
+                    <h5>
+                        Complete la información necesaria y enviela para culminar su proceso de matrícula.
+                    </h5>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                      <li class="nav-item">
+                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Info</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Mis Cursos</a>
+                      </li>
+                    </ul>
+                </div>
+            </div>
+            <!--div class="col-md-2">
+                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
+            </div-->
+        </div>
+    </form>
+  </div>
+</ng-container>
+<ng-template #elseTemplate>
+
+  <div class="container-loading">
+    <div class="row">
+
+  </div>
+    <div class="spinner-border text-success" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+
+    <h2 class="text-success">Cargando ...</h2>
+
+  </div>
+</ng-template>
+

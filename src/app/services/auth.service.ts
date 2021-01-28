@@ -27,7 +27,7 @@ export class AuthService {
         let d1 = new Date (), d2 = new Date ( d1 );
         d2.setMinutes ( d1.getMinutes() + 60 );
         localStorage.setItem('date',''+d2.toISOString());
-        this.getProfile();
+        //this.getProfile();
         this.state = true;
       }else{
         this.state = false;
@@ -77,9 +77,7 @@ export class AuthService {
     this.logged$.next(this.state);
   }
   logout(){
-    localStorage.removeItem('token');
-    localStorage.removeItem('date');
-    localStorage.removeItem('profile');
+    localStorage.clear();
     this.router.navigate(['']);
     this.state=false;
     this.profile$.next(false);

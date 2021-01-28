@@ -46,6 +46,7 @@ export class Inscripcion{
   tipoLicencia: string= '';
   disponibilidad: string= '';
 
+
   errorNombres(){
     alert(this.mensajes[0]);
   }

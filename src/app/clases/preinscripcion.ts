@@ -5,4 +5,5 @@ export interface Preinscripcion{
   estado: Number;
   fecha: string;
   productoServicio: ProductoServicio;
+  observaciones: string ;
 }

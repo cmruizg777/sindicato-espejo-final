@@ -1,7 +1,4 @@
 <div class="container">
-
-
-
     <ng-container *ngIf="!loading; else elseTemplate">
       <div class="centrado">
         <h5  class="titulo">Formulario de Matrícula</h5>
@@ -29,7 +26,7 @@
                 </div>
                 <div class="input-group">
                   <input class="form-control" placeholder="yyyy-mm-dd"
-                         name="dp" [(ngModel)]="fecha" ngbDatepicker #d="ngbDatepicker">
+                         name="dp" [(ngModel)]="fecha" [minDate]="minDate" [maxDate]="maxDate" [startDate]="maxDate" ngbDatepicker #d="ngbDatepicker">
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
                       <i class="fa fa-calendar"></i>

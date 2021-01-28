@@ -1,185 +1,212 @@
-<div class="container emp-profile">
-  <form method="post" *ngIf="usuario">
-      <div class="row align-items-end" *ngIf="usuario.username">
-          <div class="col-md-4">
-              <div class="profile-img">
-                  <img src="./../../assets/img/avatar.jpg" alt=""/>
-                  <div class="file btn btn-lg btn-primary">
-                      Cambiar Foto de Perfil
-                      <input type="file" name="file"/>
+<ng-container *ngIf="loaded; else elseTemplate">
+  <div class="container emp-profile p-3 border border-success rounded-lg">
+    <form method="post" *ngIf="usuario">
+        <div class="row align-items-end" *ngIf="usuario.username">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <img src="./../../assets/img/avatar.jpg" alt=""/>
+                    <div class="file btn btn-lg btn-primary">
+                        Cambiar Foto de Perfil
+                        <input type="file" name="file"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="profile-head">
+                    <h5>
+                        {{usuario.nombres}} {{usuario.apellidos}}
+                    </h5>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                      <li class="nav-item">
+                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Info</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Mis Cursos</a>
+                      </li>
+                    </ul>
+                </div>
+            </div>
+            <!--div class="col-md-2">
+                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
+            </div-->
+        </div>
+        <div class="row">
+            <!--div class="col-md-4">
+                <div class="profile-work">
+                    <p>WORK LINK</p>
+                    <a href="">Website Link</a><br/>
+                    <a href="">Bootsnipp Profile</a><br/>
+                    <a href="">Bootply Profile</a>
+                    <p>SKILLS</p>
+                    <a href="">Web Designer</a><br/>
+                    <a href="">Web Developer</a><br/>
+                    <a href="">WordPress</a><br/>
+                    <a href="">WooCommerce</a><br/>
+                    <a href="">PHP, .Net</a><br/>
+                </div>
+            </div-->
+            <div class="col-md-12">
+              <div class="tab-content profile-tab" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                  <div class="row">
+                      <div class="col-md-4">
+                          <label>Userame</label>
+                      </div>
+                      <div class="col-md-8">
+                          <p>{{usuario.username}}</p>
+                      </div>
                   </div>
-              </div>
-          </div>
-          <div class="col-md-8">
-              <div class="profile-head">
-                  <h5>
-                      {{usuario.nombres}} {{usuario.apellidos}}
-                  </h5>
-                  <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Info</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Mis Cursos</a>
-                    </li>
-                  </ul>
-              </div>
-          </div>
-          <!--div class="col-md-2">
-              <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
-          </div-->
-      </div>
-      <div class="row">
-          <!--div class="col-md-4">
-              <div class="profile-work">
-                  <p>WORK LINK</p>
-                  <a href="">Website Link</a><br/>
-                  <a href="">Bootsnipp Profile</a><br/>
-                  <a href="">Bootply Profile</a>
-                  <p>SKILLS</p>
-                  <a href="">Web Designer</a><br/>
-                  <a href="">Web Developer</a><br/>
-                  <a href="">WordPress</a><br/>
-                  <a href="">WooCommerce</a><br/>
-                  <a href="">PHP, .Net</a><br/>
-              </div>
-          </div-->
-          <div class="col-md-12">
-            <div class="tab-content profile-tab" id="myTabContent">
-              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <div class="row">
+                  <div class="row">
                     <div class="col-md-4">
-                        <label>Userame</label>
+                        <label>C.I. :</label>
                     </div>
                     <div class="col-md-8">
-                        <p>{{usuario.username}}</p>
+                        <p>{{usuario.cedula}}</p>
                     </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                      <label>C.I. :</label>
                   </div>
-                  <div class="col-md-8">
-                      <p>{{usuario.cedula}}</p>
+                  <div class="row">
+                      <div class="col-md-4">
+                          <label>Nombres</label>
+                      </div>
+                      <div class="col-md-8">
+                          <p>{{usuario.nombres}}</p>
+                      </div>
                   </div>
-                </div>
-                <div class="row">
+                  <div class="row">
                     <div class="col-md-4">
-                        <label>Nombres</label>
+                        <label>Apellidos</label>
                     </div>
                     <div class="col-md-8">
-                        <p>{{usuario.nombres}}</p>
+                        <p>{{usuario.apellidos}}</p>
                     </div>
                 </div>
-                <div class="row">
-                  <div class="col-md-4">
-                      <label>Apellidos</label>
+                  <div class="row">
+                      <div class="col-md-4">
+                          <label>Email</label>
+                      </div>
+                      <div class="col-md-8">
+                          <p>{{usuario.email}}</p>
+                      </div>
                   </div>
-                  <div class="col-md-8">
-                      <p>{{usuario.apellidos}}</p>
+                  <div class="row">
+                      <div class="col-md-4">
+                          <label>Teléfono:</label>
+                      </div>
+                      <div class="col-md-8">
+                          <p>{{usuario.telefono}}</p>
+                      </div>
                   </div>
-              </div>
-                <div class="row">
+                  <div class="row">
                     <div class="col-md-4">
-                        <label>Email</label>
+                        <label>Nacionalidad:</label>
                     </div>
                     <div class="col-md-8">
-                        <p>{{usuario.email}}</p>
+                        <p>{{usuario.nacionalidad}}</p>
                     </div>
-                </div>
-                <div class="row">
+                  </div>
+                  <div class="row">
                     <div class="col-md-4">
-                        <label>Teléfono:</label>
+                        <label>Fecha de nacimiento:</label>
                     </div>
                     <div class="col-md-8">
-                        <p>{{usuario.telefono}}</p>
+                        <p>{{usuario.fechaNac}}</p>
                     </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                      <label>Nacionalidad:</label>
                   </div>
-                  <div class="col-md-8">
-                      <p>{{usuario.nacionalidad}}</p>
+                  <div class="row">
+                    <div class="col-md-4">
+                        <label>Lugar de nacimiento:</label>
+                    </div>
+                    <div class="col-md-8">
+                        <p>{{usuario.lugarNac}}</p>
+                    </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                      <label>Fecha de nacimiento:</label>
+                  <div class="row">
+                    <div class="col-md-4">
+                        <label>Dirección:</label>
+                    </div>
+                    <div class="col-md-8">
+                        <p>{{usuario.direccion}}</p>
+                    </div>
                   </div>
-                  <div class="col-md-8">
-                      <p>{{usuario.fechaNac}}</p>
+                  <div class="row">
+                    <div class="col-md-4">
+                        <label>Calle 1:</label>
+                    </div>
+                    <div class="col-md-8">
+                        <p>{{usuario.calle}}</p>
+                    </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                      <label>Lugar de nacimiento:</label>
+                  <div class="row">
+                    <div class="col-md-4">
+                        <label>Calle 2:</label>
+                    </div>
+                    <div class="col-md-8">
+                        <p>{{usuario.calle2}}</p>
+                    </div>
                   </div>
-                  <div class="col-md-8">
-                      <p>{{usuario.lugarNac}}</p>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                      <label>Dirección:</label>
-                  </div>
-                  <div class="col-md-8">
-                      <p>{{usuario.direccion}}</p>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                      <label>Calle 1:</label>
-                  </div>
-                  <div class="col-md-8">
-                      <p>{{usuario.calle}}</p>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                      <label>Calle 2:</label>
-                  </div>
-                  <div class="col-md-8">
-                      <p>{{usuario.calle2}}</p>
+                  <div class="row">
+                    <div class="col-md-4">
+                        <label>Referencia:</label>
+                    </div>
+                    <div class="col-md-8">
+                        <p>{{usuario.referencia}}</p>
+                    </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-md-4">
-                      <label>Referencia:</label>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+                  <div class="row justify-content-start p-2">
+                    <div class="col-md-2">
+                      <label>Acción</label>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Nombre</label>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Estado</label>
+                    </div>
+                    <div class="col-md-4">
+                      <label>Observaciones</label>
+                    </div>
                   </div>
-                  <div class="col-md-8">
-                      <p>{{usuario.referencia}}</p>
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="row">
-                  <div class="col-md-6">
-                      <label>Nombre</label>
-                  </div>
-                  <div class="col-md-3">
-                      <label>Estado</label>
-                  </div>
-                  <div class="col-md-3">
-                    <label>Acción</label>
-                  </div>
-                </div>
-                <div class="row" *ngFor="let i of usuario.inscripciones">
-                  <div class="col-md-6">
-                      <p>{{i.productoServicio.curso.nombre}}</p>
-                  </div>
-                  <div class="col-md-3">
-                      <p *ngIf="i.estado == $any(0)" class="text-warning">Pendiente</p>
-                      <p *ngIf="i.estado == $any(1)" class="text-success">Aprobado</p>
-                      <p *ngIf="i.estado == $any(2)" class="text-danger">Rechazado</p>
-                  </div>
-                  <div class="col-md-3">
-                    <a href="">Editar</a>
+                  <div class="row p-2" *ngFor="let i of usuario.inscripciones">
+                    <div class="col-md-2">
+                      <a [routerLink]="['/matricula']" *ngIf="i.estado == $any(0)">
+                        Matricularme
+                      </a>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="text-dark">{{i.productoServicio.curso.nombre}}</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p *ngIf="i.estado == $any(0)" class="text-warning"><b>Pendiente</b></p>
+                        <p *ngIf="i.estado == $any(1)" class="text-success"><b>Aprobado</b></p>
+                        <p *ngIf="i.estado == $any(2)" class="text-danger"><b>Rechazado</b></p>
+                    </div>
+                    <div class="col-md-4">
+                      <p class="observaciones text-dark">
+                        {{i.observaciones}}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-      </div>
-  </form>
-</div>
+        </div>
+    </form>
+  </div>
+</ng-container>
+<ng-template #elseTemplate>
+
+  <div class="container-loading">
+    <div class="row">
+
+  </div>
+    <div class="spinner-border text-success" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+
+    <h2 class="text-success">Cargando ...</h2>
+
+  </div>
+</ng-template>

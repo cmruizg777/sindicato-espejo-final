@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./matricula.component.css']
 })
 export class MatriculaComponent implements OnInit {
-
+  loaded = false;
   constructor() { }
 
   ngOnInit(): void {
+    this.loaded = true;
   }
 
 }

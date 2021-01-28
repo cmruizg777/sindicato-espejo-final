@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Usuario } from '../clases/usuario';
 import { AuthService } from '../services/auth.service';
 
@@ -10,10 +11,29 @@ import { AuthService } from '../services/auth.service';
 })
 export class PerfilComponent implements OnInit {
   usuario:Usuario;
+  profile: Subscription;
+  loaded = false;
   constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.usuario = JSON.parse(localStorage.getItem('profile'));
+
+    if(this.auth.state){
+      this.profile = this.auth.userProfile().subscribe( resp => {
+        if(resp){
+          this.loaded = true;
+          this.usuario = JSON.parse(localStorage.getItem('profile'));
+        }else{
+          this.auth.logout();
+        }
+      })
+      this.auth.getProfile();
+    }
+
+  }
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.profile.unsubscribe();
   }
 
 }

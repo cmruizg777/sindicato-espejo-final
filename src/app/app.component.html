@@ -31,11 +31,11 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse navbarNavDropdown" >
-              <ul class="navbar-nav justify-content-end">
+              <!--ul class="navbar-nav justify-content-end">
                 <li class="nav-item">
                   <a class="nav-link" [routerLink]="'/'">INICIO</a>
                 </li>
-              </ul>
+              </ul-->
             </div>
         </nav>
         <nav class="navbar navbar-expand-lg navbar-light navigation">
@@ -43,6 +43,9 @@
                 <ul class="navbar-nav justify-content-end" >
                     <li class="nav-item">
                         <a class="nav-link">Bienvenido {{usuario.username}}</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link"[routerLink]="'/perfil'">MI PERFIL</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"(click)="logout()">
@@ -149,7 +152,12 @@
             <div class="collapse navbar-collapse navbarNavDropdown" >
                 <ul class="navbar-nav justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link"[routerLink]="'/servicios'">Oferta Académica</a>
+                      <a class="nav-link" href="https://sindicatoespejo-my.sharepoint.com/:f:/g/personal/admin_sindicatoespejo_onmicrosoft_com/Eh1PD7Ac7NRMineOU4MvCQoBaFq5Lbr-6btBl10AVEzvpA?e=jRgmUO">
+                        REPOSITORIO ANT
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"[routerLink]="'/servicios'">OFERTA ACADÉMICA</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"[routerLink]="'/login'">
