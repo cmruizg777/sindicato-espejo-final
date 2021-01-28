@@ -23,9 +23,11 @@ export class PerfilComponent implements OnInit {
           this.loaded = true;
           this.usuario = JSON.parse(localStorage.getItem('profile'));
         }else{
+          this.profile.unsubscribe();
           this.auth.logout();
         }
       })
+
       this.auth.getProfile();
     }
 

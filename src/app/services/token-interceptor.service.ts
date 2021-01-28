@@ -12,7 +12,8 @@ export class TokenInterceptor implements HttpInterceptor  {
         let jwt = localStorage.getItem('token');
 
         if (jwt) {
-          //console.log(jwt)
+
+            //request.headers.append('Authorization',`Bearer ${jwt}`);
             request = request.clone({
                 setHeaders: {
                     Authorization: `Bearer ${jwt}`
@@ -20,6 +21,7 @@ export class TokenInterceptor implements HttpInterceptor  {
             });
 
         }
+        //console.log(request.headers)
         return next.handle(request);
     }
 }

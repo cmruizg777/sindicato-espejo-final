@@ -154,7 +154,7 @@ enviar(){
     formData.append('_telefono',this.inscripcion.telefono);
     formData.append('_username',this.inscripcion.username);
     formData.append('_fpago',this.formaPago);
-    formData.append('_comprobante', this.comprobante, this.comprobante.name);
+    //formData.append('_comprobante', this.comprobante, this.comprobante.name);
     formData.append('_servicio', ""+this.idServicio);
     this.loading = true;
     this.enviarFormulario(formData);

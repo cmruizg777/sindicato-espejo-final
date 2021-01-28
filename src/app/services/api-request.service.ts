@@ -64,13 +64,13 @@ export class ApiRequestService {
     return this.http.get(url);
   }
   obtenerToken(formData){
-    //const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/user/login_check`;
-    const url = `http://localhost:8000/api/user/login_check`;
+    const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/user/login_check`;
+    //const url = `http://localhost:8000/api/user/login_check`;
     return this.http.post(url,formData);
   }
   obtenerPerfil(){
-    //const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/user/profile`;
-    const url = `http://localhost:8000/api/user/profile`;
+    const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/user/profile`;
+    //const url = `http://localhost:8000/api/user/profile`;
     return this.http.get<Usuario>(url);
   }
   obtenerInscripcion(id){

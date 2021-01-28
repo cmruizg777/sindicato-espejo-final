@@ -42,6 +42,7 @@ export class AuthService {
   }
   getProfile(){
     this.api.obtenerPerfil().subscribe( user => {
+      console.log('info', user)
       if(user.username){
         localStorage.setItem('profile', JSON.stringify(user));
         this.profile$.next(true);
