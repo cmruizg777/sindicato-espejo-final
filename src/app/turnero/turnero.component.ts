@@ -5,6 +5,8 @@ import { ApiRequestService } from '../services/api-request.service';
 import { ValidadorService } from '../services/validador.service';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import { Inscripcion } from '../clases/inscripcion';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-turnero',
@@ -14,6 +16,7 @@ import { Inscripcion } from '../clases/inscripcion';
 export class TurneroComponent implements OnInit {
 
   fecha: NgbDateStruct;
+  fechaT: NgbDateStruct;
 
   private nativeElement : Node;
 
@@ -29,13 +32,24 @@ export class TurneroComponent implements OnInit {
   idServicio: Number;
   horarios : any[];
   horario: any;
+  loading = false;
   constructor(
     private validadorService: ValidadorService,
     private api: ApiRequestService,
     private router: Router,
-    private rutaActiva: ActivatedRoute
+    private rutaActiva: ActivatedRoute,
+    private auth: AuthService
   ) { }
+  subs : Subscription;
   ngOnInit(): void {
+
+    this.subs = this.auth.userStatus().subscribe( status => {
+      if(status){
+        this.loading = false;
+        this.router.navigate(['/perfil'])
+      }
+    })
+
     this.inscripcion = new Inscripcion();
     this.inscripcion.apellidos = "BOLAÑOS RUIZ";
     this.inscripcion.calle1 = "GNRL. ENRIQUEZ";
@@ -51,7 +65,11 @@ export class TurneroComponent implements OnInit {
       month: 9,
       year: 1990
     };
-
+    this.fechaT = {
+      day: (new Date()).getDate(),
+      month: 1,
+      year: 2021
+    }
     this.inscripcion.fechaNaciemiento = "1990-09-17";
 
     this.inscripcion.instruccion = "B";
@@ -149,6 +167,7 @@ export class TurneroComponent implements OnInit {
       formData.append('_direccion',this.inscripcion.direccion);
       formData.append('_estado',this.inscripcion.estado_civil);
       formData.append('_fecha',this.inscripcion.fechaNaciemiento);
+      formData.append('_fechaT',this.fechaT.year+'-'+this.fechaT.month+'-'+this.fechaT.day);
       formData.append('_instruccion',this.inscripcion.instruccion);
       formData.append('_lugarN',this.inscripcion.lugarNaciemiento);
       formData.append('_nacionalidad',this.inscripcion.nacionalidad);
@@ -159,7 +178,7 @@ export class TurneroComponent implements OnInit {
       formData.append('_username',this.inscripcion.username);
 
       formData.append('_fpago',this.formaPago);
-      formData.append('_comprobante', this.comprobante, this.comprobante.name);
+      //formData.append('_comprobante', this.comprobante, this.comprobante.name);
       formData.append('_servicio', ""+this.idServicio);
       this.enviarFormulario(formData);
     }
@@ -169,7 +188,11 @@ export class TurneroComponent implements OnInit {
     this.api.postFile(formData).subscribe((data: ResponseTurnos) => {
       if(data.code==200){
         alert('Su turno se ha almacenado correctamente, por favor espere el mensaje de confirmación en su correo.');
-        this.router.navigate(['inicio']);
+        localStorage.clear();
+        let form = new FormData();
+        form.append('_username',this.inscripcion.username);
+        form.append('_password',this.inscripcion.pass1);
+        this.auth.login(form);
 
       }else{
         alert(`Ha habido un error: ${data.data}`);
@@ -268,12 +291,16 @@ export class TurneroComponent implements OnInit {
       alert('La forma de pago no se ha establecido!');
       return 19;
     }
-    if(!this.comprobante){
+    /*if(!this.comprobante){
       alert('Debe adjuntar la documentación y el pago requerido!');
       return 20;
-    }
+    }*/
 
     return 0;
   }
-
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.subs.unsubscribe();
+  }
 }

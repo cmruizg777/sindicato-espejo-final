@@ -39,8 +39,8 @@ export class ApiRequestService {
     return this.http.get(url);
   }
   postFile(formData) {
-    const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/info/solicitud`;
-    //const url = `http://localhost:8000/api/info/solicitud`;
+    //const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/v1/servicio/solicitud`;
+    const url = `http://localhost:8000/api/v1/servicio/inscripcion`;
     return this.http.post(url, formData);
   }
   postFileInscripcion(formData) {

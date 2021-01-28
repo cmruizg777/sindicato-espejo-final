@@ -19,6 +19,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { NgbDateStructAdapter } from '@ng-bootstrap/ng-bootstrap/datepicker/adapters/ngb-date-adapter';
 import { AuthResponse } from '../clases/auth';
 import { AuthService } from '../services/auth.service';
+import { Subscription } from 'rxjs';
 //import { provincias } from '../clases/provincias.js'
 //const moment = _rollupMoment || _moment;
 
@@ -64,8 +65,16 @@ export class InscripcionComponent implements OnInit {
 
       this.start = new Date();
     }
-
+    subs : Subscription;
   ngOnInit(): void {
+
+    this.subs = this.auth.userStatus().subscribe( status => {
+      if(status){
+        this.loading = false;
+        this.router.navigate(['/perfil'])
+      }
+    })
+
     this.idServicio = this.rutaActiva.snapshot.params.id;
     this.minDate = { year: 1970, month: 1, day: 1 };
     this.maxDate = {year:new Date().getFullYear() - 18, month: 1, day: 1}
@@ -169,6 +178,7 @@ enviarFormulario(formData){
       alert(data.data);
       form.append('_username',this.inscripcion.username);
       form.append('_password',this.inscripcion.pass1);
+      localStorage.clear();
       this.auth.login(form);
       /*this.api.obtenerToken(form).subscribe((r : AuthResponse ) => {
         console.log(r);
@@ -284,5 +294,9 @@ enviarFormulario(formData){
     return 0;
   }
 
-
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.subs.unsubscribe();
+  }
 }

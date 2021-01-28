@@ -28,12 +28,14 @@ export class AuthService {
         d2.setMinutes ( d1.getMinutes() + 60 );
         localStorage.setItem('date',''+d2.toISOString());
         //this.getProfile();
+        this.logged$.next(true);
         this.state = true;
       }else{
+        this.logged$.next(false);
         this.state = false;
         alert(r.message);
       }
-      this.logged$.next(this.state);
+
   }, error => {
     alert('Ah ocurrido un error, intentelo nuevamente');
     this.logged$.next(this.state);

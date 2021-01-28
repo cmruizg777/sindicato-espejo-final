@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.subs = this.auth.userStatus().subscribe( status => {
       if(status){
+        this.loading = false;
         this.router.navigate(['/perfil'])
       }
     })
@@ -33,12 +34,12 @@ export class LoginComponent implements OnInit {
   login(){
 
     if(this.username && this.password){
+      localStorage.clear();
       let form = new FormData();
       form.append('_username',this.username);
       form.append('_password',this.password);
       this.loading = true;
       this.auth.login(form);
-
     }
 
   }
