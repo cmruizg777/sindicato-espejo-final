@@ -168,9 +168,9 @@
               </div>
               <div class="input-group">
                 <input class="form-control" placeholder="yyyy-mm-dd"
-                       name="dp" [(ngModel)]="fechaT" ngbDatepicker #d="ngbDatepicker">
+                       name="dp" [(ngModel)]="fechaT" [minDate]="fechaT" ngbDatepicker #dT="ngbDatepicker">
                 <div class="input-group-append">
-                  <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                  <button class="btn btn-outline-secondary calendar" (change)="turnosInfo()" (click)="dT.toggle()" type="button">
                     <i class="fa fa-calendar"></i>
                   </button>
                 </div>

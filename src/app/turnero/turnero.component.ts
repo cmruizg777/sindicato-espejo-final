@@ -32,7 +32,7 @@ export class TurneroComponent implements OnInit {
   idServicio: Number;
   horarios : any[];
   horario: any;
-  loading = false;
+  loading = true;
   constructor(
     private validadorService: ValidadorService,
     private api: ApiRequestService,
@@ -67,8 +67,8 @@ export class TurneroComponent implements OnInit {
     };
     this.fechaT = {
       day: (new Date()).getDate(),
-      month: 1,
-      year: 2021
+      month: (new Date()).getMonth() + 1,
+      year: (new Date()).getFullYear()
     }
     this.inscripcion.fechaNaciemiento = "1990-09-17";
 
@@ -91,16 +91,20 @@ export class TurneroComponent implements OnInit {
     const obs  =this.api.obtenerFecha().subscribe( (resp : ResponseTurnos) => {
       if(!resp.error){
           const aux = resp.data.split('-');
-          this.fecha = { year: Number(aux[0]), month: Number(aux[1]) , day: Number(aux[2])};
+          this.fechaReference = new Date(resp.data);
+          this.fecha  = { year: Number(aux[0]), month: Number(aux[1]) , day: Number(aux[2])};
+          this.fechaT = { year: Number(aux[0]), month: Number(aux[1]) , day: Number(aux[2])};
+          this.api.obtenerTurnosInfo(resp.data).subscribe((response: ResponseTurnos)=>{
+            console.log(response)
+            if(!response.error){
+              if(response.code == 200){
+                this.horarios = response.data;
+              }
+            }
+          });
+      }else{
+        alert('El servidor no ha respondido, intentelo más tarde')
       }
-      this.api.obtenerTurnosInfo(resp.data).subscribe((response: ResponseTurnos)=>{
-        console.log(response)
-        if(!response.error){
-          if(response.code == 200){
-            this.horarios = response.data;
-          }
-        }
-      });
     });
     this.idServicio = this.rutaActiva.snapshot.params.id;
     this.api.obtenerCurso(this.idServicio, 1).subscribe((resp: ResponseTurnos)=>{
@@ -109,8 +113,11 @@ export class TurneroComponent implements OnInit {
         if(resp.data){
           this.examen = resp.data;
         }
+      }else{
+        alert('Ha habido un error, por favor intentelo nuevamente, más tarde.')
       }
-  })
+      this.loading = false;
+    })
 
   }
   transformarFecha(fechaAux: Date){
@@ -134,25 +141,18 @@ export class TurneroComponent implements OnInit {
     }
   }
   turnosInfo(){
-    /*const f1 = new Date(this.fecha.format());
-      const f2 = new Date(this.fechaReference);
-      if(f1 < f2){
-        this.fecha = new Date(this.fechaReference);
-        alert('Fecha no válida');
-        console.log('no valida');
-      }else{
-        console.log('valida');
-        this.api.obtenerTurnosInfo(this.fecha.format()).subscribe((response: ResponseTurnos)=>{
-          console.log(response);
-          if(!response.error){
-            if(response.code == 200){
-              this.horarios = response.data;
-            }
-          }else{
-            alert('No se ha podido obtener respuestas del servidor, inténtelo más tarde.')
+    const strFecha = this.fechaT.year+'-'+this.fechaT.month+'-'+this.fechaT.day;
+    const fr = new Date(strFecha);
+    if(fr>=this.fechaReference){
+      this.api.obtenerTurnosInfo(strFecha).subscribe((response: ResponseTurnos)=>{
+        console.log(response)
+        if(!response.error){
+          if(response.code == 200){
+            this.horarios = response.data;
           }
-        });
-      }*/
+        }
+      });
+    }
   }
 
   enviar(){
@@ -168,6 +168,7 @@ export class TurneroComponent implements OnInit {
       formData.append('_estado',this.inscripcion.estado_civil);
       formData.append('_fecha',this.inscripcion.fechaNaciemiento);
       formData.append('_fechaT',this.fechaT.year+'-'+this.fechaT.month+'-'+this.fechaT.day);
+      formData.append('_horario',this.horario);
       formData.append('_instruccion',this.inscripcion.instruccion);
       formData.append('_lugarN',this.inscripcion.lugarNaciemiento);
       formData.append('_nacionalidad',this.inscripcion.nacionalidad);
@@ -176,10 +177,10 @@ export class TurneroComponent implements OnInit {
       formData.append('_referencia',this.inscripcion.referencia);
       formData.append('_telefono',this.inscripcion.telefono);
       formData.append('_username',this.inscripcion.username);
-
       formData.append('_fpago',this.formaPago);
       //formData.append('_comprobante', this.comprobante, this.comprobante.name);
       formData.append('_servicio', ""+this.idServicio);
+      this.loading = true;
       this.enviarFormulario(formData);
     }
   }
@@ -197,9 +198,11 @@ export class TurneroComponent implements OnInit {
       }else{
         alert(`Ha habido un error: ${data.data}`);
       }
+      this.loading = false;
     }, error => {
       alert('Ha habido un error, por favor revise su información e intentelo nuevamente.')
       console.log(error);
+      this.loading = false;
     });
   }
 
@@ -290,6 +293,14 @@ export class TurneroComponent implements OnInit {
     if(this.formaPago.trim() === ''){
       alert('La forma de pago no se ha establecido!');
       return 19;
+    }
+    if(!this.fechaT){
+      alert('Debe elegir una fecha para el turno!');
+      return 20;
+    }
+    if(!this.horario){
+      alert('Debe elegir un horario para el Turno!');
+      return 21;
     }
     /*if(!this.comprobante){
       alert('Debe adjuntar la documentación y el pago requerido!');

@@ -5,4 +5,5 @@ export interface ProductoServicio{
   curso: Curso;
   examen: Examen;
   costo: Number;
+  tipo: Number;
 }

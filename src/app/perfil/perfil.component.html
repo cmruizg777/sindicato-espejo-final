@@ -5,10 +5,12 @@
             <div class="col-md-4">
                 <div class="profile-img">
                     <img src="./../../assets/img/avatar.jpg" alt=""/>
-                    <div class="file btn btn-lg btn-primary">
-                        Cambiar Foto de Perfil
-                        <input type="file" name="file"/>
-                    </div>
+                </div>
+                <div class="profile-img">
+                  <div class="file btn btn-lg btn-primary">
+                    Cambiar Foto de Perfil
+                    <input type="file" name="file"/>
+                  </div>
                 </div>
             </div>
             <div class="col-md-8">
@@ -175,9 +177,18 @@
                         Matricularme
                       </a>
                     </div>
-                    <div class="col-md-4">
-                        <p class="text-dark">{{i.productoServicio.curso.nombre}}</p>
-                    </div>
+                    <ng-container *ngIf="i.productoServicio.tipo == $any(2); else elseTemplate">
+                      <div class="col-md-4">
+                          <p class="text-dark">{{i.productoServicio.curso.nombre}}</p>
+                      </div>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                      <div class="col-md-4">
+                          <p class="text-dark">{{i.productoServicio.examen.nombre}}</p>
+                      </div>
+                    </ng-template>
+
+
                     <div class="col-md-2">
                         <p *ngIf="i.estado == $any(0)" class="text-warning"><b>Pendiente</b></p>
                         <p *ngIf="i.estado == $any(1)" class="text-success"><b>Aprobado</b></p>
@@ -206,7 +217,7 @@
       <span class="sr-only">Loading...</span>
     </div>
 
-    <h2 class="text-success">Cargando ...</h2>
+    <h2 class="text-success">Cargando su perfil...</h2>
 
   </div>
 </ng-template>
