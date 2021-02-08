@@ -3,7 +3,11 @@ div.header{
   box-sizing: border-box;
   width: 100%;
   font-family: 'Myriad';
+  position: fixed;
+  top: 0;
+  z-index: 2000;
 }
+
 div.header div.row{
   background-color: #fff;
   /*height: 43px;
@@ -112,6 +116,11 @@ a.nav-link:hover{
   color: #5CB85C !important;
 }
 
+@media only screen and (max-width: 992px) {
+  div.contenedor{
+    margin-top: 68px;
+  }
+}
 @media only screen and (max-width: 800px) {
   div.logo{
     width: 15vw;
