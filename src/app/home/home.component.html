@@ -8,25 +8,11 @@
       <div class="carousel-inner">
         <div class="carousel-item active">
           <img class="img-slide" src="../../assets/img/1-foto-background.jpg" class="d-block w-100" alt="">
-          <div class="carousel-caption d-none d-md-block">
+          <div class="carousel-caption">
             <h5>BIENVENIDOS</h5>
             <p>SINDICATO DE CHOFERES PROFESIONALES DEL CANTÓN ESPEJO</p>
           </div>
         </div>
-        <!--div class="carousel-item">
-          <img src="..." class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Second slide label</h5>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="..." class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Third slide label</h5>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-          </div>
-        </div-->
       </div>
       <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -37,7 +23,7 @@
         <span class="sr-only">Next</span>
       </a>
   </div>
-  <div class="ofertas">
+  <!--div class="ofertas">
       <div class="oferta-img">
           <img src="../../assets/img/4-pestaña-examenes.jpg" alt="">
       </div>
@@ -50,14 +36,60 @@
       <div class="oferta-img">
           <img src="../../assets/img/6-pestaña-licencia-d.jpg" alt="">
       </div>
+  </div-->
+</div>
+<div class="container-fluid">
+  <h1 class="titulo text-success">OFERTA ACADÉMICA</h1>
+  <div class="row justify-content-center ofertas m-3">
+    <div class="col-md-3 col-6 oferta-img mt-3">
+      <a [routerLink]="'/servicios'">
+        <img src="../../assets/img/4-pestaña-examenes.jpg" alt="">
+      </a>
+    </div>
+    <div class="col-md-3 col-6 oferta-img mt-3">
+      <a [routerLink]="'/servicios'">
+        <img src="../../assets/img/5-pestaña-licencia-b.jpg" alt="">
+      </a>
+    </div>
+    <div class="col-md-3 col-6 oferta-img mt-3">
+      <a [routerLink]="'/servicios'">
+        <img src="../../assets/img/6-pestaña-licencia-c.jpg" alt="">
+      </a>
+    </div>
+    <div class="col-md-3 col-6 oferta-img mt-3">
+      <a [routerLink]="'/servicios'">
+        <img src="../../assets/img/6-pestaña-licencia-d.jpg" alt="">
+      </a>
+    </div>
   </div>
 </div>
-
 <div class="servicios">
   <h5 class="titulo">
       SERVICIOS INSTITUCIONALES
   </h5>
-  <div class="servicios-items">
+  <div class="row">
+    <div class="col-6 col-sm-3 servicio-img mt-3">
+      <a href="https://sindicatoespejo.com/eva" target="_blank">
+        <img src="../../assets/img/2-pestaña-plataforma-virtual.jpg" alt="">
+      </a>
+    </div>
+    <div class="col-6 col-sm-3 servicio-img mt-3">
+      <a href="https://grupoprosoft.net" target="_blank">
+        <img src="../../assets/img/3-pestaña-acasoft.jpg" alt="">
+      </a>
+    </div>
+    <div class="col-6 col-sm-3 servicio-img mt-3">
+      <a [routerLink]="'/servicios'">
+        <img src="../../assets/img/4-pestaña-oferta-académica.jpg" alt="">
+      </a>
+    </div>
+    <div class="col-6 col-sm-3 servicio-img mt-3">
+      <a href="https://grupoprosoft.net/acasoftWeb/web/" target="_blank">
+        <img src="../../assets/img/5-pestaña-academía.jpg" alt="">
+      </a>
+    </div>
+  </div>
+  <!--div class="servicios-items">
       <div class="servicio-img">
           <img src="../../assets/img/2-pestaña-plataforma-virtual.jpg" alt="">
       </div>
@@ -70,185 +102,230 @@
       <div class="servicio-img">
           <img src="../../assets/img/5-pestaña-academía.jpg" alt="">
       </div>
-  </div>
+  </div-->
 </div>
+
 <div class="noticias">
   <h5 class="titulo">
-      NOTICIAS
+      NOTICIAS <i class="fa "></i>
   </h5>
-  <div class="items">
-      <div class="noticia">
-          <div class="col-md-3">
-              <div class="card">
-                  <img src="../../assets/img/1-background.jpg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                  </div>
-                </div>
-          </div>
-      </div>
-      <div class="noticia">
-          <div class="col-md-3">
 
-          </div>
-      </div>
-      <div class="noticia">
-          <div class="col-md-3">
-
-          </div>
-      </div>
-      <div class="noticia">
-          <div class="col-md-3">
-
-          </div>
+  <div class="row mt-3 justify-content-center" >
+      <div class="col-6 col-md-3 col-lg-2 mt-3" *ngFor="let noticia of noticias | async">
+          <div class="card w-100 border border-success">
+              <img [src]="noticia.url_image" class="noticia-img" alt="...">
+              <div class="card-body">
+                <small class="form-text text-muted">{{noticia.date | date:'dd/MM/yyyy'}}</small>
+                <p class="card-text">{{noticia.text}}</p>
+                <a [href]="noticia.url" class="btn btn-primary">Ver publicación</a>
+              </div>
+            </div>
       </div>
   </div>
-</div>
-<div class="divisor">
 
 </div>
+<div class="divisor">
+</div>
+
 <div class="formamos">
   <div class="items">
-      <div class="col-md-3">
+      <div class="col-md-3 col-sm-4">
           <div class="card border-0">
               <img src="../../assets/img/1-pestaña-auto.png" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <h5 class="card-title text-success">Vehículos Modernos</h5>
+                <p class="card-text">
+                  El Sindicato cuenta con varias unidades diferentes para cada tipo de Licencia.
+                </p>
+                <!--a href="#" class="btn btn-primary">Go somewhere</a-->
               </div>
             </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 col-sm-4">
           <div class="card border-0">
               <img src="../../assets/img/2-pestaña-auto.png" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <h5 class="card-title text-success">Instructores con Experiencia</h5>
+                <p class="card-text">
+                  Contamos con los mejores instructores del área de conducción dispuestos a transmitir sus conocimientos.
+                </p>
+                <!--a href="#" class="btn btn-primary">Go somewhere</a-->
               </div>
             </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 col-sm-4">
           <div class="card border-0">
               <img src="../../assets/img/3-pestaña-auto.png" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <h5 class="card-title text-success">Lecciones Prácticas</h5>
+                <p class="card-text">
+                  Al culminar cada uno de los módulos será capaz de demostrar su aprendizaje en la práctica.
+                </p>
+                <!--a href="#" class="btn btn-primary">Go somewhere</a-->
               </div>
             </div>
       </div>
   </div>
 </div>
+
 <div class="infraestructura">
-
-  <div class="contenido">
-      <div class="titulo1">
-          <span class="">INFRAESTRUCTURA</span>
-      </div>
-      <div class="titulo2">
-          <span class="">PROPIA</span>
-      </div><div class="texto">
-          <p>
+  <h1 class="titulo text-success">
+    INFRAESTRUCTURA PROPIA
+  </h1>
+  <div class="contenido mt-3">
+    <img src="../../assets/img/1-infraestructura.jpg" alt="">
+    <div class="texto">
+      <table style="max-height: 100%; height: 100%; display: block; overflow-y: hidden;">
+        <tbody style="max-height: 100%; height: 100%; display: block; overflow-y: hidden;">
+          <tr style="height: 100%; display: inline-table;">
+            <td class="align-middle" >
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus doloremque, corporis error iusto eum omnis repellendus eius perspiciatis blanditiis officiis? Velit iure beatae magni nesciunt officia aut, quaerat repellat repellendus.
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus doloremque, corporis error iusto eum omnis repellendus eius perspiciatis blanditiis officiis? Velit iure beatae magni nesciunt officia aut, quaerat repellat repellendus.
-          </p>
-      </div>
-
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
+
 <div class="totales">
   <img src="../../assets/img/1-total.jpg" class="w-100">
+  <!--div class="row">
+    <div class="col">
+      <h1>
+        <i class="fa fa-car"></i>
+      </h1>
+    </div>
+    <div class="col">
+      <h1>
+        <i class="fa fa-user-graduate"></i>
+      </h1>
+    </div>
+    <div class="col"></div>
+    <div class="col"></div>
+  </div-->
 </div>
-<div class="row ant">
-  <div class="ant-img">
-      <img src="../../assets/img/agente.jpeg" class="img-fluid" alt="Responsive image">
-  </div>
-  <div class="ant-iframe">
-      <div class="ant-logo">
-          <img src="../../assets/img/ant-logo.png"  alt="">
+<div class="ant">
+  <h1 class="titulo text-success">
+    CONSULTA DE CITACIONES ANT
+  </h1>
+  <div class="row justify-content-center">
+    <div class="col-md-6 ant-img p-0 mt-3 d-none d-md-block">
+      <img src="../../assets/img/agente.jpeg" class="" >
+    </div>
+    <div class="col-12 col-md-6 ant-logo p-0 mt-3 align-self-center">
+      <img src="../../assets/img/ant-logo.png"  alt="">
+      <div class="form mt-3">
+        <div class="form-group row justify-content-center">
+          <h5  for="CI" class="col-3 col-sm-2 col-md-2 col-form-label text-success">CÉDULA:</h5>
+          <div class="col-9 col-sm-8 col-md-6">
+            <input type="text" [(ngModel)]="cedula" class="form-control" #CI>
+          </div>
+        </div>
+        <div class="form-grou row justify-content-center">
+          <div class="col-3 col-sm-2"></div>
+          <div class="col-9 col-sm-8 col-md-6">
+            <a href="https://sistematransito.ant.gob.ec:5038/PortalWEB/paginas/clientes/clp_grid_citaciones.jsp?ps_tipo_identificacion=CED&ps_identificacion={{cedula}}"
+            class="btn btn-warning btn-block text-white" target="_blank">
+              <i class="fa fa-search"></i>&emsp;
+              <h5 class="d-inline">Consultar</h5>
+            </a>
+          </div>
+        </div>
       </div>
-      <div class="iframe-container">
-          <iframe src="https://sistematransito.ant.gob.ec:5038/PortalWEB/paginas/clientes/clp_criterio_consulta.jsp" ></iframe>
-      </div>
+    </div>
   </div>
 </div>
-<div class="redes">
+
+
+<div class="redes bg-success mt-3">
   <div class="emojis">
-      <img src="../../assets/img/3-emojis-redes-sociales.png" alt="">
+    <img src="../../assets/img/3-emojis-redes-sociales.png" alt="">
   </div>
-  <div class="celular">
-      <img src="../../assets/img/2-celular.png" alt="">
-  </div>
-  <div class="contenido">
+  <div class="row">
+    <div class="col-6 align-self-center">
       <div class="texto1">
-          <span>Siguendos en</span>
+        <h1>
+          Siguenos en
+        </h1>
       </div>
       <div class="texto2">
-          <span>REDES SOCIALES</span>
+        <h1>
+          REDES SOCIALES
+        </h1>
       </div>
+    </div>
+    <div class="col-6">
+      <div class="celular">
+        <img src="../../assets/img/2-celular.png" alt="">
+      </div>
+    </div>
   </div>
 </div>
+
+
 <div class="ubicanos">
-  <div class="titulo">
-      <img src="../../assets/img/3-texto-ubicacion.png" alt="">
-  </div>
+  <h1 class="titulo text-success m-3">
+      UBICANOS FÁCILMENTE
+      <i class="fa fa-map-marker"></i>
+  </h1>
   <div class="mapa">
       <img src="../../assets/img/ubicacion-mapa.png" alt="">
   </div>
 </div>
+
+
 <div class="news">
-  <div class="news-img">
+  <div class="row">
+    <div class="col-sm-6 col-12 p-0 news-img">
       <img src="../../assets/img/1-news-background.jpg" alt="">
-  </div>
-  <div class="news-form">
-      <div class="news-logo">
-          <img src="../../assets/img/3newsletter.png" alt="">
-      </div>
-      <div class="mensaje">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam veritatis tempora non distinctio, vero corrupti magnam dolorem quo recusandae corporis natus sunt necessitatibus ut eius tempore, placeat obcaecati! Eveniet, quibusdam.</p>
+    </div>
+    <div class="col-sm-6 col-12 p-0 news-form">
+      <img src="../../assets/img/3newsletter.png" alt="">
+      <div class="mensaje p-3 mt-3">
+        <p>¿ Deseas recibir emails con nuestras últimas noticias ? Suscríbete dejándonos tu email.</p>
       </div>
       <div class="form">
-          <input type="text" class="news-input">
-          <button type="button" class="news-button">SUSCRIBETE</button>
+        <input type="email" class="news-input" [(ngModel)]="email">
+        <button type="button" (click)="validarEmail()" class="news-button">SUSCRIBIRME</button>
       </div>
+    </div>
   </div>
 </div>
+
 <div class="enlaces-corporativos">
   <div class="titulo">
       <img src="../../assets/img/3-texto-enlaces.png" alt="">
   </div>
-  <div class="enlaces">
-      <div class="enlace">
-          <a href="">
+  <div class="row enlaces">
+      <div class="col-4 col-sm-3 col-md-2 enlace">
+          <a href="https://ant.gob.ec/">
               <img src="../../assets/img/5-ant.png" alt="">
           </a>
       </div>
-      <div class="enlace">
-          <a href="">
+      <div class="col-4 col-sm-3 col-md-2 enlace">
+          <a href="https://www.obraspublicas.gob.ec/">
               <img src="../../assets/img/6-min-transporte.png" alt="">
           </a>
       </div>
-      <div class="enlace">
-          <a href="">
+      <div class="col-4 col-sm-3 col-md-2 enlace">
+          <a href="https://carchi.gob.ec/2016f/">
               <img src="../../assets/img/7-pref.-carchi.png" alt="">
           </a>
       </div>
-      <div class="enlace">
-          <a href="">
+      <div class="col-4 col-sm-3 col-md-2 enlace">
+          <a href="https://www.policia.gob.ec/">
               <img src="../../assets/img/8-policia.png" alt="">
           </a>
       </div>
-      <div class="enlace">
-          <a href="">
+      <div class="col-4 col-sm-3 col-md-2 enlace">
+          <a href="http://www.cruzroja.org.ec/">
               <img src="../../assets/img/9-cruz-rojoa.png" alt="">
           </a>
       </div>
-      <div class="enlace">
-          <a href="">
+      <div class="col-4 col-sm-3 col-md-2 enlace">
+          <a href="https://www.ecu911.gob.ec/">
               <img src="../../assets/img/10-ecu911.png" alt="">
           </a>
       </div>

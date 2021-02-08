@@ -1,17 +1,19 @@
 
   <div class="header" >
     <div class="row">
-        <div class="col-md-8 info">
+        <div class="col-md-4 info d-sm-block d-none">
             <span class="address">
                 <img src="../assets/img/1-ubicacion.jpg" alt="ubicación">
                 Salinas y Esmeraldas - Espejo, Carchi, Ecuador
             </span>
-            <span class="contact">
-                <img src="../assets/img/2-contacto.jpg" alt="contacto">
-                +593 (062) 977 189 / +593 (062) 977 206
-            </span>
         </div>
-        <div class="col-md-4 social">
+        <div class="col-md-4 info d-sm-block">
+          <span class="contact">
+            <img src="../assets/img/2-contacto.jpg" alt="contacto">
+            +593 (062) 977 189 / +593 (062) 977 206
+          </span>
+        </div>
+        <div class="col-md-4 social d-md-block d-none">
             <a href="" class="img-social"><img src="../assets/img/1-facebook.jpg" alt=""></a>
             <a href="" class="img-social"><img src="../assets/img/2-instagram.jpg" alt=""></a>
             <a href="" class="img-social"><img src="../assets/img/3-twitter.jpg" alt=""></a>
@@ -24,7 +26,7 @@
         <nav class="navbar navbar-expand-lg navbar-light">
             <a class="navbar-brand"[routerLink]="'/'">
                 <div class="logo">
-                    <img src="../assets/img/1-logo-marca.jpg" alt="logo">
+                    <img src="../assets/img/1-logo-marca.jpg" alt="logo" class="boder border-success">
                 </div>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +35,7 @@
             <div class="collapse navbar-collapse navbarNavDropdown" >
               <!--ul class="navbar-nav justify-content-end">
                 <li class="nav-item">
-                  <a class="nav-link" [routerLink]="'/'">INICIO</a>
+                  <a class="nav-link" [attr.data-toggle]="toggle" [attr.data-target]="target" [routerLink]="'/'">INICIO</a>
                 </li>
               </ul-->
             </div>
@@ -42,18 +44,18 @@
             <div class="collapse navbar-collapse navbarNavDropdown" *ngIf="usuario">
                 <ul class="navbar-nav justify-content-end" >
                     <li class="nav-item">
-                        <a class="nav-link">Bienvenido {{usuario.nombres}}</a>
+                        <a class="nav-link" [attr.data-toggle]="toggle" [attr.data-target]="target">Bienvenido {{usuario.nombres}}</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link"[routerLink]="'/perfil'">MI PERFIL</a>
+                      <a class="nav-link" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="'/perfil'">MI PERFIL</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"(click)="logout()">
+                        <a class="nav-link" [attr.data-toggle]="toggle" [attr.data-target]="target"(click)="logout()">
                           <i class="fa fa-user"></i>
                           Cerrar Sesión</a>
                     </li>
                     <!--li class="nav-item">
-                        <a class="nav-link"[routerLink]="'/404'">EXÁMENES PSICOLÓGICOS</a>
+                        <a class="nav-link" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="'/404'">EXÁMENES PSICOLÓGICOS</a>
                     </li-->
                 </ul>
             </div>
@@ -63,7 +65,7 @@
     <ng-template #elseTemplate>
       <div class="navigation">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand"[routerLink]="'/404'">
+            <a class="navbar-brand"[routerLink]="'/'">
                 <div class="logo">
                     <img src="../assets/img/1-logo-marca.jpg" alt="logo">
                 </div>
@@ -74,23 +76,23 @@
             <div class="collapse navbar-collapse navbarNavDropdown" >
               <ul class="navbar-nav justify-content-end">
                 <li class="nav-item">
-                  <a class="nav-link" [routerLink]="'/'">INICIO</a>
+                  <a class="nav-link" [attr.data-toggle]="toggle" [attr.data-target]="target" [routerLink]="'/'">INICIO</a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     SINDICATO DE CHOFERES
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item"[routerLink]="['/sindicato']" queryParamsHandling="merge" [queryParams]=" { plantilla: 'filosofia', titulo:'Filosofia Institucional'}">Filosofia Institucional</a>
-                    <a class="dropdown-item"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'historia',titulo:'Reseña Historica'}">Reseña Historica</a>
-                    <a class="dropdown-item"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'secretarios',titulo:'Secretarios Generales'}">Secretarios Generales</a>
-                    <a class="dropdown-item"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'autoridades',titulo: 'Autoridades'}">Autoridades</a>
-                    <a class="dropdown-item"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'socios',titulo: 'Socios'}">Socios</a>
-                    <a class="dropdown-item"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'baselegal',titulo: 'Base Legal'}">Base Legal</a>
-                    <a class="dropdown-item"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'convenios', titulo:'Convenios'}">Convenios</a>
-                    <a class="dropdown-item"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'sindicalizacion',titulo: 'Sindicalización'}">Sindicalización</a>
-                    <a class="dropdown-item"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'noticias', titulo:'Noticias'}">Noticias</a>
-                    <a class="dropdown-item"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'servicios',titulo: 'Servicios'}">Servicios</a>
+                    <a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="['/sindicato']" queryParamsHandling="merge" [queryParams]=" { plantilla: 'filosofia', titulo:'Filosofia Institucional'}">Filosofia Institucional</a>
+                    <a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'historia',titulo:'Reseña Historica'}">Reseña Historica</a>
+                    <a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'secretarios',titulo:'Secretarios Generales'}">Secretarios Generales</a>
+                    <a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'autoridades',titulo: 'Autoridades'}">Autoridades</a>
+                    <a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'socios',titulo: 'Socios'}">Socios</a>
+                    <a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'baselegal',titulo: 'Base Legal'}">Base Legal</a>
+                    <a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'convenios', titulo:'Convenios'}">Convenios</a>
+                    <a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'sindicalizacion',titulo: 'Sindicalización'}">Sindicalización</a>
+                    <a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'noticias', titulo:'Noticias'}">Noticias</a>
+                    <a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="['/sindicato']" [queryParams]=" { plantilla: 'servicios',titulo: 'Servicios'}">Servicios</a>
                   </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -98,12 +100,12 @@
                       ESCUELA DE CAPACITACIÓN
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <a class="dropdown-item"[routerLink]="['/escuela']" [queryParams]=" { plantilla: 'filosofia',titulo:'Filosofía Istitucional'}">Filosofía Istitucional</a>
-                      <a class="dropdown-item"[routerLink]="['/escuela']" [queryParams]=" { plantilla: 'historia',titulo:'Reseña Historica'}">Reseña Historica</a>
-                      <a class="dropdown-item"[routerLink]="['/escuela']" [queryParams]=" { plantilla: 'personal',titulo:'Personal'}">Personal</a>
-                      <a class="dropdown-item"[routerLink]="['/escuela']" [queryParams]=" { plantilla: 'parque',titulo:'Parque automotor'}">Parque automotor</a>
-                      <a class="dropdown-item"[routerLink]="['/escuela']" [queryParams]=" { plantilla: 'servicios',titulo:'Servicios Acedémicos'}">Servicios Acedémicos</a>
-                      <a class="dropdown-item"[routerLink]="['/escuela']" [queryParams]=" { plantilla: 'oferta',titulo:'Oferta Académica'}">Oferta Académica</a>
+                      <a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="['/escuela']" [queryParams]=" { plantilla: 'filosofia',titulo:'Filosofía Istitucional'}">Filosofía Istitucional</a>
+                      <a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="['/escuela']" [queryParams]=" { plantilla: 'historia',titulo:'Reseña Historica'}">Reseña Historica</a>
+                      <a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="['/escuela']" [queryParams]=" { plantilla: 'personal',titulo:'Personal'}">Personal</a>
+                      <a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="['/escuela']" [queryParams]=" { plantilla: 'parque',titulo:'Parque automotor'}">Parque automotor</a>
+                      <a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="['/escuela']" [queryParams]=" { plantilla: 'servicios',titulo:'Servicios Acedémicos'}">Servicios Acedémicos</a>
+                      <a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="['/escuela']" [queryParams]=" { plantilla: 'oferta',titulo:'Oferta Académica'}">Oferta Académica</a>
                     </div>
                   </li>
                   <!--li class="nav-item dropdown">
@@ -111,24 +113,24 @@
                       Dropdown link
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <li><a class="dropdown-item"[routerLink]="'/404'">Action</a></li>
-                      <li><a class="dropdown-item"[routerLink]="'/404'">Another action</a></li>
+                      <li><a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="'/404'">Action</a></li>
+                      <li><a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="'/404'">Another action</a></li>
                       <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"[routerLink]="'/404'">Submenu</a>
                         <ul class="dropdown-menu">
-                          <li><a class="dropdown-item"[routerLink]="'/404'">Submenu action</a></li>
-                          <li><a class="dropdown-item"[routerLink]="'/404'">Another submenu action</a></li>
+                          <li><a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="'/404'">Submenu action</a></li>
+                          <li><a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="'/404'">Another submenu action</a></li>
 
 
                           <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"[routerLink]="'/404'">Subsubmenu</a>
                             <ul class="dropdown-menu">
-                              <li><a class="dropdown-item"[routerLink]="'/404'">Subsubmenu action</a></li>
-                              <li><a class="dropdown-item"[routerLink]="'/404'">Another subsubmenu action</a></li>
+                              <li><a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="'/404'">Subsubmenu action</a></li>
+                              <li><a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="'/404'">Another subsubmenu action</a></li>
                             </ul>
                           </li>
                           <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"[routerLink]="'/404'">Second subsubmenu</a>
                             <ul class="dropdown-menu">
-                              <li><a class="dropdown-item"[routerLink]="'/404'">Subsubmenu action</a></li>
-                              <li><a class="dropdown-item"[routerLink]="'/404'">Another subsubmenu action</a></li>
+                              <li><a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="'/404'">Subsubmenu action</a></li>
+                              <li><a class="dropdown-item" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="'/404'">Another subsubmenu action</a></li>
                             </ul>
                           </li>
                         </ul>
@@ -136,36 +138,36 @@
                     </ul>
                   </li-->
                   <li class="nav-item">
-                    <a class="nav-link"[routerLink]="'/404'">GALERÍA</a>
+                    <a class="nav-link" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="'/404'">GALERÍA</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link"[routerLink]="'/404'">TRANSPARENCIA</a>
+                    <a class="nav-link" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="'/404'">TRANSPARENCIA</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link"[routerLink]="'/404'">CONTACTOS</a>
+                    <a class="nav-link" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="'/404'">CONTACTOS</a>
                   </li>
 
                 </ul>
             </div>
         </nav>
-        <nav class="navbar navbar-expand-lg navbar-light navigation">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <div class="collapse navbar-collapse navbarNavDropdown" >
                 <ul class="navbar-nav justify-content-end">
                     <li class="nav-item">
-                      <a class="nav-link" href="https://sindicatoespejo-my.sharepoint.com/:f:/g/personal/admin_sindicatoespejo_onmicrosoft_com/Eh1PD7Ac7NRMineOU4MvCQoBaFq5Lbr-6btBl10AVEzvpA?e=jRgmUO">
+                      <a class="nav-link" [attr.data-toggle]="toggle" [attr.data-target]="target" href="https://sindicatoespejo-my.sharepoint.com/:f:/g/personal/admin_sindicatoespejo_onmicrosoft_com/Eh1PD7Ac7NRMineOU4MvCQoBaFq5Lbr-6btBl10AVEzvpA?e=jRgmUO">
                         REPOSITORIO ANT
                       </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"[routerLink]="'/servicios'">OFERTA ACADÉMICA</a>
+                        <a class="nav-link" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="'/servicios'">OFERTA ACADÉMICA</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"[routerLink]="'/login'">
+                        <a class="nav-link" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="'/login'">
                           <i class="fa fa-user"></i>
                           Iniciar Sesión</a>
                     </li>
                     <!--li class="nav-item">
-                        <a class="nav-link"[routerLink]="'/404'">EXÁMENES PSICOLÓGICOS</a>
+                        <a class="nav-link" [attr.data-toggle]="toggle" [attr.data-target]="target"[routerLink]="'/404'">EXÁMENES PSICOLÓGICOS</a>
                     </li-->
                 </ul>
             </div>
@@ -180,6 +182,7 @@
 <div class="contenedor">
   <router-outlet></router-outlet>
 </div>
+<!--
 <footer>
   <div class="container">
       <div class="links-rapidos">
@@ -276,11 +279,14 @@
               <img src="../assets/img/6-marca.png" alt="">
           </div>
       </div>
-      <div class="copy">
-          <span>COPYRIGHT SCHPCE 2020</span>
-      </div>
   </div>
 </footer>
 
 
 
+-->
+<footer>
+  <div class="copy">
+      <span>COPYRIGHT SCHPCE 2021 - Desarrollado por Cristian Ruiz (0988116697)</span>
+  </div>
+</footer>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { ruta } from './clases/ruta'
@@ -14,6 +14,9 @@ export class AppComponent {
   title = 'sindicato-espejo-final';
   logged : boolean;
   usuario: Usuario ;
+  show = false;
+  toggle = '';
+  target = '';
   constructor(
     private router: Router,
     private auth: AuthService,
@@ -23,6 +26,9 @@ export class AppComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
+    let w = window.innerWidth;
+    this.setCollapseTarget(w);
+
     this.auth.userProfile().subscribe( resp => {
       //console.log(resp)
       if(resp){
@@ -41,5 +47,21 @@ export class AppComponent {
   logout(){
     this.auth.logout();
   }
-
+  show_hide(){
+    console.log('hola')
+  }
+  @HostListener('window:resize', ['$event'])
+  onresize(event){
+    let w = event.target.innerWidth
+    this.setCollapseTarget(w);
+  }
+  setCollapseTarget(width){
+    if(width <= 992){
+      this.toggle = 'collapse';
+      this.target = '.navbarNavDropdown';
+    }else{
+      this.toggle = '';
+      this.target = '';
+    }
+  }
 }

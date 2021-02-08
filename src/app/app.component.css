@@ -1,0 +1,170 @@
+div.header{
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  font-family: 'Myriad';
+}
+div.header div.row{
+  background-color: #fff;
+  /*height: 43px;
+  margin: 0px;*/
+  max-width: 100% !important;
+}
+div.info, div.social{
+  text-align: right;
+}
+span.address{
+  height: 100%;
+  font-size: 0.7em;/*9.64pt*/
+  color: #9a999e;
+  margin-right: 0.5rem;
+}
+span.contact{
+  height: 100%;
+  color: #9a999e;
+  font-size: 0.7em;
+  /*11.54*/
+}
+div.social{
+  height: 100%;
+}
+a.img-social{
+  margin-right: 0;
+  width: 2.25rem;
+  height: 100%;
+  margin-left: -0.5rem !important;
+}
+/*  ########### SUBMENU ############ */
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu a::after {
+  transform: rotate(-90deg);
+  position: absolute;
+  right: 6px;
+  top: .8em;
+}
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-left: .1rem;
+  margin-right: .1rem;
+}
+/*  ################################ */
+div.navigation{
+  /*background: url(./assets/img/1-background-menu.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;*/
+  background-color: #5CB85C;
+  box-sizing: border-box;
+  padding: 2px;
+}
+
+.show{
+  z-index: 15;
+  background-color: var(--green);
+  box-sizing: border-box;
+  padding: 0.5em 0.25em;
+}
+nav.navbar{
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+ul.navbar-nav{
+  width: 100%;
+}
+ul.navbar-nav .nav-link{
+  font-size: 1rem;
+  color: #fff !important;
+  max-height: 100%;
+}
+
+a.navbar-brand{
+  width: 20%;
+}
+div.logo{
+  margin-top: -1.5rem;
+  margin-left: 1rem;
+  border-width: 3px;
+  position: absolute;
+  z-index: 11;
+  top: 0px;
+  width: 10vw;
+}
+div.logo img{
+  width: 100%;
+}
+.dropdown-menu a{
+  color: #fff;
+}
+.nav-link{
+  position: relative;
+}
+.nav-link:hover, .dropdown-item:hover{
+  background-color: var(--warning);/*#f1f1f1;*/
+  /*color: #5CB85C !important;*/
+}
+a.nav-link:hover{
+  background-color: var(--warning);/*#f1f1f1;*/
+  color: #5CB85C !important;
+}
+
+@media only screen and (max-width: 800px) {
+  div.logo{
+    width: 15vw;
+    margin-left: 0.1rem;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  div.logo{
+    margin-top: -0.5rem;
+    width: 20vw;
+  }
+}
+
+
+/********************FOOTER*****************************/
+footer{
+  background-color: var(--green);
+  box-sizing: border-box;
+  padding: 3%;
+  color: #fff;
+  font-family: 'Nexa';
+}
+footer .container{
+  padding-top: 20px;
+}
+footer a{
+  color: #fff;
+  font-size: 12pt;
+  font-family: 'Myriad';
+}
+footer .col div{
+  text-align: left;
+}
+footer .links-rapidos{
+  width: 65%;
+  float: left;
+}
+footer .links-rapidos .link{
+  line-height: 28pt;
+}
+footer .titulo{
+  font-size: 20pt;
+}
+footer .contacto{
+  width: 35%;
+  float: right;
+}
+footer .logo-marca{
+  margin-top: -40px;
+  margin-left: -40px;
+}
+footer .copy{
+  font-family: 'Myriad';
+  text-align: center;
+}

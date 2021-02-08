@@ -5,6 +5,7 @@ import { LocalStorageService } from './local-storage.service';
 import { Usuario } from '../clases/usuario';
 import { Inscripcion } from '../clases/inscripcion';
 import { ResponseTurnos } from '../clases/response';
+import { Noticia } from '../clases/noticia';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +58,11 @@ export class ApiRequestService {
     const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/v1/sindicato?_plantilla=${plantilla}`;
     //const url = `http://localhost:8000/api/v1/sindicato?_plantilla=${plantilla}`;
     return this.http.get(url);
+  }
+  obtenerNoticias(){
+    //const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/v1/noticias`;
+    const url = `http://localhost:8000/api/v1/sindicato/noticias`;
+    return this.http.get<Noticia[]>(url);
   }
   obtenerPlantillaEscuela(plantilla){
     const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/v1/escuela/${plantilla}`;
