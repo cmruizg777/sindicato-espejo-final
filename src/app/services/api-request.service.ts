@@ -60,7 +60,7 @@ export class ApiRequestService {
     return this.http.get(url);
   }
   obtenerNoticias(){
-    const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/v1/noticias`;
+    const url = `https://grupoprosoft.net/sindicato-api/public/index.php/api/v1/sindicato/noticias`;
     //const url = `http://localhost:8000/api/v1/sindicato/noticias`;
     return this.http.get<Noticia[]>(url);
   }
