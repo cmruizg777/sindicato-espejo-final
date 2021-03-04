@@ -10,7 +10,7 @@ import { ValidadorService } from '../services/validador.service';
 })
 export class DatosPersonalesComponent implements OnInit {
 
-  @Input()fecha: NgbDateStruct;
+  fecha: NgbDateStruct;
   fechaReference ;
   @Input() inscripcion: Inscripcion;
   comprobante = null;
@@ -28,7 +28,11 @@ export class DatosPersonalesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    this.fecha  = {
+      day: 17,
+      month: 9,
+      year: 1990
+    };
   }
   validarCedula(){
     if(this.inscripcion.cedula){

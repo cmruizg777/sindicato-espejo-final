@@ -283,17 +283,15 @@ export class TurneroComponent implements OnInit {
       }
     }
 
-    if(this.formaPago.trim() === ''){
-      alert('La forma de pago no se ha establecido!');
-      return 19;
-    }
-    if(!this.fechaT){
-      alert('Debe elegir una fecha para el turno!');
-      return 20;
-    }
-    if(!this.horario){
-      alert('Debe elegir un horario para el Turno!');
-      return 21;
+    if(this.examen.examen.tipo.codigo == 2){
+      if(!this.fechaT){
+        alert('Debe elegir una fecha para el turno!');
+        return 20;
+      }
+      if(!this.horario){
+        alert('Debe elegir un horario para el Turno!');
+        return 21;
+      }
     }
     /*if(!this.comprobante){
       alert('Debe adjuntar la documentación y el pago requerido!');
