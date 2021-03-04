@@ -17,20 +17,17 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(this.auth.state){
-      this.profile = this.auth.userProfile().subscribe( resp => {
-        if(resp){
-          this.loaded = true;
-          this.usuario = JSON.parse(localStorage.getItem('profile'));
-        }else{
-          this.profile.unsubscribe();
-          this.auth.logout();
-        }
-      })
 
-      this.auth.getProfile();
-    }
-
+    this.profile = this.auth.userProfile().subscribe( resp => {
+      if(resp){
+        this.usuario = JSON.parse(localStorage.getItem('profile'));
+      }else{
+        this.profile.unsubscribe();
+        this.auth.logout();
+      }
+      this.loaded = true;
+    })
+    this.auth.getProfile();
   }
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.

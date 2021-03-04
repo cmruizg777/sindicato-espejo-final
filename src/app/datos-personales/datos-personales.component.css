@@ -1,0 +1,7 @@
+.datepick{
+  position: relative;
+}
+.datepick .dropdown-menu {
+  left: auto !important;
+  right: 0px;
+}

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Inscripcion } from '../clases/inscripcion';
+import { Preinscripcion } from '../clases/preinscripcion';
+import { Requisito } from '../clases/requisito';
 import { ApiRequestService } from '../services/api-request.service';
 import { AuthService } from '../services/auth.service';
-
+import * as _ from 'lodash';
+import { ResponseTurnos } from '../clases/response';
 @Component({
   selector: 'app-matricula',
   templateUrl: './matricula.component.html',
@@ -12,7 +15,9 @@ import { AuthService } from '../services/auth.service';
 export class MatriculaComponent implements OnInit {
   loaded = false;
   id ;
-  inscripcion : Inscripcion ;
+  inscripcion : Preinscripcion ;
+  documentos  = [];
+  counter = 0;
   constructor(
     private rutaActiva: ActivatedRoute,
     private auth: AuthService,
@@ -21,7 +26,6 @@ export class MatriculaComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.loaded = true;
     this.id = this.rutaActiva.snapshot.params.id;
     this.auth.userStatus().subscribe( resp => {
       if(!resp){
@@ -29,8 +33,52 @@ export class MatriculaComponent implements OnInit {
       }
     })
     this.api.obtenerInscripcion(this.id).subscribe( resp => {
-      console.log(resp)
+      if (!resp.error){
+        this.inscripcion = resp.data;
+        this.inscripcion.productoServicio.requisitos.forEach((requisito: Requisito)=>{
+          const id = requisito.id;
+          let documento = {'id': requisito.id , documento: null };
+          this.documentos.push(documento);
+        });
+      }
+      this.loaded = true;
+    }, error => {
+      this.loaded = true
+      console.log(error)
     })
   }
-
+  handleFileInput(files: FileList, id) {
+    let req = _.find(this.documentos, {id});
+    req.documento = files.item(0);
+    this.counter ++ ;
+  }
+  enviar(){
+    if(this.counter>0){
+      let form = new FormData();
+      form.append('_id', this.inscripcion.id+'');
+      this.documentos.forEach((req)=>{
+        if (req.documento){
+          form.append('_'+req.id, req.documento);
+          req.documento = null;
+          this.counter = 0;
+        }
+      });
+      this.loaded = false;
+      this.api.enviarRequisitos(form).subscribe( (resp: ResponseTurnos) => {
+        this.loaded = true;
+        if(resp.error){
+          alert(resp.data);
+        }else{
+          alert('Sus documentos se han enviado correctamente.');
+        }
+        console.log(resp)
+      }, error => {
+        alert('Ha ocurrido un error, intentelo nuevamente, mas tarde.')
+        console.log(error);
+        this.loaded = true;
+      })
+    }else{
+      alert('¡Al menos debe subir un comprobante!');
+    }
+  }
 }

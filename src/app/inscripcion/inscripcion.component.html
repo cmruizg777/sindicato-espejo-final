@@ -1,247 +1,47 @@
 <div class="container">
-    <ng-container *ngIf="!loading; else elseTemplate">
-      <div class="centrado">
-        <h5  class="titulo">Formulario de Inscripción</h5>
-        <!--mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar-->
-
+  <ng-container *ngIf="!loading; else elseTemplate">
+    <div class="centrado">
+      <h5  class="titulo">Formulario de Inscripción</h5>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-md-9">
+        <app-datos-personales [inscripcion]="inscripcion" [fecha]="fecha"></app-datos-personales>
       </div>
-      <div class="row align-items-center">
-        <div class="col-md-9">
-          <div class="form container">
-            <div class="row">
-              <!--div class="form-group col-md-6">
-                <div class="">
-                  <h5>Tipo de Licencia.</h5>
-                  <select name="TipoLic" class="form-control" id="" [(ngModel)]="inscripcion.tipoLicencia">
-                    <option value="">Seleccione el tipo de Licencia</option>
-                    <option value="C">Licencia tipo C</option>
-                    <option value="D">Licencia tipo D</option>
-                    <option value="E">Licencia tipo E</option>
-                  </select>
+      <div class="col-md-3">
+        <div class="row">
+          <div class="card w-100 border border-success" >
+            <img [src]="curso.urlImagen" class="card-img-top" style="max-height: 180px;" alt="...">
+            <div class="card-body">
+              <h5  class="titulo2">Requisitos</h5>
+                <ul class="requisitos">
+                  <li *ngFor="let req of curso.requisitos">{{req.descripcion | uppercase}}</li>
+                </ul>
+                <div class="row">
+                  <div class="col"><b>Precio: </b></div>
+                  <div class="col"><h5>USD<b>{{curso.precio}}</b></h5></div>
                 </div>
-              </div-->
-              <div class="form-group col-md-6">
-                <div class="">
-                  <h5>Fecha de Nac.</h5>
-                </div>
-                <div class="input-group">
-                  <input class="form-control" placeholder="yyyy-mm-dd"
-                         name="dp" [(ngModel)]="fecha" [minDate]="minDate" [maxDate]="maxDate" [startDate]="maxDate" ngbDatepicker #d="ngbDatepicker">
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
-                      <i class="fa fa-calendar"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <!--div class="form-group col-md-6">
-                <div class="">
-                  <h5>Fecha de Nac.</h5>
-                </div>
-                <input name="fecha"  autocomplete="no" placeholder="yyyy-mm-dd" class="calendario" [(ngModel)]="fecha">
-                <!--input name="fecha"  matInput [matDatepicker]="dp" [min]="start" placeholder="yyyy-mm-dd"  [(ngModel)]="fecha">
-                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                <mat-datepicker  #dp [startAt]="start"></mat-datepicker>
-              </div-->
-              <div class="form-group col-md-6">
-                <div class="">
-                  <h5>Cédula:</h5>
-                </div>
-                <input name="Cedula" class="form-control" placeholder="0452813749" type="text" [(ngModel)]="inscripcion.cedula" (change)="validarCedula()"  maxlength="10" required=""  >
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-md-6">
-                <div class="">
-                  <h5>Nombres:</h5>
-                </div>
-                <input name="Nombre" class="form-control" placeholder="Juan José" type="text" [(ngModel)]="inscripcion.nombres" required="">
-              </div>
-
-              <div class="form-group col-md-6">
-                <div class="">
-                  <h5>Apellidos:</h5>
-                </div>
-                <input name="Apellido" class="form-control" placeholder="Pérez" type="text" [(ngModel)]="inscripcion.apellidos" required="">
-              </div>
-              <div class="form-group col-md-6">
-                <div class="">
-                  <h5>Nacionalidad:</h5>
-                </div>
-                <input name="Nacionalidad"  class="form-control" placeholder="Ecuatoriana" type="text" [(ngModel)]="inscripcion.nacionalidad"  required=""  >
-              </div>
-
-              <div class="form-group col-md-6">
-                <div class="">
-                  <h5>Lugar de Nac:</h5>
-                </div>
-                <input name="LugarNac" class="form-control" placeholder="Ecuador-Carchi-Tulcán" type="text" [(ngModel)]="inscripcion.lugarNaciemiento"  required=""  >
-              </div>
-
-              <div class="form-group col-md-6">
-                <div class="">
-                  <h5>Email:</h5>
-                </div>
-                <input class="form-control" name="Email" placeholder="sindicatoespejo@hotmail.com" type="email" [(ngModel)]="inscripcion.correo" required="">
-              </div>
-              <div class="form-group col-md-6">
-                <div class="">
-                  <h5>Username:</h5>
-                </div>
-                <input name="Telf" class="form-control" placeholder="juanito123" type="text" [(ngModel)]="inscripcion.username" required="">
-              </div>
-              <div class="form-group col-md-6">
-                <div class="">
-                  <h5>Contraseña:</h5>
-                </div>
-                <input name="Pass1" class="form-control" type="password" [(ngModel)]="inscripcion.pass1" required="">
-              </div>
-              <div class="form-group col-md-6">
-                <div class="">
-                  <h5>Confirmar Contraseña:</h5>
-                </div>
-                <input name="Pass2" class="form-control" type="password" [(ngModel)]="inscripcion.pass2" required="">
-              </div>
-              <div class="form-group col-md-6">
-                <div class="">
-                  <h5>Telefono:</h5>
-                </div>
-                <input name="Telf" class="form-control" placeholder="0989898989" type="text" [(ngModel)]="inscripcion.telefono" required="">
-              </div>
-              <div class="form-group col-md-6">
-                <div class="">
-                  <h5>Estado civil:</h5>
-                </div>
-                <select name="EstadoC" class="form-control" id="" [(ngModel)]="inscripcion.estado_civil">
-                  <option value="S">Soltero</option>
-                  <option value="C">Casado</option>
-                  <option value="V">Viudo</option>
-                  <option value="D">Divorciado</option>
-                  <option value="U">Unión Libre</option>
-                </select>
-              </div>
-              <div class="form-group col-md-6">
-                <div class="">
-                  <h5>Instrucción:</h5>
-                </div>
-                <select class="form-control" name="EstadoC" id="" [(ngModel)]="inscripcion.instruccion">
-                  <option value="P">Primaria</option>
-                  <option value="S">Secundaria</option>
-                  <option value="B">Bachiller</option>
-                  <option value="T">Tercer Nivel</option>
-                </select>
-              </div>
-              <div class="form-group col-md-6">
-                <div class="">
-                  <h5>Dirección:</h5>
-                </div>
-                <input name="Direccion" class="form-control" placeholder="Tulcán, Barrio Central" type="text" [(ngModel)]="inscripcion.direccion" required="">
-              </div>
-              <div class="form-group col-md-6">
-                <div class="">
-                  <h5>Calle Princ.:</h5>
-                </div>
-                <input name="Calle2" class="form-control" placeholder="Bolivar" type="text" [(ngModel)]="inscripcion.calle1" required="">
-              </div>
-              <div class="form-group col-md-6">
-                <div class="">
-                  <h5>Calle Sec.:</h5>
-                </div>
-                <input name="Calle1" class="form-control" placeholder="Rocafuerte" type="text" [(ngModel)]="inscripcion.calle2" required="">
-              </div>
-              <div class="form-group col-md-6">
-                <div class="">
-                  <h5>Referencia:</h5>
-                </div>
-                <input name="Direccion" class="form-control" placeholder="A una cuadra del parque central" type="text" [(ngModel)]="inscripcion.referencia" required="">
-              </div>
-            </div>
-
-          </div>
-        </div>
-        <div class="col-md-3">
-
-          <div class="row">
-            <div class="card w-100 border border-success" >
-              <img [src]="curso.urlImagen" class="card-img-top" style="max-height: 180px;" alt="...">
-              <div class="card-body">
-                <h5  class="titulo2">Requisitos</h5>
-                  <ul class="requisitos">
-                    <li *ngFor="let req of curso.requisitos">{{req.descripcion | uppercase}}</li>
-                    <!--li>COPIA TITULO DE BACHILLER O CERTIFICADO DE 4to CURSO</li>
-                    <li>MAYORIA DE EDAD</li>
-                    <li>REALIZARSE LOS EXAMENES MÉDICOS , PSICOLOGICOS,
-                      PSICONSENDOMETRICOS</li>
-                    <li>2 COPIAS A COLOR DE CEDULA DE IDENTIDAD, PAPELETA DE VOTACION Y TIPO DE SANGRE EN UNA SOLA HOJA</li>
-                    <li>3 FOTOGRAFIÁS TAMAÑO CARNET</li>
-                    <li>CARPETA COLGANTE COLOR AZUL</li-->
-                  </ul>
-
-                  <div class="row">
-                    <div class="col"><b>Precio: </b></div>
-                    <div class="col"><h5>USD<b>{{curso.precio}}</b></h5></div>
-                  </div>
-                  <div class="row">
-                    <div class="d-flex justify-content-center">
-                      <div class="col">
-                        <input type="button" class="btn btn-lg btn-success" value="Enviar Solicitud" (click)="enviar()">
-                      </div>
-                    </div>
-                  </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!--div class="row">
-            <div class="row">
-              <div class="card w-100" >
-                <div class="card-body">
-                  <div class="form-group comprobante">
-                    <!--input type="radio" name="fpago" value="TB" [(ngModel)]="formaPago" (change)="setFPago()"> Transferencia Bancaria
-                    <input type="radio" name="fpago" value="PP" [(ngModel)]="formaPago" (change)="setFPago()"> Paypal
-                    <br><br>
-                    <!--ng-container *ngIf="formaPago=='TB'; else paypal">
-                      <div class="">
-                        <h5>Documentación:</h5>
-                        <p>Deberá cargar de manera digital, el comprobante de depósito o transferencia a la cuenta del
-                          Sindicato de Choferes de Espejo, además de los requisitos señalados anteriormente.</p>
-                        <p>BANECUADOR <br> CUENTA CORRIENTE #0400000697 <br> SINDICATO DE CHOFERES PROFESIONALES DE ESPEJO
-                        </p>
-                        <p></p>
-                        <p><strong>VALOR ${{curso.precio}}</strong></p>
-                        <!--p><strong>Nota: Si usted es socio del sindicato, no necesita cargar el comprobante, simplemente llene su información de manera correcta.</strong></p>
-                        <br>
-                        <input name="Comprobante" class="form-control" (change)="handleFileInput($event.target.files)"
-                      placeholder="sindicatoespejo@hotmail.com" type="file" accept=".zip,.rar" required="">
-                      </div>
-                    <!--/ng-container>
-                    <!--ng-template #paypal>
-                    <!--div class="{{display2}}">
-                      <div id="paypal-button-container"></div>
-                    </div>
-                    <!--/ng-template>
-
-                  </div>
+                <div class="row">
                   <div class="d-flex justify-content-center">
-                    <input type="button" class="btn btn-lg btn-success" value="Enviar Solicitud" (click)="enviar()">
+                    <div class="col">
+                      <input type="button" class="btn btn-lg btn-success" value="Enviar Solicitud" (click)="enviar()">
+                    </div>
                   </div>
                 </div>
-              </div>
-          </div>
-        </div-->
-      </div>
-
-      </div>
-    </ng-container>
-    <ng-template #elseTemplate>
-      <div class="row content">
-        <div class="col align-self-center">
-          <div class="spinner-border text-success" style="width: 5rem; height: 5rem;"  role="status">
-            <span class="sr-only">Loading...</span>
+            </div>
           </div>
         </div>
+    </div>
+    </div>
+  </ng-container>
+<ng-template #elseTemplate>
+  <div class="row content">
+    <div class="col align-self-center">
+      <div class="spinner-border text-success" style="width: 5rem; height: 5rem;"  role="status">
+        <span class="sr-only">Loading...</span>
       </div>
-    </ng-template>
-
+    </div>
+  </div>
+</ng-template>
+</div>
+<!--p>BANECUADOR <br> CUENTA CORRIENTE #0400000697 <br> SINDICATO DE CHOFERES PROFESIONALES DE ESPEJO
+</p-->

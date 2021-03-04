@@ -25,9 +25,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.subs = this.auth.userStatus().subscribe( status => {
       if(status){
-        this.loading = false;
         this.router.navigate(['/perfil'])
       }
+      this.loading = false;
     })
   }
 

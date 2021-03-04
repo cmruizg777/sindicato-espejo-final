@@ -96,3 +96,7 @@ body{
   color: #0062cc;
 }
 
+small{
+  line-height: 0.25rem;
+  font-size: 0.7rem !important;
+}

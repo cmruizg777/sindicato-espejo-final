@@ -22,6 +22,16 @@ export class AppComponent {
     private auth: AuthService,
     private api: ApiRequestService) {
       this.usuario = null;
+      router.events.subscribe(() => {
+        this.gotoTop();
+      });
+  }
+  gotoTop() {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
   }
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -44,6 +54,8 @@ export class AppComponent {
     this.auth.checkStatus();
 
   }
+
+
   logout(){
     this.auth.logout();
   }

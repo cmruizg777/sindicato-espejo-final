@@ -28,36 +28,21 @@
                     </ul>
                 </div>
             </div>
-            <!--div class="col-md-2">
-                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
-            </div-->
         </div>
         <div class="row">
-            <!--div class="col-md-4">
-                <div class="profile-work">
-                    <p>WORK LINK</p>
-                    <a href="">Website Link</a><br/>
-                    <a href="">Bootsnipp Profile</a><br/>
-                    <a href="">Bootply Profile</a>
-                    <p>SKILLS</p>
-                    <a href="">Web Designer</a><br/>
-                    <a href="">Web Developer</a><br/>
-                    <a href="">WordPress</a><br/>
-                    <a href="">WooCommerce</a><br/>
-                    <a href="">PHP, .Net</a><br/>
-                </div>
-            </div-->
+
             <div class="col-md-12">
               <div class="tab-content profile-tab" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                  <div class="row">
+                  <!--div class="row">
                       <div class="col-md-4">
                           <label>Userame</label>
                       </div>
                       <div class="col-md-8">
                           <p>{{usuario.username}}</p>
                       </div>
-                  </div>
+                  </div-->
+
                   <div class="row">
                     <div class="col-md-4">
                         <label>C.I. :</label>
@@ -156,50 +141,53 @@
                   </div>
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                  <table class="table table-responsive">
+                    <thead>
+                      <tr>
+                        <th colspan="1">Acción</th>
+                        <th colspan="2">Nombre</th>
+                        <th colspan="4">Requisitos</th>
+                        <th colspan="1">Estado</th>
+                        <th colspan="4">Observaciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let i of usuario.inscripciones">
+                        <td colspan="1">
+                          <a [routerLink]="['/matricula', i.id ]" *ngIf="i.estado == $any(0)">
+                            Subir Requisitos
+                          </a>
+                        </td>
+                        <td colspan="2">
+                          <ng-container *ngIf="i.productoServicio.tipo == $any(2)">
+                            <p class="text-dark">{{i.productoServicio.curso.nombre}}</p>
+                          </ng-container>
+                          <ng-container *ngIf="i.productoServicio.tipo == $any(1)">
+                            <p class="text-dark">{{i.productoServicio.examen.nombre}}</p>
+                          </ng-container>
+                        </td>
+                        <td colspan="4">
+                          <small *ngFor="let doc of i.documentos">
+                            <i class="fa fa-times text-danger" *ngIf="doc.nombre == null"></i>
+                            <i class="fa fa-check text-success" *ngIf="doc.nombre != null"></i>
+                            {{doc.requisito.descripcion}}
+                            <br>
+                          </small>
+                        </td>
+                        <td colspan="1">
+                          <p *ngIf="i.estado == $any(0)" class="text-warning"><b>Pendiente</b></p>
+                          <p *ngIf="i.estado == $any(1)" class="text-success"><b>Aprobado</b></p>
+                          <p *ngIf="i.estado == $any(2)" class="text-danger"><b>Rechazado</b></p>
+                        </td>
+                        <td colspan="4">
+                          <small class="observaciones text-dark">
+                            {{i.observaciones}}
+                          </small>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-                  <div class="row justify-content-start p-2">
-                    <div class="col-md-2">
-                      <label>Acción</label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Nombre</label>
-                    </div>
-                    <div class="col-md-2">
-                        <label>Estado</label>
-                    </div>
-                    <div class="col-md-4">
-                      <label>Observaciones</label>
-                    </div>
-                  </div>
-                  <div class="row p-2" *ngFor="let i of usuario.inscripciones">
-                    <div class="col-md-2">
-                      <a [routerLink]="['/matricula', i.id ]" *ngIf="i.estado == $any(0)">
-                        Matricularme
-                      </a>
-                    </div>
-                    <ng-container *ngIf="i.productoServicio.tipo == $any(2); else elseTemplate">
-                      <div class="col-md-4">
-                          <p class="text-dark">{{i.productoServicio.curso.nombre}}</p>
-                      </div>
-                    </ng-container>
-                    <ng-template #elseTemplate>
-                      <div class="col-md-4">
-                          <p class="text-dark">{{i.productoServicio.examen.nombre}}</p>
-                      </div>
-                    </ng-template>
-
-
-                    <div class="col-md-2">
-                        <p *ngIf="i.estado == $any(0)" class="text-warning"><b>Pendiente</b></p>
-                        <p *ngIf="i.estado == $any(1)" class="text-success"><b>Aprobado</b></p>
-                        <p *ngIf="i.estado == $any(2)" class="text-danger"><b>Rechazado</b></p>
-                    </div>
-                    <div class="col-md-4">
-                      <p class="observaciones text-dark">
-                        {{i.observaciones}}
-                      </p>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>

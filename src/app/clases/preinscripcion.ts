@@ -1,5 +1,6 @@
 import { ProductoServicio } from "./productoServicio";
 import { Turno } from "./turno";
+import { Documento } from "./documento";
 export interface Preinscripcion{
   id: Number
   comprobante: string;
@@ -8,4 +9,5 @@ export interface Preinscripcion{
   productoServicio: ProductoServicio;
   turno: Turno;
   observaciones: string ;
+  documentos: Documento[];
 }

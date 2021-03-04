@@ -18,9 +18,6 @@ export class TurneroComponent implements OnInit {
   fecha: NgbDateStruct;
   fechaT: NgbDateStruct;
 
-  private nativeElement : Node;
-
-
   fechaReference ;
   inscripcion: Inscripcion;
   comprobante = null;
@@ -50,7 +47,7 @@ export class TurneroComponent implements OnInit {
       }
     })
 
-    this.inscripcion = new Inscripcion();
+    this.inscripcion = new Inscripcion();/*
     this.inscripcion.apellidos = "BOLAÑOS RUIZ";
     this.inscripcion.calle1 = "GNRL. ENRIQUEZ";
     this.inscripcion.calle2 = "ALEGRIA";
@@ -94,14 +91,6 @@ export class TurneroComponent implements OnInit {
           this.fechaReference = new Date(resp.data);
           this.fecha  = { year: Number(aux[0]), month: Number(aux[1]) , day: Number(aux[2])};
           this.fechaT = { year: Number(aux[0]), month: Number(aux[1]) , day: Number(aux[2])};
-          this.api.obtenerTurnosInfo(resp.data).subscribe((response: ResponseTurnos)=>{
-            console.log(response)
-            if(!response.error){
-              if(response.code == 200){
-                this.horarios = response.data;
-              }
-            }
-          });
       }else{
         alert('El servidor no ha respondido, intentelo más tarde')
       }
@@ -112,6 +101,9 @@ export class TurneroComponent implements OnInit {
       if(!resp.error){
         if(resp.data){
           this.examen = resp.data;
+          if(this.examen.examen.tipo.codigo == 2){
+            this.turnosInfo()
+          }
         }
       }else{
         alert('Ha habido un error, por favor intentelo nuevamente, más tarde.')
@@ -156,6 +148,7 @@ export class TurneroComponent implements OnInit {
   }
 
   enviar(){
+    this.inscripcion.username = this.inscripcion.cedula;
     const rCode = this.validarDatos();
     if(rCode == 0){
       const formData: FormData = new FormData();

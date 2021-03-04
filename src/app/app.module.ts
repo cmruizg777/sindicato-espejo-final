@@ -23,6 +23,7 @@ import { EscuelaComponent } from './escuela/escuela.component';
 import { SindicatoComponent } from './sindicato/sindicato.component';
 import { TokenInterceptor } from './services/token-interceptor.service';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { DatosPersonalesComponent } from './datos-personales/datos-personales.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     PerfilComponent,
     EscuelaComponent,
     SindicatoComponent,
+    DatosPersonalesComponent,
 
   ],
   imports: [

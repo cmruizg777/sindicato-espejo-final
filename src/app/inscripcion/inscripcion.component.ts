@@ -60,12 +60,11 @@ export class InscripcionComponent implements OnInit {
     ) {
       this.inscripcion = new Inscripcion();
       const fechaAux =  new Date();
-    //this.fecha = anio+"-"+mes+"-"+dia;
-    //this.fecha = moment();
-
       this.start = new Date();
     }
+
     subs : Subscription;
+
   ngOnInit(): void {
 
     this.subs = this.auth.userStatus().subscribe( status => {
@@ -84,6 +83,7 @@ export class InscripcionComponent implements OnInit {
         if(resp.data){
           this.curso = resp.data;
           this.loading = false;
+          /*
           this.inscripcion.apellidos = "BOLAÑOS RUIZ";
           this.inscripcion.calle1 = "GNRL. ENRIQUEZ";
           this.inscripcion.calle2 = "ALEGRIA";
@@ -134,13 +134,16 @@ export class InscripcionComponent implements OnInit {
       alert('Cédula no válida')
     }
   }
+
   handleFileInput(files: FileList) {
     this.comprobante = files.item(0);
   }
 
 ///////////////////////////////////////////////
 enviar(){
-  const rCode = this.validarDatos();
+  this.inscripcion.username = this.inscripcion.cedula;
+  this.validadorService.inscripcion = this.inscripcion;
+  const rCode = this.validadorService.validarDatos(this.fecha);
   //console.log(rCode);
   //console.log(this.inscripcion);
   if(rCode === 0){
@@ -165,7 +168,9 @@ enviar(){
     formData.append('_fpago',this.formaPago);
     //formData.append('_comprobante', this.comprobante, this.comprobante.name);
     formData.append('_servicio', ""+this.idServicio);
+    console.log(this.inscripcion)
     this.loading = true;
+    this.gotoTop()
     this.enviarFormulario(formData);
 
   }
@@ -180,13 +185,6 @@ enviarFormulario(formData){
       form.append('_password',this.inscripcion.pass1);
       localStorage.clear();
       this.auth.login(form);
-      /*this.api.obtenerToken(form).subscribe((r : AuthResponse ) => {
-        console.log(r);
-        if(r.token){
-          localStorage.setItem('token', r.token);
-          this.router.navigate(['perfil']);
-        }
-      })*/
     }else{
       alert(`Ha habido un error: ${data.data}`);
       this.loading = false;
@@ -199,104 +197,16 @@ enviarFormulario(formData){
 }
 
 
-  ////////////////////////////////////////
-
-
-  validarDatos(): number {
-    if(this.inscripcion.apellidos.trim() === ''){
-      this.inscripcion.errorApellidos();
-      return 1;
-    }
-    if(this.inscripcion.calle1 == ''){
-      this.inscripcion.errorCalle1();
-      return 2;
-    }
-    if(this.inscripcion.calle2 == ''){
-      this.inscripcion.errorCalle2();
-      return 3;
-    }
-    this.validarCedula();
-    if(!this.cedulaValida){
-      this.inscripcion.errorCedula();
-      return 4;
-    }
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if(!re.test(String(this.inscripcion.correo).toLowerCase())){
-      this.inscripcion.errorCorreo();
-      return 5;
-    }
-    if(this.inscripcion.direccion.trim() === ''){
-      this.inscripcion.errorDireccion();
-      return 6;
-    }
-    if(this.inscripcion.estado_civil.trim() == ''){
-      this.inscripcion.errorEstadoCivil();
-      return 7;
-    }
-    if(!this.fecha){
-      this.inscripcion.errorFecha();
-      return 8;
-    }
-    this.inscripcion.fechaNaciemiento = this.fecha.year +'-'+this.fecha.month+'-'+this.fecha.day;
-
-    if(this.inscripcion.instruccion.trim() == ''){
-      this.inscripcion.errorInstruccion();
-      return 9;
-    }
-    if(this.inscripcion.lugarNaciemiento.trim() === ''){
-      this.inscripcion.errorLugarNac();
-      return 10;
-    }
-    if(this.inscripcion.nacionalidad.trim() === ''){
-      this.inscripcion.errorNacionalidad();
-      return 11;
-    }
-    if(this.inscripcion.nombres.trim() === ''){
-      this.inscripcion.errorNombres();
-      return 12;
-    }
-    if(this.inscripcion.pass1.trim() === '' || this.inscripcion.pass1.indexOf(' ')>=0){
-      this.inscripcion.errorContrasena();
-      return 13;
-    }else{
-      if(this.inscripcion.pass1 != this.inscripcion.pass2 ){
-        this.inscripcion.errorContrasena2();
-        return 14;
-      }
-    }
-    if(this.inscripcion.referencia == ''){
-      this.inscripcion.errorReferencia();
-      return 15;
-    }
-    if(this.inscripcion.telefono.trim() == ''){
-      this.inscripcion.errorTelefono();
-      return 16;
-    }
-    if(this.inscripcion.username.trim() == ''){
-      this.inscripcion.errorUsername1();
-      return 17;
-    }else{
-      if(this.inscripcion.username.indexOf(' ')>=0){
-        this.inscripcion.errorUsername1();
-        return 18;
-      }
-    }
-
-    if(this.formaPago.trim() === ''){
-      alert('La forma de pago no se ha establecido!');
-      return 19;
-    }
-    /*if(!this.comprobante){
-      alert('Debe adjuntar la documentación y el pago requerido!');
-      return 20;
-    }*/
-
-    return 0;
-  }
-
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
     this.subs.unsubscribe();
+  }
+  gotoTop() {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
   }
 }

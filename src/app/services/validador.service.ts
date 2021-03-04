@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStructAdapter } from '@ng-bootstrap/ng-bootstrap/datepicker/adapters/ngb-date-adapter';
+import { Inscripcion } from '../clases/inscripcion';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ValidadorService {
-
+  inscripcion: Inscripcion;
+  cedulaValida = false;
+  fecha : NgbDateStruct;
   constructor() { }
   validarCedula(cedula: string): boolean{
     const tam = cedula.length;
@@ -49,4 +54,98 @@ export class ValidadorService {
     }
     return false;
   }
+
+  validarDatos(fecha: NgbDateStruct): number {
+    this.fecha = fecha;
+    if(this.inscripcion.apellidos.trim() === ''){
+      this.inscripcion.errorApellidos();
+      return 1;
+    }
+    if(this.inscripcion.calle1 == ''){
+      this.inscripcion.errorCalle1();
+      return 2;
+    }
+    if(this.inscripcion.calle2 == ''){
+      this.inscripcion.errorCalle2();
+      return 3;
+    }
+    this.cedulaValida = this.validarCedula(this.inscripcion.cedula);
+    if(!this.cedulaValida){
+      this.inscripcion.errorCedula();
+      return 4;
+    }
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(!re.test(String(this.inscripcion.correo).toLowerCase())){
+      this.inscripcion.errorCorreo();
+      return 5;
+    }
+    if(this.inscripcion.direccion.trim() === ''){
+      this.inscripcion.errorDireccion();
+      return 6;
+    }
+    if(this.inscripcion.estado_civil.trim() == ''){
+      this.inscripcion.errorEstadoCivil();
+      return 7;
+    }
+    if(!this.fecha){
+      this.inscripcion.errorFecha();
+      return 8;
+    }
+    this.inscripcion.fechaNaciemiento = this.fecha.year +'-'+this.fecha.month+'-'+this.fecha.day;
+
+    if(this.inscripcion.instruccion.trim() == ''){
+      this.inscripcion.errorInstruccion();
+      return 9;
+    }
+    if(this.inscripcion.lugarNaciemiento.trim() === ''){
+      this.inscripcion.errorLugarNac();
+      return 10;
+    }
+    if(this.inscripcion.nacionalidad.trim() === ''){
+      this.inscripcion.errorNacionalidad();
+      return 11;
+    }
+    if(this.inscripcion.nombres.trim() === ''){
+      this.inscripcion.errorNombres();
+      return 12;
+    }
+    if(this.inscripcion.pass1.trim() === '' || this.inscripcion.pass1.indexOf(' ')>=0){
+      this.inscripcion.errorContrasena();
+      return 13;
+    }else{
+      if(this.inscripcion.pass1 != this.inscripcion.pass2 ){
+        this.inscripcion.errorContrasena2();
+        return 14;
+      }
+    }
+    if(this.inscripcion.referencia == ''){
+      this.inscripcion.errorReferencia();
+      return 15;
+    }
+    if(this.inscripcion.telefono.trim() == ''){
+      this.inscripcion.errorTelefono();
+      return 16;
+    }
+    if(this.inscripcion.username.trim() == ''){
+      this.inscripcion.errorUsername1();
+      return 17;
+    }else{
+      if(this.inscripcion.username.indexOf(' ')>=0){
+        this.inscripcion.errorUsername1();
+        return 18;
+      }
+    }
+    /*
+    if(this.formaPago.trim() === ''){
+      alert('La forma de pago no se ha establecido!');
+      return 19;
+    }
+    if(!this.comprobante){
+      alert('Debe adjuntar la documentación y el pago requerido!');
+      return 20;
+    }*/
+
+    return 0;
+  }
+
 }

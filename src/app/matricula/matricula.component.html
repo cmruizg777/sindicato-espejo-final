@@ -1,18 +1,15 @@
 <ng-container *ngIf="loaded; else elseTemplate">
   <div class="container emp-profile p-3 border border-success rounded-lg">
     <form method="post" >
+        <h5>
+          Complete la información necesaria y enviela para culminar su proceso de inscripción.
+        </h5>
         <div class="row align-items-end">
             <div class="col-md-8">
                 <div class="profile-head">
-                    <h5>
-                        Complete la información necesaria y enviela para culminar su proceso de matrícula.
-                    </h5>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                       <li class="nav-item">
-                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Info</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Mis Cursos</a>
+                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Requisitos</a>
                       </li>
                     </ul>
                 </div>
@@ -20,6 +17,19 @@
             <!--div class="col-md-2">
                 <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
             </div-->
+        </div>
+        <div class="row" *ngIf="inscripcion">
+          <div class="col-md-6 p-3" *ngFor="let requisito of inscripcion.productoServicio.requisitos">
+            <label for="">{{requisito.descripcion}}</label>
+            <input type="file" class="form-control file" name="{{requisito.id}}" accept="image/jpeg,image/png,application/pdf" (change)="handleFileInput($event.target.files, requisito.id)" >
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-4">
+            <button type="button" class="btn btn-success btn-block" (click)="enviar()">
+              Enviar
+            </button>
+          </div>
         </div>
     </form>
   </div>

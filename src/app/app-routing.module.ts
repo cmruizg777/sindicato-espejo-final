@@ -19,7 +19,7 @@ const routes: Routes = [
   {path: '404', component: DisculpasComponent },
   {path: 'servicios', component: ProductosComponent },
   {path: 'inscripcion/:id', component: InscripcionComponent },
-  {path: 'matricula/:id', component: MatriculaComponent },
+  {path: 'matricula/:id', component: MatriculaComponent, canActivate: [UserGuard] },
   {path: 'login', component: LoginComponent },
   {path: 'perfil', component: PerfilComponent, canActivate: [UserGuard]},
   {path: 'turnos/:id', component: TurneroComponent },
