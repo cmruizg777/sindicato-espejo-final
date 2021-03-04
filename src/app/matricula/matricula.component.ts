@@ -7,6 +7,7 @@ import { ApiRequestService } from '../services/api-request.service';
 import { AuthService } from '../services/auth.service';
 import * as _ from 'lodash';
 import { ResponseTurnos } from '../clases/response';
+import { Documento } from '../clases/documento';
 @Component({
   selector: 'app-matricula',
   templateUrl: './matricula.component.html',
@@ -34,10 +35,11 @@ export class MatriculaComponent implements OnInit {
     })
     this.api.obtenerInscripcion(this.id).subscribe( resp => {
       if (!resp.error){
-        this.inscripcion = resp.data;
-        this.inscripcion.productoServicio.requisitos.forEach((requisito: Requisito)=>{
-          const id = requisito.id;
-          let documento = {'id': requisito.id , documento: null };
+        console.log(resp.data)
+        this.inscripcion = resp.data[0];
+        this.inscripcion.documentos.forEach((doc: Documento)=>{
+          const id = doc.requisito.id;
+          let documento = {'id': doc.requisito.id , documento: null };
           this.documentos.push(documento);
         });
       }

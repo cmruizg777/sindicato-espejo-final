@@ -83,6 +83,11 @@ export class InscripcionComponent implements OnInit {
         if(resp.data){
           this.curso = resp.data;
           this.loading = false;
+          this.fecha  = {
+            day: 17,
+            month: 9,
+            year: 1990
+          };
           /*
           this.inscripcion.apellidos = "BOLAÑOS RUIZ";
           this.inscripcion.calle1 = "GNRL. ENRIQUEZ";
@@ -93,11 +98,7 @@ export class InscripcionComponent implements OnInit {
           //this.inscripcion.disponibilidad =
           //this.inscripcion.edad =
           this.inscripcion.estado_civil = "C";
-          this.fecha  = {
-            day: 17,
-            month: 9,
-            year: 1990
-          };
+
 
           this.inscripcion.fechaNaciemiento = "1990-09-17";
 

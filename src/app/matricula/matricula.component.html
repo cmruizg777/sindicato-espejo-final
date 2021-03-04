@@ -19,9 +19,9 @@
             </div-->
         </div>
         <div class="row" *ngIf="inscripcion">
-          <div class="col-md-6 p-3" *ngFor="let requisito of inscripcion.productoServicio.requisitos">
-            <label for="">{{requisito.descripcion}}</label>
-            <input type="file" class="form-control file" name="{{requisito.id}}" accept="image/jpeg,image/png,application/pdf" (change)="handleFileInput($event.target.files, requisito.id)" >
+          <div class="col-md-6 p-3" *ngFor="let doc of inscripcion.documentos">
+            <label for="">{{doc.requisito.descripcion}}</label>
+            <input type="file" class="form-control file" name="{{doc.requisito.id}}" accept="image/jpeg,image/png,application/pdf" (change)="handleFileInput($event.target.files, doc.requisito.id)" >
           </div>
         </div>
         <div class="row justify-content-center">
