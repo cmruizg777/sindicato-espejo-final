@@ -48,70 +48,76 @@ export class Inscripcion{
   disponibilidad: string= '';
 
 
-  errorNombres(){
-    alert(this.mensajes[0]);
-  }
+
   errorApellidos(){
     alert(this.mensajes[1]);
   }
-  errorCedula(){
+  errorCalle1(){
     alert(this.mensajes[2]);
   }
-  errorEstadoCivil(){
+  errorCalle2(){
     alert(this.mensajes[3]);
   }
-  errorEdad(){
+  errorCedula(){
     alert(this.mensajes[4]);
   }
-  errorDireccion(){
+  errorCorreo(){
     alert(this.mensajes[5]);
   }
-  errorCalle1(){
+  errorDireccion(){
     alert(this.mensajes[6]);
   }
-  errorCalle2(){
+  errorEstadoCivil(){
     alert(this.mensajes[7]);
   }
-  errorReferencia(){
+  errorFecha(){
     alert(this.mensajes[8]);
   }
-  errorFecha(){
+  errorInstruccion(){
     alert(this.mensajes[9]);
   }
   errorLugarNac(){
     alert(this.mensajes[10]);
   }
-  errorTelefono(){
+  errorNacionalidad(){
     alert(this.mensajes[11]);
   }
-  errorCorreo(){
+  errorNombres(){
     alert(this.mensajes[12]);
   }
-  errorDisponibilidad(){
+  errorContrasena(){
     alert(this.mensajes[13]);
   }
-  errorTipoSangre(){
+  errorContrasena2(){
     alert(this.mensajes[14]);
   }
-  errorTipoLicencia(){
+  errorReferencia(){
     alert(this.mensajes[15]);
   }
-  errorContrasena(){
+  errorTelefono(){
     alert(this.mensajes[16]);
   }
-  errorContrasena2(){
-    alert(this.mensajes[16]);
-  }
+
   errorUsername1(){
     alert(this.mensajes[17]);
   }
   errorUsername2(){
     alert(this.mensajes[18]);
   }
-  errorInstruccion(){
-    alert(this.mensajes[6]);
-  }
-  errorNacionalidad(){
+
+
+  errorEdad(){
     alert(this.mensajes[19]);
   }
+  errorDisponibilidad(){
+    alert(this.mensajes[20]);
+  }
+  errorTipoSangre(){
+    alert(this.mensajes[21]);
+  }
+  errorTipoLicencia(){
+    alert(this.mensajes[22]);
+  }
+
+
 }
