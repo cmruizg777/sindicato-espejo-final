@@ -51,6 +51,7 @@ export class MatriculaComponent implements OnInit {
   }
   handleFileInput(files: FileList, id) {
     let req = _.find(this.documentos, {id});
+    console.log(req);
     req.documento = files.item(0);
     this.counter ++ ;
   }
