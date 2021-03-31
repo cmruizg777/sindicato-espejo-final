@@ -1,5 +1,6 @@
 div.container{
-  margin: 30px;
+  margin-top: 140px;
+
   padding: 30px;
 }
 div.container div{
@@ -7,6 +8,6 @@ div.container div{
   text-justify: inter-word;
 }
 div.container .titulo1{
-  font-size: 33.6pt;
+  font-size: 1.5em;
   color: var(--green);
 }
