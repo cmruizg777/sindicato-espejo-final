@@ -1,6 +1,5 @@
 div.container{
-  margin-top: 140px;
-
+  margin-top: auto;
   padding: 30px;
 }
 div.container div{
@@ -10,4 +9,5 @@ div.container div{
 div.container .titulo1{
   font-size: 1.5em;
   color: var(--green);
+  text-align: center;
 }

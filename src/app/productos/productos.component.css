@@ -1,8 +1,17 @@
-.container{
+.container-fluid{
   box-sizing: border-box;
-  margin-top: 5%;
+  margin-top: 15%;
   margin-bottom: 5%;
   text-align: center;
+}
+.container-fluid .alert{
+  text-align: start;
+}
+.container-fluid .alert h3{
+  font-size: 1.2rem !important;
+}
+.container-fluid .alert ul>li{
+  font-size: 1rem !important;
 }
 div h5.titulo{
   font-size: 33.6pt;

@@ -5,7 +5,7 @@ div.header{
   font-family: 'Myriad';
   position: fixed;
   top: 0;
-  z-index: 2000;
+  z-index: 11;
 }
 
 div.header div.row{
@@ -96,7 +96,7 @@ div.logo{
   position: absolute;
   z-index: 11;
   top: 0px;
-  width: 10vw;
+  width: 9vw;
 }
 div.logo img{
   width: 100%;
@@ -116,10 +116,14 @@ a.nav-link:hover{
   color: #5CB85C !important;
 }
 
-@media only screen and (max-width: 992px) {
+div.contenedor, div.sidebar-atencion{
+  margin-top: 8rem;
+}
+
+@media only screen and (max-width: 990px) {
   div.contenedor{
-    margin-top: 68px;
-  }
+    margin-top: 6rem;
+  } 
 }
 @media only screen and (max-width: 800px) {
   div.logo{

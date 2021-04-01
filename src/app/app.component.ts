@@ -1,10 +1,11 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { ruta } from './clases/ruta'
 import { AuthService } from './services/auth.service';
 import { Usuario } from './clases/usuario';
 import { ApiRequestService } from './services/api-request.service';
+import { LoadingService } from './services/loading.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,10 +18,15 @@ export class AppComponent {
   show = false;
   toggle = '';
   target = '';
+  display: Boolean = true;
+
+  @ViewChild("content") content: ElementRef;
+
   constructor(
     private router: Router,
     private auth: AuthService,
-    private api: ApiRequestService) {
+    private api: ApiRequestService,
+    private load: LoadingService) {
       this.usuario = null;
       router.events.subscribe(() => {
         this.gotoTop();
@@ -52,7 +58,17 @@ export class AppComponent {
       this.logged=resp;
     });
     this.auth.checkStatus();
-
+    
+  }
+  ngAfterViewInit(){
+    this.load.getLoadingObservable().subscribe(response=>{
+      this.display = response;
+      if(response){
+        this.load.openModalLoading(this.content);
+      }else{
+        this.load.closeModal();
+      }
+    })
   }
 
 

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subscription } from 'rxjs';
 import { ResponseTurnos } from '../clases/response';
 import { ApiRequestService } from '../services/api-request.service';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-sindicato',
@@ -29,20 +31,25 @@ export class SindicatoComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private api: ApiRequestService,
-    private router: Router
+    private router: Router,
+    private load: LoadingService,
+    private modalService: NgbModal,
     ) { }
 
   ngOnInit(): void {
+    
     this.observer = this.activatedRoute.queryParams.subscribe(params => {
-        console.log(params)
+        this.load.setLoading(true);
         this.titulo = params.titulo;
         const plantilla = params.plantilla;
         const index = this.plantillas.indexOf(plantilla);
-        if(index>=0){
+        if(index>=0){         
+          
           const obs = this.api.obtenerPlantillaSindicato(plantilla).subscribe((resp:ResponseTurnos)=>{
             this.html = resp.data;
             console.log(resp)
             obs.unsubscribe();
+            this.load.setLoading(false);
           })
         }else{
           this.router.navigate(['/']);
@@ -75,6 +82,18 @@ export class SindicatoComponent implements OnInit {
     }catch{
 
     }
+  }
+
+  loadData(){
+
+  }
+
+  openBackDropCustomClass(content) {
+    this.modalService.open(content, {
+      backdropClass: 'custom-backdrop',
+      windowClass: 'loading-modal',
+      centered: true,
+    });
   }
 
 }
