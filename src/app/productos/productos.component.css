@@ -8,10 +8,10 @@
   text-align: start;
 }
 .container-fluid .alert h3{
-  font-size: 1.2rem !important;
+  font-size: 0.9rem !important;
 }
 .container-fluid .alert ul>li{
-  font-size: 1rem !important;
+  font-size: 0.8rem !important;
 }
 div h5.titulo{
   font-size: 33.6pt;
@@ -21,4 +21,20 @@ div h5.titulo{
 }
 div.row{
   margin-bottom: 5%;
+}
+.card-img-top{
+  height: 8rem !important;
+}
+h5.card-title{
+  font-size: 0.9rem !important;
+  height: 3rem !important;
+  overflow: hidden;
+}
+p.card-text{
+  font-size: 0.8rem !important;
+  font-weight: bold;
+  color: var(--primary);
+}
+.card-body .btn{
+  font-size: 0.7rem !important;
 }

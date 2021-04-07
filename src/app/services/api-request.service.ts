@@ -55,6 +55,16 @@ export class ApiRequestService {
     //const url = `${this.uri}/v1/servicio/inscripcion`;
     return this.http.post(url, formData);
   }
+  agregarInscripcion(formData) {
+    const url = `${this.uri}/v1/servicio/inscripcion/add`;
+    //const url = `${this.uri}/v1/servicio/inscripcion`;
+    return this.http.post(url, formData);
+  }
+  agregarTurno(formData) {
+    const url = `${this.uri}/v1/servicio/solicitud/add`;
+    //const url = `${this.uri}/v1/servicio/solicitud`;
+    return this.http.post(url, formData);
+  }
   obtenerFecha(){
     const url = `${this.uri}/info/date`;
     //const url = `${this.uri}/info/date`;

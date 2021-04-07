@@ -13,7 +13,7 @@
     </div>
     <div class="row align-items-center">
       <div class="col-md-9">
-        <app-datos-personales [inscripcion]="inscripcion"></app-datos-personales>
+        <app-datos-personales [inscripcion]="inscripcion" [logged]="logged"></app-datos-personales>
         <div class="form-container" *ngIf="examen.examen.tipo.codigo == $any(2)">
           <div class="row">
             <div class="form-group col-md-6">

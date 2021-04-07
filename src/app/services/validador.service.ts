@@ -55,13 +55,13 @@ export class ValidadorService {
     return false;
   }
 
-  validarDatos(fecha: NgbDateStruct): number {
+  validarDatos(fecha: NgbDateStruct, logged: boolean): number {
     this.fecha = fecha;
-    if(this.inscripcion.apellidos.trim() === ''){
+    if(this.inscripcion.apellidos.trim() === '' && !logged){
       this.inscripcion.errorApellidos();
       return 1;
     }
-    if(this.inscripcion.calle1 == ''){
+    if(this.inscripcion.calle == ''){
       this.inscripcion.errorCalle1();
       return 2;
     }
@@ -70,12 +70,12 @@ export class ValidadorService {
       return 3;
     }
     this.cedulaValida = this.validarCedula(this.inscripcion.cedula);
-    if(!this.cedulaValida){
+    if(!this.cedulaValida && !logged){
       this.inscripcion.errorCedula();
       return 4;
     }
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if(!re.test(String(this.inscripcion.correo).toLowerCase())){
+    if(!re.test(String(this.inscripcion.email).toLowerCase())){
       this.inscripcion.errorCorreo();
       return 5;
     }
@@ -83,11 +83,11 @@ export class ValidadorService {
       this.inscripcion.errorDireccion();
       return 6;
     }
-    if(this.inscripcion.estado_civil.trim() == ''){
+    if(this.inscripcion.estadoCivil.trim() == ''){
       this.inscripcion.errorEstadoCivil();
       return 7;
     }
-    if(!this.fecha){
+    if(!this.fecha && !logged){
       this.inscripcion.errorFecha();
       return 8;
     }
@@ -97,25 +97,27 @@ export class ValidadorService {
       this.inscripcion.errorInstruccion();
       return 9;
     }
-    if(this.inscripcion.lugarNaciemiento.trim() === ''){
+    if(this.inscripcion.lugarNac.trim() === '' && !logged){
       this.inscripcion.errorLugarNac();
       return 10;
     }
-    if(this.inscripcion.nacionalidad.trim() === ''){
+    if(this.inscripcion.nacionalidad.trim() === '' && !logged){
       this.inscripcion.errorNacionalidad();
       return 11;
     }
-    if(this.inscripcion.nombres.trim() === ''){
+    if(this.inscripcion.nombres.trim() === '' && !logged){
       this.inscripcion.errorNombres();
       return 12;
     }
-    if(this.inscripcion.pass1.trim() === '' || this.inscripcion.pass1.indexOf(' ')>=0){
-      this.inscripcion.errorContrasena();
-      return 13;
-    }else{
-      if(this.inscripcion.pass1 != this.inscripcion.pass2 ){
-        this.inscripcion.errorContrasena2();
-        return 14;
+    if(!logged){
+      if(this.inscripcion.pass1.trim() === '' || this.inscripcion.pass1.indexOf(' ')>=0){
+        this.inscripcion.errorContrasena();
+        return 13;
+      }else{
+        if(this.inscripcion.pass1 != this.inscripcion.pass2 ){
+          this.inscripcion.errorContrasena2();
+          return 14;
+        }
       }
     }
     if(this.inscripcion.referencia == ''){
@@ -126,11 +128,11 @@ export class ValidadorService {
       this.inscripcion.errorTelefono();
       return 16;
     }
-    if(this.inscripcion.username.trim() == ''){
+    if(this.inscripcion.username.trim() == '' && !logged){
       this.inscripcion.errorUsername1();
       return 17;
     }else{
-      if(this.inscripcion.username.indexOf(' ')>=0){
+      if(this.inscripcion.username.indexOf(' ')>=0 && !logged){
         this.inscripcion.errorUsername1();
         return 18;
       }

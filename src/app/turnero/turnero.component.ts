@@ -30,6 +30,7 @@ export class TurneroComponent implements OnInit {
   horarios : any[];
   horario: any;
   loading = true;
+  logged = false;
   constructor(
     private validadorService: ValidadorService,
     private api: ApiRequestService,
@@ -80,7 +81,11 @@ export class TurneroComponent implements OnInit {
     this.inscripcion.username = "angel12";
     //this.inscripcion.tipoLicencia
     //this.inscripcion.tipoSangre*/
-
+    this.logged = this.auth.state ;
+    if ( this.logged ){
+      let profile = JSON.parse(localStorage.getItem('profile'));
+      this.inscripcion = profile;
+    }
 
     let fechaAux =  new Date();
     this.transformarFecha(fechaAux);
@@ -153,17 +158,17 @@ export class TurneroComponent implements OnInit {
     if(rCode == 0){
       const formData: FormData = new FormData();
       formData.append('_apellidos',this.inscripcion.apellidos);
-      formData.append('_calle1',this.inscripcion.calle1);
+      formData.append('_calle1',this.inscripcion.calle);
       formData.append('_calle2',this.inscripcion.calle2);
       formData.append('_cedula',this.inscripcion.cedula);
-      formData.append('_email',this.inscripcion.correo);
+      formData.append('_email',this.inscripcion.email);
       formData.append('_direccion',this.inscripcion.direccion);
-      formData.append('_estado',this.inscripcion.estado_civil);
+      formData.append('_estado',this.inscripcion.estadoCivil);
       formData.append('_fecha',this.inscripcion.fechaNaciemiento);
       formData.append('_fechaT',this.fechaT.year+'-'+this.fechaT.month+'-'+this.fechaT.day);
       formData.append('_horario',this.horario);
       formData.append('_instruccion',this.inscripcion.instruccion);
-      formData.append('_lugarN',this.inscripcion.lugarNaciemiento);
+      formData.append('_lugarN',this.inscripcion.lugarNac);
       formData.append('_nacionalidad',this.inscripcion.nacionalidad);
       formData.append('_nombres',this.inscripcion.nombres);
       formData.append('_password',this.inscripcion.pass1);
@@ -179,24 +184,41 @@ export class TurneroComponent implements OnInit {
   }
 
   enviarFormulario(formData){
-    this.api.postFile(formData).subscribe((data: ResponseTurnos) => {
-      if(data.code==200){
-        alert('Su turno se ha almacenado correctamente, por favor espere el mensaje de confirmación en su correo.');
-        localStorage.clear();
-        let form = new FormData();
-        form.append('_username',this.inscripcion.username);
-        form.append('_password',this.inscripcion.pass1);
-        this.auth.login(form);
+    if (!this.logged) {
+      this.api.postFile(formData).subscribe((data: ResponseTurnos) => {
+        if(data.code==200){
+          alert('Su turno se ha almacenado correctamente, por favor espere el mensaje de confirmación en su correo.');
+          localStorage.clear();
+          let form = new FormData();
+          form.append('_username',this.inscripcion.username);
+          form.append('_password',this.inscripcion.pass1);
+          this.auth.login(form);
 
-      }else{
-        alert(`Ha habido un error: ${data.data}`);
-      }
-      this.loading = false;
-    }, error => {
-      alert('Ha habido un error, por favor revise su información e intentelo nuevamente.')
-      console.log(error);
-      this.loading = false;
-    });
+        }else{
+          alert(`Ha habido un error: ${data.data}`);
+        }
+        this.loading = false;
+      }, error => {
+        alert('Ha habido un error, por favor revise su información e intentelo nuevamente.')
+        console.log(error);
+        this.loading = false;
+      });
+    } else {
+      this.api.agregarTurno(formData).subscribe((data: ResponseTurnos) => {
+        if(data.code==200){
+          alert('Su turno se ha almacenado correctamente, por favor espere el mensaje de confirmación en su correo.');
+          this.router.navigate(['perfil'])
+
+        }else{
+          alert(`Ha habido un error: ${data.data}`);
+        }
+        this.loading = false;
+      }, error => {
+        alert('Ha habido un error, por favor revise su información e intentelo nuevamente.')
+        console.log(error);
+        this.loading = false;
+      });
+    }
   }
 
   handleFileInput(files: FileList) {
@@ -204,11 +226,11 @@ export class TurneroComponent implements OnInit {
   }
 
   validarDatos(): number {
-    if(this.inscripcion.apellidos.trim() === ''){
+    if(this.inscripcion.apellidos.trim() === '' && !this.logged){
       this.inscripcion.errorApellidos();
       return 1;
     }
-    if(this.inscripcion.calle1 == ''){
+    if(this.inscripcion.calle == ''){
       this.inscripcion.errorCalle1();
       return 2;
     }
@@ -217,12 +239,12 @@ export class TurneroComponent implements OnInit {
       return 3;
     }
     this.validarCedula();
-    if(!this.cedulaValida){
+    if(!this.cedulaValida  && !this.logged){
       this.inscripcion.errorCedula();
       return 4;
     }
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if(!re.test(String(this.inscripcion.correo).toLowerCase())){
+    if(!re.test(String(this.inscripcion.email).toLowerCase())){
       this.inscripcion.errorCorreo();
       return 5;
     }
@@ -230,11 +252,11 @@ export class TurneroComponent implements OnInit {
       this.inscripcion.errorDireccion();
       return 6;
     }
-    if(this.inscripcion.estado_civil.trim() == ''){
+    if(this.inscripcion.estadoCivil.trim() == ''){
       this.inscripcion.errorEstadoCivil();
       return 7;
     }
-    if(!this.fecha){
+    if(!this.fecha  && !this.logged){
       this.inscripcion.errorFecha();
       return 8;
     }
@@ -244,27 +266,30 @@ export class TurneroComponent implements OnInit {
       this.inscripcion.errorInstruccion();
       return 9;
     }
-    if(this.inscripcion.lugarNaciemiento.trim() === ''){
+    if(this.inscripcion.lugarNac.trim() === ''  && !this.logged){
       this.inscripcion.errorLugarNac();
       return 10;
     }
-    if(this.inscripcion.nacionalidad.trim() === ''){
+    if(this.inscripcion.nacionalidad.trim() === ''  && !this.logged){
       this.inscripcion.errorNacionalidad();
       return 11;
     }
-    if(this.inscripcion.nombres.trim() === ''){
+    if(this.inscripcion.nombres.trim() === ''  && !this.logged){
       this.inscripcion.errorNombres();
       return 12;
     }
-    if(this.inscripcion.pass1.trim() === '' || this.inscripcion.pass1.indexOf(' ')>=0){
-      this.inscripcion.errorContrasena();
-      return 13;
-    }else{
-      if(this.inscripcion.pass1 != this.inscripcion.pass2 ){
-        this.inscripcion.errorContrasena2();
-        return 14;
+    if (!this.logged){
+      if(this.inscripcion.pass1.trim() === '' || this.inscripcion.pass1.indexOf(' ')>=0){
+        this.inscripcion.errorContrasena();
+        return 13;
+      }else{
+        if(this.inscripcion.pass1 != this.inscripcion.pass2 ){
+          this.inscripcion.errorContrasena2();
+          return 14;
+        }
       }
     }
+
     if(this.inscripcion.referencia == ''){
       this.inscripcion.errorReferencia();
       return 15;
@@ -273,11 +298,11 @@ export class TurneroComponent implements OnInit {
       this.inscripcion.errorTelefono();
       return 16;
     }
-    if(this.inscripcion.username.trim() == ''){
+    if(this.inscripcion.username.trim() == ''   && !this.logged){
       this.inscripcion.errorUsername1();
       return 17;
     }else{
-      if(this.inscripcion.username.indexOf(' ')>=0){
+      if(this.inscripcion.username.indexOf(' ')>=0   && !this.logged){
         this.inscripcion.errorUsername1();
         return 18;
       }

@@ -148,7 +148,7 @@
                         <th colspan="2">Nombre</th>
                         <th colspan="4">Requisitos</th>
                         <th colspan="1">Estado</th>
-                        <th colspan="4">Observaciones</th>
+                        <!--th colspan="4">Observaciones</th-->
                       </tr>
                     </thead>
                     <tbody>
@@ -179,11 +179,11 @@
                           <p *ngIf="i.estado == $any(1)" class="text-success"><b>Aprobado</b></p>
                           <p *ngIf="i.estado == $any(2)" class="text-danger"><b>Rechazado</b></p>
                         </td>
-                        <td colspan="4">
+                        <!--td colspan="4">
                           <small class="observaciones text-dark">
                             {{i.observaciones}}
                           </small>
-                        </td>
+                        </td-->
                       </tr>
                     </tbody>
                   </table>

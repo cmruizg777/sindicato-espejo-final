@@ -1,5 +1,6 @@
 <div class="form container">
   <div class="row">
+    <ng-container *ngIf="!logged">
     <div class="form-group col-md-6">
       <div class="">
         <h5>Fecha de Nac.</h5>
@@ -19,46 +20,51 @@
         </div>
       </div>
     </div>
-    <div class="form-group col-md-6">
-      <div class="">
-        <h5>Cédula:</h5>
+
+      <div class="form-group col-md-6">
+        <div class="">
+          <h5>Cédula:</h5>
+        </div>
+        <input name="Cedula" class="form-control" placeholder="0452813749" type="text" [(ngModel)]="inscripcion.cedula" (change)="validarCedula()"  maxlength="10" required=""  >
       </div>
-      <input name="Cedula" class="form-control" placeholder="0452813749" type="text" [(ngModel)]="inscripcion.cedula" (change)="validarCedula()"  maxlength="10" required=""  >
-    </div>
+    </ng-container>
+
   </div>
   <div class="row">
-    <div class="form-group col-md-6">
-      <div class="">
-        <h5>Nombres:</h5>
+    <ng-container *ngIf="!logged">
+      <div class="form-group col-md-6">
+        <div class="">
+          <h5>Nombres:</h5>
+        </div>
+        <input name="Nombre" class="form-control" placeholder="Juan José" type="text" [(ngModel)]="inscripcion.nombres" required="">
       </div>
-      <input name="Nombre" class="form-control" placeholder="Juan José" type="text" [(ngModel)]="inscripcion.nombres" required="">
-    </div>
 
-    <div class="form-group col-md-6">
-      <div class="">
-        <h5>Apellidos:</h5>
+      <div class="form-group col-md-6">
+        <div class="">
+          <h5>Apellidos:</h5>
+        </div>
+        <input name="Apellido" class="form-control" placeholder="Pérez" type="text" [(ngModel)]="inscripcion.apellidos" required="">
       </div>
-      <input name="Apellido" class="form-control" placeholder="Pérez" type="text" [(ngModel)]="inscripcion.apellidos" required="">
-    </div>
-    <div class="form-group col-md-6">
-      <div class="">
-        <h5>Nacionalidad:</h5>
+      <div class="form-group col-md-6">
+        <div class="">
+          <h5>Nacionalidad:</h5>
+        </div>
+        <input name="Nacionalidad"  class="form-control" placeholder="Ecuatoriana" type="text" [(ngModel)]="inscripcion.nacionalidad"  required=""  >
       </div>
-      <input name="Nacionalidad"  class="form-control" placeholder="Ecuatoriana" type="text" [(ngModel)]="inscripcion.nacionalidad"  required=""  >
-    </div>
 
-    <div class="form-group col-md-6">
-      <div class="">
-        <h5>Lugar de Nac:</h5>
+      <div class="form-group col-md-6">
+        <div class="">
+          <h5>Lugar de Nac:</h5>
+        </div>
+        <input name="LugarNac" class="form-control" placeholder="Ecuador-Carchi-Tulcán" type="text" [(ngModel)]="inscripcion.lugarNac"  required=""  >
       </div>
-      <input name="LugarNac" class="form-control" placeholder="Ecuador-Carchi-Tulcán" type="text" [(ngModel)]="inscripcion.lugarNaciemiento"  required=""  >
-    </div>
+    </ng-container>
 
     <div class="form-group col-md-6">
       <div class="">
         <h5>Email:</h5>
       </div>
-      <input class="form-control" name="Email" placeholder="sindicatoespejo@hotmail.com" type="email" [(ngModel)]="inscripcion.correo" required="">
+      <input class="form-control" name="Email" placeholder="sindicatoespejo@hotmail.com" type="email" [(ngModel)]="inscripcion.email" required="">
     </div>
     <div class="form-group col-md-6">
       <div class="">
@@ -66,24 +72,25 @@
       </div>
       <input name="Telf" class="form-control" placeholder="0989898989" type="text" [(ngModel)]="inscripcion.telefono" required="">
     </div>
-    <div class="form-group col-md-6">
-      <div class="">
-        <h5>Contraseña:</h5>
+    <ng-container *ngIf="!logged">
+      <div class="form-group col-md-6">
+        <div class="">
+          <h5>Contraseña:</h5>
+        </div>
+        <input name="Pass1" class="form-control" type="password" [(ngModel)]="inscripcion.pass1" required="">
       </div>
-      <input name="Pass1" class="form-control" type="password" [(ngModel)]="inscripcion.pass1" required="">
-    </div>
-    <div class="form-group col-md-6">
-      <div class="">
-        <h5>Confirmar Contraseña:</h5>
+      <div class="form-group col-md-6">
+        <div class="">
+          <h5>Confirmar Contraseña:</h5>
+        </div>
+        <input name="Pass2" class="form-control" type="password" [(ngModel)]="inscripcion.pass2" required="">
       </div>
-      <input name="Pass2" class="form-control" type="password" [(ngModel)]="inscripcion.pass2" required="">
-    </div>
-
+    </ng-container>
     <div class="form-group col-md-6">
       <div class="">
         <h5>Estado civil:</h5>
       </div>
-      <select name="EstadoC" class="form-control" id="" [(ngModel)]="inscripcion.estado_civil">
+      <select name="EstadoC" class="form-control" id="" [(ngModel)]="inscripcion.estadoCivil">
         <option value="S">Soltero</option>
         <option value="C">Casado</option>
         <option value="V">Viudo</option>
@@ -112,7 +119,7 @@
       <div class="">
         <h5>Calle Princ.:</h5>
       </div>
-      <input name="Calle2" class="form-control" placeholder="Bolivar" type="text" [(ngModel)]="inscripcion.calle1" required="">
+      <input name="Calle2" class="form-control" placeholder="Bolivar" type="text" [(ngModel)]="inscripcion.calle" required="">
     </div>
     <div class="form-group col-md-6">
       <div class="">

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-struct';
 import { Inscripcion } from '../clases/inscripcion';
+import { AuthService } from '../services/auth.service';
 import { ValidadorService } from '../services/validador.service';
 
 @Component({
@@ -23,8 +24,10 @@ export class DatosPersonalesComponent implements OnInit {
   loading = true;
   minDate;
   maxDate;
+  @Input() logged = false;
   constructor(
-    private validadorService: ValidadorService
+    private validadorService: ValidadorService,
+    private auth: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -33,6 +36,12 @@ export class DatosPersonalesComponent implements OnInit {
       month: 9,
       year: 1990
     };
+  }
+
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+
   }
   validarCedula(){
     if(this.inscripcion.cedula){

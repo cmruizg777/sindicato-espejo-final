@@ -1,5 +1,5 @@
 <div class="container-fluid">
-<ng-container *ngIf="servicios; else elseTemplate">  
+<ng-container *ngIf="servicios; else elseTemplate">
   <div class="alert alert-primary mt-3" role="alert">
     <h3>PROCESO DE MATRICULACIÓN</h3>
     <ul>
@@ -18,10 +18,13 @@
       <div class="card">
         <img [src]="s.urlImagen" class="card-img-top" style="max-height: 180px;" alt="...">
         <div class="card-body">
-          <h5 class="card-title">{{s.curso.nombre}}</h5>
-          <p class="card-text">
-            Precio: <i class="fa fa-dollar"></i>{{s.precio}}
-          </p>
+          <div class="container-fluid">
+            <h5 class="card-title" title="{{s.curso.nombre}}" >{{s.curso.nombre}}</h5>
+            <p class="card-text">
+              Precio: ${{s.precio}}
+            </p>
+          </div>
+
           <a  [routerLink]="['/inscripcion', s.id]" class="btn btn-outline-success btn-block">Matricularme</a>
         </div>
       </div>
@@ -36,10 +39,12 @@
       <div class="card">
         <img [src]="s.urlImagen" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">{{s.examen.nombre}}</h5>
-          <p class="card-text">
-            Precio: <i class="fa fa-dollar"></i>{{s.precio}}
-          </p>
+          <div class="container-fluid">
+            <h5 class="card-title">{{s.examen.nombre}}</h5>
+            <p class="card-text">
+              Precio: <i class="fa fa-dollar"></i>{{s.precio}}
+            </p>
+          </div>
           <a  [routerLink]="['/turnos', s.id]" class="btn btn-outline-success btn-block">Matricularme</a>
         </div>
       </div>
@@ -47,7 +52,7 @@
   </div>
   <div *ngIf="servicios.examenes.length == 0 && servicios.cursos.length == 0">
     <h2>No se han encontrado servicios disponibles :(</h2>
-  </div> 
+  </div>
 </ng-container>
 <ng-template #elseTemplate>
     <div class="spinner-border text-success w-20" role="status">

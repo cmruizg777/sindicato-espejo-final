@@ -160,8 +160,8 @@ body, html {
   width: auto !important;
   display: inline-block;
   margin: 0% !important;
-  height: 100%;
-  padding-top: 35%;
+  /*height: 100%;*/
+  padding-top: 25%;
 }
 
 .loading-modal .close {

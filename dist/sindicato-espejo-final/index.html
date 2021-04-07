@@ -9,15 +9,35 @@
   <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="./assets/fontawesome-free-5.15.1-web/css/all.min.css">
   <style>
+    *,
+*::before,
+*::after {
+box-sizing: border-box;
+}
+html{
+  width: 100%;
+  min-height: 100vh;
+}
+body{
+  min-height: 100vh;
+  position: relative;
+}
+body::after{
+  content: '';
+  display: block;
+  height: 50px;
+}
     /********************FOOTER*****************************/
 footer{
   background-color: var(--green);
   box-sizing: border-box;
-  padding: 3%;
   color: #fff;
   font-family: 'Nexa';
-  bottom: 0px;
+  bottom: 0;
   width: 100%;
+  position: fixed;
+  padding: 3px;
+  z-index: 11;
 }
 footer .container{
   padding-top: 20px;
@@ -56,24 +76,36 @@ footer .copy{
 }
 
   </style>
-<link rel="stylesheet" href="styles.9399270a847c2dc16a01.css"></head>
+<link rel="stylesheet" href="styles.c64dfd307532ef273076.css"></head>
 <body>
+
   <app-root>
-    <div class="app-loading">
+    <!--div class="app-loading">
       <div class="logo"></div>
       <svg class="spinner" viewBox="25 25 50 50">
         <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
       </svg>
-    </div>
+    </div-->
   </app-root>
+
   <footer>
     <div class="copy">
-        <span>&copy; Grupo Prosoft 2021 - Cristian Ruiz (0988116697)</span>
+        <p class="m-0">
+          <small>
+            Horarios de atención: Lunes a Viernes de 08:00 - 13:00  y de 14:00 - 17:00
+          </small>
+        </p>
+        <span class="d-md-block d-none">
+          <small>
+            &copy; Sindicato de Choferes Profesionales del Cantón Espejo 2021
+          </small>
+        </span>
+        <p><small>Grupo Prosoft 2021 - Cristian Ruiz (0988116697)</small></p>
     </div>
   </footer>
   <script src="./assets/js/jquery.js"></script>
   <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
   <script src="./assets/js/submenu.js"></script>
 
-<script src="runtime.e227d1a0e31cbccbf8ec.js" defer></script><script src="polyfills.4dc3b73f451c53467b36.js" defer></script><script src="main.c804435816802feb287e.js" defer></script></body>
+<script src="runtime.e227d1a0e31cbccbf8ec.js" defer></script><script src="polyfills.4dc3b73f451c53467b36.js" defer></script><script src="main.9fac28cb404528d7025d.js" defer></script></body>
 </html>

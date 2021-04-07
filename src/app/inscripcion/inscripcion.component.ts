@@ -51,6 +51,7 @@ export class InscripcionComponent implements OnInit {
   loading = true;
   minDate;
   maxDate;
+  logged = false;
   constructor(
     private validadorService: ValidadorService,
     private router: Router,
@@ -114,6 +115,12 @@ export class InscripcionComponent implements OnInit {
           //this.inscripcion.tipoLicencia
           //this.inscripcion.tipoSangre*/
 
+          this.logged = this.auth.state ;
+          if ( this.logged ){
+            let profile = JSON.parse(localStorage.getItem('profile'));
+            this.inscripcion = profile;
+          }
+
         }
       }
   }, error => {
@@ -144,22 +151,22 @@ export class InscripcionComponent implements OnInit {
 enviar(){
   this.inscripcion.username = this.inscripcion.cedula;
   this.validadorService.inscripcion = this.inscripcion;
-  const rCode = this.validadorService.validarDatos(this.fecha);
-  //console.log(rCode);
-  //console.log(this.inscripcion);
+  const rCode = this.validadorService.validarDatos(this.fecha, this.logged);
+  console.log(rCode);
+  console.log(this.inscripcion);
   if(rCode === 0){
     const formData: FormData = new FormData();
 
     formData.append('_apellidos',this.inscripcion.apellidos);
-    formData.append('_calle1',this.inscripcion.calle1);
+    formData.append('_calle1',this.inscripcion.calle);
     formData.append('_calle2',this.inscripcion.calle2);
     formData.append('_cedula',this.inscripcion.cedula);
-    formData.append('_email',this.inscripcion.correo);
+    formData.append('_email',this.inscripcion.email);
     formData.append('_direccion',this.inscripcion.direccion);
-    formData.append('_estado',this.inscripcion.estado_civil);
+    formData.append('_estado',this.inscripcion.estadoCivil);
     formData.append('_fecha',this.inscripcion.fechaNaciemiento);
     formData.append('_instruccion',this.inscripcion.instruccion);
-    formData.append('_lugarN',this.inscripcion.lugarNaciemiento);
+    formData.append('_lugarN',this.inscripcion.lugarNac);
     formData.append('_nacionalidad',this.inscripcion.nacionalidad);
     formData.append('_nombres',this.inscripcion.nombres);
     formData.append('_password',this.inscripcion.pass1);
@@ -178,23 +185,40 @@ enviar(){
 }
 
 enviarFormulario(formData){
-  this.api.postFileInscripcion(formData).subscribe((data: ResponseTurnos) => {
-    if(data.code==200){
-      let form = new FormData();
-      alert(data.data);
-      form.append('_username',this.inscripcion.username);
-      form.append('_password',this.inscripcion.pass1);
-      localStorage.clear();
-      this.auth.login(form);
-    }else{
-      alert(`Ha habido un error: ${data.data}`);
+  if(!this.logged){
+    this.api.postFileInscripcion(formData).subscribe((data: ResponseTurnos) => {
+      if(data.code==200){
+        let form = new FormData();
+        alert(data.data);
+        form.append('_username',this.inscripcion.username);
+        form.append('_password',this.inscripcion.pass1);
+        localStorage.clear();
+        this.auth.login(form);
+      }else{
+        alert(`Ha habido un error: ${data.data}`);
+        this.loading = false;
+      }
+    }, error => {
+      alert('Ha habido un error, por favor revise su información e intentelo nuevamente.')
       this.loading = false;
-    }
-  }, error => {
-    alert('Ha habido un error, por favor revise su información e intentelo nuevamente.')
-    this.loading = false;
-    console.log(error);
-  });
+      console.log(error);
+    });
+  }else{
+    this.api.agregarInscripcion(formData).subscribe((data: ResponseTurnos) => {
+      if(data.code==200){
+        alert(`Se ha enviado su solicitud correctamente.`);
+        this.router.navigate(['perfil'])
+      }else{
+        alert(`Ha habido un error: ${data.data}`);
+        this.loading = false;
+      }
+    }, error => {
+      alert('Ha habido un error, por favor revise su información e intentelo nuevamente.')
+      this.loading = false;
+      console.log(error);
+    });
+  }
+
 }
 
 
