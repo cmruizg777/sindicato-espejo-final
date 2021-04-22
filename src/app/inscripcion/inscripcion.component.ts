@@ -209,7 +209,7 @@ enviarFormulario(formData){
         alert(`Se ha enviado su solicitud correctamente.`);
         this.router.navigate(['perfil'])
       }else{
-        alert(`Ha habido un error: ${data.data}`);
+        alert(`${data.data}`);
         this.loading = false;
       }
     }, error => {

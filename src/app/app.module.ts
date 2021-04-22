@@ -24,6 +24,7 @@ import { SindicatoComponent } from './sindicato/sindicato.component';
 import { TokenInterceptor } from './services/token-interceptor.service';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { DatosPersonalesComponent } from './datos-personales/datos-personales.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { DatosPersonalesComponent } from './datos-personales/datos-personales.co
     EscuelaComponent,
     SindicatoComponent,
     DatosPersonalesComponent,
+    ResetPasswordComponent,
 
   ],
   imports: [

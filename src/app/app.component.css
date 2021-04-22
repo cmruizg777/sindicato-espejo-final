@@ -81,7 +81,7 @@ ul.navbar-nav{
   width: 100%;
 }
 ul.navbar-nav .nav-link{
-  font-size: 1rem;
+  font-size: 0.8rem;
   color: #fff !important;
   max-height: 100%;
 }
@@ -123,7 +123,7 @@ div.contenedor, div.sidebar-atencion{
 @media only screen and (max-width: 990px) {
   div.contenedor{
     margin-top: 6rem;
-  } 
+  }
 }
 @media only screen and (max-width: 800px) {
   div.logo{

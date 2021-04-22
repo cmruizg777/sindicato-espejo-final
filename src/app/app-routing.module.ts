@@ -12,6 +12,7 @@ import { EscuelaComponent } from './escuela/escuela.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UserGuard } from './guards/user.guard';
 import { MatriculaComponent } from './matricula/matricula.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path: 'turnos/:id', component: TurneroComponent },
   {path: 'sindicato', component: SindicatoComponent },
   {path: 'escuela', component: EscuelaComponent },
+  {path: 'reset', component: ResetPasswordComponent },
 
   //{path: '', redirectTo: '404', pathMatch: 'full'},
 ];

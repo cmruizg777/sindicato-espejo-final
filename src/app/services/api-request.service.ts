@@ -100,4 +100,10 @@ export class ApiRequestService {
     //const url = `${this.uri}/user/profile`;
     return this.http.get<ResponseTurnos>(url);
   }
+
+  resetPassword(form){
+    const url = `${this.uri}/user/reset-password`;
+    //const url = `${this.uri}/user/login_check`;
+    return this.http.post(url,form);
+  }
 }
