@@ -90,6 +90,7 @@ export class TurneroComponent implements OnInit {
     let fechaAux =  new Date();
     this.transformarFecha(fechaAux);
     this.start = new Date();
+    this.fechaT = { year: fechaAux.getFullYear(), month: fechaAux.getMonth() , day: fechaAux.getDate()};
     const obs  =this.api.obtenerFecha().subscribe( (resp : ResponseTurnos) => {
       if(!resp.error){
           const aux = resp.data.split('-');
@@ -99,6 +100,7 @@ export class TurneroComponent implements OnInit {
       }else{
         alert('El servidor no ha respondido, intentelo más tarde')
       }
+      console.log(resp)
     });
     this.idServicio = this.rutaActiva.snapshot.params.id;
     this.api.obtenerCurso(this.idServicio, 1).subscribe((resp: ResponseTurnos)=>{
