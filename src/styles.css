@@ -5,27 +5,27 @@
 
 @font-face{
   font-family: 'Myriad';
-  src: url("./assets/fonts/MyriadPro-Regular.otf");
+  src: url("/assets/fonts/MyriadPro-Regular.otf");
 }
 @font-face{
   font-family: 'Nexa';
-  src: url("./assets/fonts/Nexa-Bold.otf");
+  src: url("/assets/fonts/Nexa-Bold.otf");
 }
 @font-face{
   font-family: 'Monserrat';
-  src: url("./assets/fonts/Montserrat-Bold.ttf");
+  src: url("/assets/fonts/Montserrat-Bold.ttf");
 }
 @font-face{
   font-family: Helvetica-Blk;
-  src: url("./assets/fonts/HelveticaNeueLTCom-BlkCn.ttf");
+  src: url("/assets/fonts/HelveticaNeueLTCom-BlkCn.ttf");
 }
 @font-face{
   font-family: Helvetica-Roman;
-  src: url("./assets/fonts/HelveticaNeueLTCom-Roman.ttf");
+  src: url("/assets/fonts/HelveticaNeueLTCom-Roman.ttf");
 }
 @font-face{
   font-family: fa-regular;
-  src: url("./assets/fontawesome-free-5.15.1-web/webfonts/fa-regular-400.ttf");
+  src: url("/assets/fontawesome-free-5.15.1-web/webfonts/fa-regular-400.ttf");
 }
 
 

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sindicato Espejo</title>
+  <base href="./">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="./assets/fontawesome-free-5.15.1-web/css/all.min.css">
+  <style>
+    *,
+*::before,
+*::after {
+box-sizing: border-box;
+}
+html{
+  width: 100%;
+  min-height: 100vh;
+}
+body{
+  min-height: 100vh;
+  position: relative;
+}
+body::after{
+  content: '';
+  display: block;
+  height: 50px;
+}
+    /********************FOOTER*****************************/
+footer{
+  background-color: var(--green);
+  box-sizing: border-box;
+  color: #fff;
+  font-family: 'Nexa';
+  bottom: 0;
+  width: 100%;
+  position: fixed;
+  padding: 3px;
+  z-index: 11;
+}
+footer .container{
+  padding-top: 20px;
+}
+footer a{
+  color: #fff;
+  font-size: 12pt;
+  font-family: 'Myriad';
+  position: absolute;
+  bottom: 0;
+}
+footer .col div{
+  text-align: left;
+}
+footer .links-rapidos{
+  width: 65%;
+  float: left;
+}
+footer .links-rapidos .link{
+  line-height: 28pt;
+}
+footer .titulo{
+  font-size: 20pt;
+}
+footer .contacto{
+  width: 35%;
+  float: right;
+}
+footer .logo-marca{
+  margin-top: -40px;
+  margin-left: -40px;
+}
+footer .copy{
+  font-family: 'Myriad';
+  text-align: center;
+}
+
+  </style>
+</head>
+<body>
+
+  <app-root>
+    <!--div class="app-loading">
+      <div class="logo"></div>
+      <svg class="spinner" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+      </svg>
+    </div-->
+  </app-root>
+
+  <footer>
+    <div class="copy">
+        <p class="m-0">
+          <small>
+            Horarios de atención: Lunes a Viernes de 08:00 - 13:00  y de 14:00 - 17:00
+          </small>
+        </p>
+        <span class="d-md-block d-none">
+          <small>
+            &copy; Sindicato de Choferes Profesionales del Cantón Espejo 2021
+          </small>
+        </span>
+        <!--p><small>Grupo Prosoft 2021 - Cristian Ruiz (0988116697)</small></p-->
+    </div>
+  </footer>
+  <script src="./assets/js/jquery.js"></script>
+  <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="./assets/js/submenu.js"></script>
+
+<script src="runtime.js" defer></script><script src="polyfills.js" defer></script><script src="styles.js" defer></script><script src="vendor.js" defer></script><script src="main.js" defer></script></body>
+</html>
