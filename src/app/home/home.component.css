@@ -63,7 +63,7 @@ div.servicios .titulo{
 
 /* ****************** SERVICIOS **********************************/
 div.servicios{
-  background: url(./assets/img/1-background.jpg);
+  background: url("./assets/img/1-background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -117,7 +117,7 @@ div.noticias .card-text{
 }
 div.divisor{
   margin-top: 50px;
-  background: url(./assets/img/6-separador-entre-secciones.jpg);
+  background: url("./assets/img/6-separador-entre-secciones.jpg");
   background-size: cover;
   background-position: center center;
   height: 20px;
