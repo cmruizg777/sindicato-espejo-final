@@ -11,8 +11,8 @@ import { Noticia } from '../clases/noticia';
   providedIn: 'root'
 })
 export class ApiRequestService {
-  uri = 'https://grupoprosoft.net/sindicato-api/public/index.php/api';
-  //uri = 'http://localhost:8000/api';
+  //uri = 'https://grupoprosoft.net/sindicato-api/public/index.php/api';
+  uri = 'http://192.168.88.123/sindicato-api/public/index.php/api';
   constructor(
     private http: HttpClient,
     private storage: LocalStorageService
