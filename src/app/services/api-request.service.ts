@@ -12,7 +12,7 @@ import { Noticia } from '../clases/noticia';
 })
 export class ApiRequestService {
   //uri = 'https://grupoprosoft.net/sindicato-api/public/index.php/api';
-  uri = 'http://192.168.88.123/sindicato-api/public/index.php/api';
+  uri = 'http://services.sindicatoespejo.com/sindicato-api/public/index.php/api';
   constructor(
     private http: HttpClient,
     private storage: LocalStorageService
