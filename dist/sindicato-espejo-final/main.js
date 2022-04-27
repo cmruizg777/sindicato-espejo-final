@@ -3451,7 +3451,7 @@ class ApiRequestService {
         this.http = http;
         this.storage = storage;
         //uri = 'https://grupoprosoft.net/sindicato-api/public/index.php/api';
-        this.uri = 'http://192.168.88.123/sindicato-api/public/index.php/api';
+        this.uri = 'http://services.sindicatoespejo.com/sindicato-api/public/index.php/api';
     }
     obtenerTurnosInfo(fecha) {
         const fechaObj = new Date(fecha);
